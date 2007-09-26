@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Button upSkin="@Embed(source='../../assets/class.png')" overSkin="@Embed(source='../../assets/class.png')" downSkin="@Embed(source='../../assets/class.png')" icon="@Embed('../../assets/class.png')" width="16" height="16"/>
+</mx:Canvas>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<common:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:common="common.*"  xmlns:modules="modules.*" creationComplete="deploy()">
+	<mx:Script>
+		<![CDATA[
+			private function deploy():void {
+				
+			}
+		]]>
+	</mx:Script>
+	<mx:ApplicationControlBar y="10" left="10" right="10">
+		<mx:Button
+		toolTip="Save"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55" 
+		icon="@Embed(source='../assets/save_icon.png')" width="40" height="40" paddingLeft="10" upSkin="@Embed(source='../assets/save_up.png')"/>
+		<mx:VRule height="20"/>
+		<mx:Button 
+		toolTip="Save As"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55" 
+		textSelectedColor="0xFFFF00"
+		icon="@Embed(source='../assets/save_as_icon.png')" width="40" height="40" paddingLeft="11" upSkin="@Embed(source='../assets/save_as_up.png')"/>
+		<mx:VRule height="20"/>
+		<mx:Button label="Image Button" 
+		toolTip="Open"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55" 
+		textSelectedColor="0xFFFF00"
+		icon="@Embed(source='../assets/open_icon.png')" width="40" height="40" paddingLeft="11" upSkin="@Embed(source='../assets/open_up.png')"/>
+		<mx:VRule height="20"/>
+		<mx:Button label="Image Button" 
+		toolTip="Settings"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55" 
+		textSelectedColor="0xFFFF00"
+		upSkin="@Embed(source='../assets/settings_up.png')"
+		icon="@Embed(source='../assets/settings_icon.png')" width="40" height="40"/>
+		<mx:VRule height="20"/>
+		<mx:Button 
+		toolTip="Print"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55" 
+		textSelectedColor="0xFFFF00"
+		width="40" height="40" paddingLeft="10" icon="@Embed(source='../assets/print_icon.png')" upSkin="@Embed(source='../assets/print_up.png')"/>
+		<mx:VRule height="20"/>
+		<mx:HBox width="100%" horizontalAlign="center">
+			<mx:TextInput text="Include" toolTip="Include" maxWidth="140" minWidth="50"  width="100%"/>
+			<mx:TextInput text="Exclude" toolTip="Exclude" maxWidth="140" minWidth="50"  width="100%"/>
+		</mx:HBox>
+		<mx:VRule height="20"/>
+		<mx:HBox width="100%" maxWidth="162" minWidth="72" paddingLeft="0" paddingRight="0" horizontalGap="0" borderColor="#000000" borderThickness="3" borderSides="4" horizontalAlign="right">
+			<mx:TextInput toolTip="Search" width="100%"/>
+			<mx:Button id="showSettingsBut" click="this.showSettings()" width="22" height="22" cornerRadius="0" icon="@Embed(source='../assets/search.png')" toolTip="Search"/>
+		</mx:HBox>
+	</mx:ApplicationControlBar>
+	<mx:HDividedBox left="10" right="10" bottom="80" top="68">
+		<mx:Canvas width="30%" height="100%" minWidth="162">
+			<mx:TabBar dataProvider="subjectModule" height="22">
+			</mx:TabBar>
+			<mx:ViewStack id="subjectModule" width="100%" height="100%" x="0" top="20">
+				<mx:Canvas label="Classes" width="100%" height="100%" backgroundColor="#afafaf">
+					<mx:DataGrid id="classesDataGrid" dataProvider="{this.classes}" left="0" top="0" width="100%" height="100%">
+						<mx:columns>
+							<mx:DataGridColumn width="20" itemRenderer="ui.renderers.ClassIconBoxItemRenderer"/>
+							<mx:DataGridColumn headerText="Name" dataField="name"/>
+							<mx:DataGridColumn headerText="Package" dataField="pack"/>
+						</mx:columns>
+					</mx:DataGrid>
+				</mx:Canvas>
+				<mx:Canvas label="Connections" width="100%" height="100%" backgroundColor="#afafaf">
+					<mx:DataGrid id="connectionsDataGrid" dataProvider="{this.connections}" left="0" top="0" width="100%" height="100%">
+						<mx:columns>
+							<mx:DataGridColumn width="20" itemRenderer="ui.renderers.ActivationBoxItemRenderer"/>
+							<mx:DataGridColumn headerText="Name"/>
+						</mx:columns>
+					</mx:DataGrid>
+				</mx:Canvas>
+				
+			</mx:ViewStack>
+		</mx:Canvas>
+		<mx:Canvas width="70%" height="100%" minWidth="200">
+			<mx:ViewStack id="outputModule" width="100%" height="100%" x="0" top="20">
+				<mx:Canvas label="Grid" width="100%" height="100%" backgroundColor="#afafaf">
+					<mx:DataGrid id="outputDataGrid" dataProvider="{this.output}" editable="true" width="100%" height="100%">
+						<mx:columns>
+							<mx:DataGridColumn dataField="level" itemRenderer="ui.renderers.LevelIconItemRenderer" width="22" />
+							<mx:DataGridColumn headerText="Date" dataField="date"/>
+							<mx:DataGridColumn headerText="Message" dataField="message"/>
+						</mx:columns>
+					</mx:DataGrid>
+					<!-- TODO: Зробити можливість відображення в датагріді імені застосунків які логіюються -->
+					<!-- TODO: Надати можливість редактувати на свій смак колонки датагріду -->
+				</mx:Canvas>
+				<mx:Canvas label="Text" width="100%" height="100%" backgroundColor="#afafaf">
+					<mx:TextArea id="outputTextArea" left="2" right="2" top="2" bottom="2"/>
+				</mx:Canvas>
+			</mx:ViewStack>
+			<mx:TabBar dataProvider="outputModule" height="22">
+			</mx:TabBar>
+		</mx:Canvas>
+	</mx:HDividedBox>
+	<modules:SearchModule>
+		
+	</modules:SearchModule>
+</common:Application>
