@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="creationCompleteHandler(event)">
+<!-- TODO: Втілити можливість візуально добавляти компоненти в групу -->
+	<mx:Metadata>
+		[DefaultProperty("children")]
+	</mx:Metadata>
+    
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			private var _groupLabel:String;
+		
+			
+			private var _children:Array = [];
+			private var _childrenChanged:Boolean;
+		
+			[Bindable]
+			public function set groupLabel(value:String):void
+			{
+				this._groupLabel = value;
+			}
+			public function get groupLabel():String
+			{
+				return _groupLabel;
+			}
+			
+			public function set children(value:*):void
+			{
+				if(value is DisplayObject)
+				{
+                    _children = [value];
+    			}
+    			else
+    			{
+    				_children = value;
+    			}
+				
+    			_childrenChanged = true;
+                invalidateProperties();
+			}
+			
+			protected override function commitProperties():void
+			{
+                super.commitProperties();
+				
+                if(_childrenChanged)
+                {
+                    for each(var child:DisplayObject in _children)
+                    {
+                    	trace(">> "+child);
+                        this.container.addChild(child);
+                    }
+                }
+            }
+            
+            public function creationCompleteHandler(event:FlexEvent):void
+            {
+            	//this.labelBackground.width = this.title.width;
+            }
+            protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+            {
+            	super.updateDisplayList(unscaledWidth, unscaledHeight);
+            	this.labelBackground.width = this.title.width;
+            }
+		]]>
+	</mx:Script>
+	<mx:Canvas id="container" bottom="0" left="0" top="10" right="0" cornerRadius="6" borderColor="#6D6D6D" borderStyle="solid">
+	</mx:Canvas>
+	<mx:Canvas id="labelBackground" width="40" height="18" top="0" left="10" backgroundColor="#FFFFFF" backgroundAlpha="1.0" alpha="1.0" borderStyle="none">
+	</mx:Canvas>
+	<mx:Label id="title" text="{this.groupLabel}" y="0" left="10"/>
+</mx:Canvas>

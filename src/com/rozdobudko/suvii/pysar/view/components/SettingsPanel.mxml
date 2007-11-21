@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	layout="absolute" 
+	title="Settings" 
+	width="100%" height="100%" minWidth="400" minHeight="350" borderAlpha="1" 
+	xmlns:settings="com.rozdobudko.suvii.pysar.view.components.settings.*" xmlns:sephiroth="http://www.sephiroth.it/2006/mxml">
+	
+	<mx:Script>
+		<![CDATA[
+			import com.rozdobudko.suvii.pysar.Settings;
+			protected function showPopUp(type:String):void
+			{
+			
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:TabNavigator id="container" left="0" right="0" top="0" bottom="40" creationPolicy="all">
+		<mx:Canvas label="Levels" width="100%" height="100%">
+			<mx:VBox left="10" right="10" bottom="10" top="0">
+				<sephiroth:LabelledBox 
+					height="146" width="100%"
+					cornerRadius="5" 
+					borderColor="#c0c0c0" 
+					borderStyle="solid"
+					paddingBottom="10" 
+					paddingLeft="10" 
+					paddingRight="10" 
+					paddingTop="10"
+					labelPlacement="left"
+					labelPadding="5"
+					labelColor="0xFFFFFF"
+					clipContent="false" 
+					direction="vertical"
+				>
+					<mx:Canvas width="134" height="114" x="10" y="10">
+						<mx:Image id="debugIconImage" x="0" y="1" source="@Embed(source='../../../../../../assets/debug.png')"/>
+						<mx:Image id="infoIconImage" x="0" y="25" source="@Embed(source='../../../../../../assets/info.png')"/>
+						<mx:Image id="warningIconImage" x="0" y="49" source="@Embed(source='../../../../../../assets/warning.png')"/>
+						<mx:Image id="errorIconImage" x="0" y="73" source="@Embed(source='../../../../../../assets/error.png')"/>
+						<mx:Image id="fatalIconImage" x="0" y="97" source="@Embed(source='../../../../../../assets/fatal.png')"/>
+						
+						<mx:RadioButtonGroup id="levelsRadioGroup"/>
+						<mx:RadioButton id="debugButton" 
+							x="27" y="0" 
+							groupName="levelsRadioGroup"
+							data="{Settings.LEVEL_DEBUG}"
+							value="{Settings.LEVEL_DEBUG}"
+						/>
+						<mx:RadioButton id="infoButton" 
+							x="27" y="24" 
+							groupName="levelsRadioGroup"
+							data="{Settings.LEVEL_INFO}"
+							value="{Settings.LEVEL_INFO}"
+						/>
+						<mx:RadioButton id="warningButton" 
+							x="27" y="48" 
+							groupName="levelsRadioGroup"
+							data="{Settings.LEVEL_WARNING}"
+							value="{Settings.LEVEL_WARNING}"
+						/>
+						<mx:RadioButton id="errorButton" 
+							x="27" y="72" 
+							groupName="levelsRadioGroup"
+							data="{Settings.LEVEL_ERROR}"
+							value="{Settings.LEVEL_ERROR}"
+						/>
+						<mx:RadioButton id="fatalButton" 
+							x="27" y="96" 
+							groupName="levelsRadioGroup"
+							data="{Settings.LEVEL_FATAL}"
+							value="{Settings.LEVEL_FATAL}"
+						/>
+						
+						<mx:CheckBox 
+							x="53" y="0" 
+							id="debugBox"
+							data="{Settings.LEVEL_DEBUG}"
+						/>
+						<mx:CheckBox 
+							id="infoBox"
+							x="53" y="24"
+							data="{Settings.LEVEL_INFO}"
+						/>
+						<mx:CheckBox 
+							id="warningBox"
+							x="53" y="48"
+							data="{Settings.LEVEL_WARNING}"
+						/>
+						<mx:CheckBox 
+							id="errorBox"
+							x="53" y="72"
+							data="{Settings.LEVEL_ERROR}"
+						/>
+						<mx:CheckBox 
+							id="fatalBox"
+							x="53" y="96" 
+							data="{Settings.LEVEL_FATAL}"
+						/>
+						
+						<mx:Label x="71" y="0" text="Debug"/>
+						<mx:Label x="71" y="24" text="Info"/>
+						<mx:Label x="71" y="48" text="Warning"/>
+						<mx:Label x="71" y="72" text="Error"/>
+						<mx:Label x="71" y="96" text="Fatal"/>
+					</mx:Canvas>
+				</sephiroth:LabelledBox>
+				<mx:Text 
+					right="10" left="10" bottom="10" textAlign="left" maxWidth="300"
+					text="Якщо ви виберете рівень використовуючи компонент RadioButton, відобразяться записи що мають вибраний рівень і більше. Якщо зробити вибір за допомогою CheckBox компонента, відобразяться лише записи з вибраними рівнями."
+				/>
+			</mx:VBox>
+		</mx:Canvas>
+		<mx:Canvas label="Filesystem" width="100%" height="238">
+			<mx:VBox left="10" right="10" bottom="10" top="0">
+				<sephiroth:LabelledBox 
+					title="Autosave" 
+					height="104" width="100%"
+					cornerRadius="4" 
+					borderColor="#c0c0c0" 
+					borderStyle="solid"
+					paddingBottom="10" 
+					paddingLeft="10" 
+					paddingRight="10" 
+					paddingTop="10"
+					labelPlacement="left"
+					labelPadding="5"
+					labelColor="0x0B333C"
+					clipContent="false" 
+					direction="vertical"
+				>
+					<mx:RadioButton label="Use locall connection"/>
+					<mx:HBox>
+						<mx:Label text="Interval:"/>
+						<mx:HSlider x="76" y="66" minimum="0" maximum="180" snapInterval="5" allowTrackClick="true" width="100"/>
+						<mx:TextInput width="30"/>
+					</mx:HBox>
+					<mx:HBox>
+						<mx:Label x="10" y="36" text="Save log:"/>
+						<mx:HBox maxWidth="162" minWidth="72" paddingLeft="0" paddingRight="0" horizontalGap="0" borderColor="#000000" borderThickness="3" borderSides="4" horizontalAlign="right" left="76" y="36" right="10">
+							<mx:TextInput width="100%"/>
+							<mx:Button id="showSettingsBut0" width="22" height="22" cornerRadius="0" icon="@Embed(source='../../../../../../assets/folder_explore.png')" toolTip="Search"/>
+						</mx:HBox>
+					</mx:HBox>
+				</sephiroth:LabelledBox>
+				<sephiroth:LabelledBox 
+					title="Files" 
+					height="104" width="100%"
+					cornerRadius="5" 
+					borderColor="#c0c0c0" 
+					borderStyle="solid"
+					paddingBottom="10" 
+					paddingLeft="10" 
+					paddingRight="10" 
+					paddingTop="10"
+					labelPlacement="left"
+					labelPadding="5"
+					labelColor="0x0B333C"
+					clipContent="false" 
+					direction="vertical"
+				>
+					<mx:RadioButton x="10" y="10" label="Use log file"/>
+					<mx:HBox>
+						<mx:Label x="11" y="68" text="Update:"/>
+						<mx:HSlider x="87" y="66" minimum="0" maximum="180" snapInterval="5" allowTrackClick="true" width="100"/>
+						<mx:TextInput x="195" y="66" width="30"/>
+					</mx:HBox>
+					<mx:HBox>
+						<mx:Label x="11" y="36" text="Source log:"/>
+						<mx:HBox maxWidth="162" minWidth="72" paddingLeft="0" paddingRight="0" horizontalGap="0" borderColor="#000000" borderThickness="3" borderSides="4" horizontalAlign="right" left="87" y="36" right="10">
+							<mx:TextInput width="100%"/>
+							<mx:Button id="showSettingsBut1" width="22" height="22" cornerRadius="0" icon="@Embed(source='../../../../../../assets/folder_explore.png')" toolTip="Search"/>
+						</mx:HBox>
+					</mx:HBox>
+				</sephiroth:LabelledBox>
+			</mx:VBox>
+		</mx:Canvas>
+		<mx:Canvas label="View" width="100%" height="100%">
+			<mx:VBox left="10" right="10" bottom="10" top="0">
+				<sephiroth:LabelledBox 
+					title="Coloring" 
+					width="100%" height="44"
+					cornerRadius="4" 
+					borderColor="#c0c0c0" 
+					borderStyle="solid"
+					paddingBottom="10" 
+					paddingLeft="10" 
+					paddingRight="10" 
+					paddingTop="10"
+					labelPlacement="left"
+					labelPadding="5"
+					labelColor="0x0B333C"
+					clipContent="false" 
+					direction="vertical"
+				>
+					<mx:HBox x="10" y="10" width="100%" verticalAlign="middle">
+						<mx:Label text="Set DataGrid columns:"/>
+						<mx:Button width="23" height="21" paddingLeft="11" paddingTop="2" click="showPopUp('customizingFields')">
+							<mx:icon>@Embed(source='../../../../../../assets/application_view_columns.png')</mx:icon>
+						</mx:Button>
+					</mx:HBox>
+				</sephiroth:LabelledBox>
+				<sephiroth:LabelledBox 
+					title="Coloring" 
+					width="100%"
+					cornerRadius="4" 
+					borderColor="#c0c0c0" 
+					borderStyle="solid"
+					paddingBottom="10" 
+					paddingLeft="10" 
+					paddingRight="10" 
+					paddingTop="10"
+					labelPlacement="left"
+					labelPadding="5"
+					labelColor="0x0B333C"
+					clipContent="false" 
+					direction="vertical"
+					verticalGap="2"
+				>
+					<settings:LevelStyleFormatter id="debugStyleFormatter"
+						width="100%" 
+						levelIconURI="@Embed(source='../../../../../../assets/debug.png')"
+						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
+						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						text="{this.sampleText.text}" 
+					/>
+					<settings:LevelStyleFormatter id="infoStyleFormatter"
+						width="100%" 
+						levelIconURI="@Embed(source='../../../../../../assets/info.png')"
+						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
+						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						text="{this.sampleText.text}" 
+					/>
+					<settings:LevelStyleFormatter id="warningStyleFormatter"
+						width="100%" 
+						levelIconURI="@Embed(source='../../../../../../assets/warning.png')"
+						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
+						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						text="{this.sampleText.text}" 
+					/>
+					<settings:LevelStyleFormatter id="errorStyleFormatter"
+						width="100%" 
+						levelIconURI="@Embed(source='../../../../../../assets/error.png')"
+						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
+						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						text="{this.sampleText.text}" 
+					/>
+					<settings:LevelStyleFormatter id="fatalStyleFormatter"
+						width="100%" 
+						levelIconURI="@Embed(source='../../../../../../assets/fatal.png')"
+						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
+						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						text="{this.sampleText.text}" 
+					/>
+					<mx:Spacer/>
+					<mx:TextInput id="sampleText" text="Label" width="100%"/>
+				</sephiroth:LabelledBox>
+			</mx:VBox>
+		</mx:Canvas>
+	</mx:TabNavigator>
+	<mx:Button label="Cancel" width="80" right="10" bottom="10" id="cancelBut"/>
+	<mx:Button label="OK" width="80" right="98" bottom="10" id="okBut"/>
+</mx:Panel>

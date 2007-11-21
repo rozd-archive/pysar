@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" dataChange="dataChangeHandler(event)">
+	<mx:Script>
+		<![CDATA[
+			import com.rozdobudko.suvii.pysar.model.data.LogEntry;
+			import com.rozdobudko.suvii.pysar.Settings;
+			import mx.controls.Image;
+			import mx.events.FlexEvent;
+			
+			[Embed(source='../../../../../../../assets/debug.png')]
+			private var debugIcon:Class;
+			[Embed(source='../../../../../../../assets/info.png')]
+			private var infoIcon:Class;
+			[Embed(source='../../../../../../../assets/warning.png')]
+			private var warningIcon:Class;
+			[Embed(source='../../../../../../../assets/error.png')]
+			private var errorIcon:Class;
+			[Embed(source='../../../../../../../assets/fatal.png')]
+			private var fatalIcon:Class;
+			
+			private function dataChangeHandler(event:FlexEvent):void {
+				try{
+					switch(LogEntry(this.data).level){
+						case Settings.LEVEL_DEBUG :
+							this.image.source = this.debugIcon;
+							this.toolTip = "Debug";
+						break;
+						case Settings.LEVEL_INFO :
+							this.image.source = this.infoIcon;
+							this.toolTip = "Info";
+						break;
+						case Settings.LEVEL_WARNING :
+							this.image.source = this.warningIcon;
+							this.toolTip = "Warning";
+						break;
+						case Settings.LEVEL_ERROR :
+							this.image.source = this.errorIcon;
+							this.toolTip = "Error";
+						break;
+						case Settings.LEVEL_FATAL :
+							this.image.source = this.fatalIcon;
+							this.toolTip = "Fatal";
+						break;
+					}
+				}catch (e:Error){
+				
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:Image id="image" left="3" />
+</mx:Canvas>
