@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication 
+	layout="absolute" height="320"
+	xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:view="com.rozdobudko.suvii.pysar.view.components.*"
+	creationComplete="this.init();"
+	>
+	
+	
+	<mx:Script>
+		<![CDATA[
+			import com.rozdobudko.suvii.pysar.view.components.SettingsPanel;
+			import mx.managers.PopUpManager;
+			import org.puremvc.patterns.observer.Notification;
+			import com.rozdobudko.suvii.pysar.PysarFacade;
+			
+			private var facade:PysarFacade = PysarFacade.getInstance();
+			
+			private function init():void
+			{
+//				trace("Pysar :: init");
+				
+				/**
+				 * TODO: Remove setTimeout
+				 */
+				setTimeout(this.deploy, 10);
+			}
+
+			/**
+			 * TODO: Перенести розвернення застосунку в цей метод із команди "DeployCommand".
+			 */
+			private function deploy():void
+			{
+//				trace("Pysar :: deploy");
+				
+				this.facade.application = this;
+				
+				this.facade.notifyObservers(new Notification(PysarFacade.DEPLOY, this));
+			}
+		]]>
+	</mx:Script>
+	
+	<view:MenuModule id="menuModule" y="10" left="10" right="10" />
+	<mx:HDividedBox left="10" right="10" bottom="48" top="68">
+		<view:SubjectsModule id="subjectModule" width="25%" height="100%" minWidth="166" />
+		<view:OutputModule id="outputModule" width="75%" height="100%" minWidth="200" />
+	</mx:HDividedBox>
+	<view:FindModule id="findModule" bottom="10" left="10" right="10" />
+</mx:WindowedApplication>

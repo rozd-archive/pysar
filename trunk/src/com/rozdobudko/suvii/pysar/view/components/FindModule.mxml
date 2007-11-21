@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ApplicationControlBar xmlns:mx="http://www.adobe.com/2006/mxml" left="10" right="10" bottom="10">
+	<mx:Script>
+		<![CDATA[
+			import com.rozdobudko.suvii.pysar.view.components.search.events.FindEvent;
+		]]>
+	</mx:Script>
+	<mx:Image 
+		toolTip="Search"
+		width="16" height="16"
+		source="@Embed(source='../../../../../../assets/search.png')"
+
+	 />
+		<mx:TextInput toolTip="Search" width="100%" id="searchBox"/>
+	<mx:Button id="nextBut"
+		width="22" height="22" 
+		icon="@Embed(source='../../../../../../assets/edit_down.png')"
+		upSkin="@Embed(source='../../../../../../assets/edit_down_up.png')"
+		paddingLeft="9"
+	/>
+	<mx:Button id="previosBut"
+		width="22" height="22" 
+		icon="@Embed(source='../../../../../../assets/edit_up.png')"
+		upSkin="@Embed(source='../../../../../../assets/edit_up_up.png')"
+		paddingLeft="9" 
+	/>
+	<mx:Button id="hightlightingBut"
+		width="22" height="22" 
+		toggle="true" 
+		icon="@Embed(source='../../../../../../assets/hightlight.png')"
+		upSkin="@Embed(source='../../../../../../assets/hightlight_up.png')"
+	/>
+	<mx:CheckBox label="Match case" id="caseBox"/>
+	<mx:VRule height="20"/>
+	<mx:HBox width="100%" horizontalAlign="left">
+		<mx:TextInput text="Include" toolTip="Include" maxWidth="300" minWidth="50"  width="100%" id="includeBox"/>
+		<mx:TextInput text="Exclude" toolTip="Exclude" maxWidth="300" minWidth="50"  width="100%" id="excludeBox"/>
+	</mx:HBox>
+</mx:ApplicationControlBar>

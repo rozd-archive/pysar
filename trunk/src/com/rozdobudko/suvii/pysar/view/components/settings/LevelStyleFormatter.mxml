@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle" horizontalGap="2" xmlns:text="flash.text.*">
+	<mx:Metadata>
+		[Event(name="changeFont", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
+		[Event(name="changeColor", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
+		[Event(name="changeBold", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
+		[Event(name="changeItalic", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
+	</mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+			import com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent;
+			import mx.events.ColorPickerEvent;
+		
+			private var _text:String;
+			private var _levelIconURI:Object;
+			private var _boldIconURI:Object;
+			private var _italicIconURI:Object;
+		
+		
+			[Bindable]
+			public function set text(value:String):void
+			{
+				this._text = value;
+			}
+			public function get text():String
+			{
+				return this._text;
+			}
+		
+			
+			[Bindable]
+			public function set levelIconURI(value:Object):void
+			{
+				this._levelIconURI = value;
+			}
+			public function get levelIconURI():Object
+			{
+				return this._levelIconURI;
+			}
+		
+			
+			[Bindable]
+			public function set boldIconURI(value:Object):void
+			{
+				this._boldIconURI = value;
+			}
+			public function get boldIconURI():Object
+			{
+				return this._boldIconURI;
+			}
+		
+			
+			[Bindable]
+			public function set italicIconURI(value:Object):void
+			{
+				this._italicIconURI = value;
+			}
+			public function get italicIconURI():Object
+			{
+				return this._italicIconURI;
+			}
+			
+			
+			public function get color():uint
+			{
+				return this.colorPicker.selectedColor;
+			}
+			
+			
+			public function get bold():Boolean
+			{
+				return this.boldBut.selected;
+			}
+
+
+			public function get italic():Boolean
+			{
+				return this.italicBut.selected;
+			}
+			
+			
+			public function set style(value:CSSStyleDeclaration):void
+			{
+				this.output.styleName = value;
+			}
+			
+			public function get style():CSSStyleDeclaration
+			{
+				return this.output.styleName as CSSStyleDeclaration;
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Image source="{this.levelIconURI}"/>
+	<mx:Label id="output" 
+		width="100%" minWidth="60" 
+		text="{this.text}" 
+	/>
+	<mx:ColorPicker id="colorPicker"
+		change="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_COLOR));"
+	/>
+	<mx:Button id="boldBut"
+		width="22" height="22"
+		toggle="true" 
+		icon="{this.boldIconURI}"
+		click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_BOLD));"
+	/>
+	<mx:Button id="italicBut"
+		width="22" height="22"
+		toggle="true" 
+		icon="{this.italicIconURI}"
+		click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_ITALIC));"
+	/>
+</mx:HBox>

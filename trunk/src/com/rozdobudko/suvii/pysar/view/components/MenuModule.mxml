@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ApplicationControlBar xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Button id="saveBut"
+		width="40" height="40" paddingLeft="10" 
+		toolTip="Save"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55"
+		icon="@Embed(source='../../../../../../assets/save_icon.png')"
+		upSkin="@Embed(source='../../../../../../assets/save_up.png')"
+	/>
+	<mx:VRule height="20"/>
+	<mx:Button id="saveAsBut"
+		width="40" height="40" paddingLeft="11"
+		toolTip="Save As"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55" 
+		textSelectedColor="0xFFFF00"
+		icon="@Embed(source='../../../../../../assets/save_as_icon.png')"
+		upSkin="@Embed(source='../../../../../../assets/save_as_up.png')"
+	/>
+	<mx:VRule height="20"/>
+	<mx:Button id="openBut"
+		width="40" height="40" paddingLeft="11" 
+		toolTip="Open"
+		color="0xFFFFAA"
+		textRollOverColor="0xAAAA55"
+		textSelectedColor="0xFFFF00"
+		icon="@Embed(source='../../../../../../assets/open_icon.png')"
+		upSkin="@Embed(source='../../../../../../assets/open_up.png')"
+	/>
+	<mx:VRule height="20"/>
+	<mx:Button id="settingsBut"
+		width="40" height="40"
+		toolTip="Settings"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55" 
+		textSelectedColor="0xFFFF00"
+		upSkin="@Embed(source='../../../../../../assets/settings_up.png')"
+		icon="@Embed(source='../../../../../../assets/settings_icon.png')"
+	/>
+	<mx:VRule height="20"/>
+	<mx:Button id="printBut"
+		width="40" height="40" paddingLeft="10"
+		toolTip="Print"
+		color="0xFFFFAA" 
+		textRollOverColor="0xAAAA55" 
+		textSelectedColor="0xFFFF00"
+		icon="@Embed(source='../../../../../../assets/print_icon.png')" 
+		upSkin="@Embed(source='../../../../../../assets/print_up.png')"
+	/>
+</mx:ApplicationControlBar>
