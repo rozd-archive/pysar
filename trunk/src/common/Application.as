@@ -31,7 +31,8 @@ package common
 		[Bindable]
 		public var classes:ArrayCollection;
 		
-		function Application(){
+		function Application()
+		{
 			super();
 			
 			this.addEventListener(FlexEvent.CREATION_COMPLETE, this.creationCompleteHandler);
@@ -43,7 +44,8 @@ package common
 		}
 		
 		//----------------Main methods--------------------
-		public function init():void {
+		public function init():void
+		{
 			this.connection = new LocalConnection();
 			this.connection.addEventListener(AsyncErrorEvent.ASYNC_ERROR, this.connectionAsyncErrorHandler);
 			this.connection.addEventListener(SecurityErrorEvent.SECURITY_ERROR, this.connectionSecurityErrorHandler);
@@ -51,8 +53,11 @@ package common
 			this.connection.addEventListener(Event.ACTIVATE, this.connectionActivateHandler);
 			this.connection.client = this;
 			this.connection.connect(Settings.CONNECTION_NAME);
+			
+			
 		}
-		public function log(level:int, message:String, className:String, connectionName:String):void {
+		public function log(level:int, message:String, className:String, connectionName:String):void
+		{
 			trace("Application :: log");
 
 			this.entries.addItem(new LogEntry(level, message, className, connectionName));
@@ -66,12 +71,14 @@ package common
 			
 			this.classes.addItem({name:className});
 		}
-		public function add(name:String):void {
+		public function add(name:String):void
+		{
 			trace("Application :: add");
 			
 			this.connections.addItem(name);
 		}
-		public function remove(name:String):void {
+		public function remove(name:String):void
+		{
 			trace("Application :: remove");
 			
 		}
@@ -79,13 +86,15 @@ package common
 		
 		
 		//----------------Handlers------------------------
-		private function creationCompleteHandler(event:FlexEvent):void {
+		private function creationCompleteHandler(event:FlexEvent):void
+		{
 			trace("Application :: creationCompleteHandler");
 			
 			this.init();
 		}
 		
-		private function connectionStatusHandler(event:StatusEvent):void {
+		private function connectionStatusHandler(event:StatusEvent):void
+		{
 			trace("ASLogger :: connectionStatusHandler");
 
 			trace(event.type);
@@ -93,10 +102,12 @@ package common
 			trace(event.code);
 			trace(event.target);
 		}
-		private function connectionSecurityErrorHandler(event:SecurityErrorEvent):void {
+		private function connectionSecurityErrorHandler(event:SecurityErrorEvent):void
+		{
 			trace("ASLogger :: connectionSecurityErrorHandler");
 		}
-		private function connectionAsyncErrorHandler(event:AsyncErrorEvent):void {
+		private function connectionAsyncErrorHandler(event:AsyncErrorEvent):void
+		{
 			trace("ASLogger :: connectionAsyncErrorHandler");
 			
 			trace(event.error);
@@ -104,14 +115,16 @@ package common
 			trace(event.text);
 			trace(event.type);
 		}
-		private function connectionActivateHandler(event:Event):void {
+		private function connectionActivateHandler(event:Event):void
+		{
 			trace("Application :: connectionActivateHandler");
 			
 			trace(event.type);
 			trace(event.target);
 		}
 		
-		private function settingsChangeHandler(event:Event):void {
+		private function settingsChangeHandler(event:Event):void
+		{
 			//trace("Application :: settingsChangeHandler");
 			
 			this.output = new ArrayCollection();
@@ -126,7 +139,8 @@ package common
 			
 			PopUpManager.removePopUp(this.settings);
 		}
-		private function settingsCancelHandler(event:Event):void {
+		private function settingsCancelHandler(event:Event):void
+		{
 			//trace("Application :: settingsCancelHandler");
 			
 			PopUpManager.removePopUp(this.settings);
@@ -135,7 +149,8 @@ package common
 		
 		
 		//----------------User interaction----------------
-		protected function showSettings():void {
+		protected function showSettings():void
+		{
 			this.settings = SettingsModule(PopUpManager.createPopUp(this, SettingsModule));
 			this.settings.addEventListener(Event.CHANGE, this.settingsChangeHandler);
 			this.settings.addEventListener(Event.CANCEL, this.settingsCancelHandler);

@@ -22,19 +22,24 @@ package modules
 		
 		
 		//----------------User interaction----------------
-		protected function searh(event:SearchEvent):void {
+		protected function searh(event:SearchEvent):void
+		{
 			
 		}
-		protected function hightlight(event:SearchEvent):void {
+		protected function hightlight(event:SearchEvent):void
+		{
 			
 		}
-		protected function mask(event:SearchEvent):void {
+		protected function range(event:SearchEvent):void
+		{
 			
 		}
-		protected function next(event:SearchEvent):void {
+		protected function next(event:SearchEvent):void
+		{
 			
 		}
-		protected function previos(event:SearchEvent):void {
+		protected function previos(event:SearchEvent):void 
+		{
 			
 		}
 		//----------------User interaction----------------
