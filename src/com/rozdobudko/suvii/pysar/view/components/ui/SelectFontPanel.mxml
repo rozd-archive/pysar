@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	title="Select font"
+	>
+	<mx:ComboBox y="10" right="10" left="10"></mx:ComboBox>
+	<mx:HBox right="10" left="10" horizontalAlign="right" verticalAlign="middle" bottom="10">
+		<mx:Button label="OK" width="70"/>
+		<mx:Button label="Cancel" width="70"/>
+	</mx:HBox>
+</mx:Panel>
