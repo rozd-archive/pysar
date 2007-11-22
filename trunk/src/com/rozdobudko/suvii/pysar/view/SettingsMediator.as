@@ -51,6 +51,26 @@ package com.rozdobudko.suvii.pysar.view
 			this.component.errorBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
 			this.component.fatalBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
 			
+			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
+			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
+			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
+			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			
+			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
+			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
+			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
+			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			
+			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
+			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
+			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
+			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			
+			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
+			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
+			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
+			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			
 			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
 			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
 			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
@@ -145,12 +165,14 @@ package com.rozdobudko.suvii.pysar.view
 			this.facade.notifyObservers(new Notification(PysarFacade.SETTINGS_CLOSE));
 		}
 		
+		
 		private function okClickHandler(event:MouseEvent):void
 		{
 			this.save();
 			
 			this.facade.notifyObservers(new Notification(PysarFacade.SETTINGS_CLOSE));
 		}
+		
 		
 		private function levelGroupClickHandler(event:ItemClickEvent):void
 		{
@@ -166,6 +188,7 @@ package com.rozdobudko.suvii.pysar.view
 			this.updateLevelsIcons();
 		}
 		
+		
 		private function levelBoxClickHandler(event:MouseEvent):void
 		{
 			this.levels = [];
@@ -180,10 +203,12 @@ package com.rozdobudko.suvii.pysar.view
 			this.updateLevelsIcons();
 		}
 	
+	
 		private function styleFormatterChangeFontHandler(event:LevelStyleFormatterEvent):void
 		{
 			trace("SettingsMediator :: styleFormatterChangeFontHandler");
 		}
+		
 		
 		private function styleFormatterChangeColorHandler(event:LevelStyleFormatterEvent):void
 		{
@@ -191,14 +216,29 @@ package com.rozdobudko.suvii.pysar.view
 			
 			switch(event.target)
 			{
+				case this.component.debugStyleFormatter :
+					this.proxy.debugStyle.setStyle("color", event.target.color.toString());
+					event.target.style = this.proxy.debugStyle;
+				break;
+				case this.component.infoStyleFormatter :
+					this.proxy.infoStyle.setStyle("color", event.target.color.toString());
+					event.target.style = this.proxy.infoStyle;
+				break;
+				case this.component.warningStyleFormatter :
+					this.proxy.warningStyle.setStyle("color", event.target.color.toString());
+					event.target.style = this.proxy.warningStyle;
+				break;
+				case this.component.errorStyleFormatter :
+					this.proxy.errorStyle.setStyle("color", event.target.color.toString());
+					event.target.style = this.proxy.errorStyle;
+				break;
 				case this.component.fatalStyleFormatter :
-					
-					this.proxy.fatalStyle.setStyle("color", this.component.fatalStyleFormatter.color.toString());
-					this.component.fatalStyleFormatter.style = this.proxy.fatalStyle;
-					
+					this.proxy.fatalStyle.setStyle("color", event.target.color.toString());
+					event.target.style = this.proxy.fatalStyle;
 				break;
 			}
 		}
+		
 		
 		private function styleFormatterChangeBoldHandler(event:LevelStyleFormatterEvent):void
 		{
@@ -206,14 +246,29 @@ package com.rozdobudko.suvii.pysar.view
 			
 			switch(event.target)
 			{
+				case this.component.debugStyleFormatter :
+					this.proxy.debugStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
+					event.target.style = this.proxy.debugStyle;
+				break;
+				case this.component.infoStyleFormatter :
+					this.proxy.infoStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
+					event.target.style = this.proxy.infoStyle;
+				break;
+				case this.component.warningStyleFormatter :
+					this.proxy.warningStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
+					event.target.style = this.proxy.warningStyle;
+				break;
+				case this.component.errorStyleFormatter :
+					this.proxy.errorStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
+					event.target.style = this.proxy.errorStyle;
+				break;
 				case this.component.fatalStyleFormatter :
-					
-					this.proxy.fatalStyle.setStyle("fontWeight", this.component.fatalStyleFormatter.bold ? "bold" : "normal");
-					this.component.fatalStyleFormatter.style = this.proxy.fatalStyle;
-					
+					this.proxy.fatalStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
+					event.target.style = this.proxy.fatalStyle;
 				break;
 			}
 		}
+		
 		
 		private function styleFormatterChangeItalicHandler(event:LevelStyleFormatterEvent):void
 		{
@@ -221,11 +276,25 @@ package com.rozdobudko.suvii.pysar.view
 			
 			switch(event.target)
 			{
+				case this.component.debugStyleFormatter :
+					this.proxy.debugStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
+					event.target.style = this.proxy.debugStyle;
+				break;
+				case this.component.infoStyleFormatter :
+					this.proxy.infoStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
+					event.target.style = this.proxy.infoStyle;
+				break;
+				case this.component.warningStyleFormatter :
+					this.proxy.warningStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
+					event.target.style = this.proxy.warningStyle;
+				break;
+				case this.component.errorStyleFormatter :
+					this.proxy.errorStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
+					event.target.style = this.proxy.errorStyle;
+				break;
 				case this.component.fatalStyleFormatter :
-					
-					this.proxy.fatalStyle.setStyle("fontStyle", this.component.fatalStyleFormatter.italic ? "italic" : "normal");
-					this.component.fatalStyleFormatter.style = this.proxy.fatalStyle;
-					
+					this.proxy.fatalStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
+					event.target.style = this.proxy.fatalStyle;
 				break;
 			}
 		}

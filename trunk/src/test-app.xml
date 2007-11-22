@@ -38,12 +38,12 @@
   <!--
       The description displayed in the AIR application installer.
   -->
-  <description></description>
+  <description/>
 
   <!--
       The application copyright information.
   -->
-  <copyright></copyright>
+  <copyright/>
 
   <!--
       The settings for the initial application window.
@@ -61,7 +61,7 @@
         Note: In Flex Builder, the SWF reference required within this tag will  
         be set automatically when you launch or export this application.
     -->
-    <content>!ApolloApplicationWizardPage.rootContentValue!</content>
+    <content>test.swf</content>
 
     <!--
         Specifies the type of system chrome used by the window.
