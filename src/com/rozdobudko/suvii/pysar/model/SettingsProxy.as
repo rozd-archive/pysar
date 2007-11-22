@@ -25,6 +25,14 @@ package com.rozdobudko.suvii.pysar.model
 
 		private var _selectedLevelsByButtons:Boolean;
 		
+		private var _debugStyle:CSSStyleDeclaration;
+		
+		private var _infoStyle:CSSStyleDeclaration;
+		
+		private var _warningStyle:CSSStyleDeclaration;
+		
+		private var _errorStyle:CSSStyleDeclaration;
+		
 		private var _fatalStyle:CSSStyleDeclaration;
 		
 		// ----------------- CONSTRUCTOR ----------------- //
@@ -50,25 +58,30 @@ package com.rozdobudko.suvii.pysar.model
 			return this._popUp;
 		}
 		
+		
 		public function set popUp(value:SettingsPanel):void
 		{
 			this._popUp = value;
 		}
+		
 		
 		public function get levels():Array
 		{
 			return this._levels;
 		}
 		
+		
 		public function set levels(value:Array):void
 		{
 			this._levels = value;
 		}
 		
+		
 		public function get selectedLevelsByBoxes():Boolean
 		{
 			return this._selectedLevelsByBoxes;
 		}
+
 
 		public function set selectedLevelsByBoxes(value:Boolean):void
 		{
@@ -76,16 +89,43 @@ package com.rozdobudko.suvii.pysar.model
 			this._selectedLevelsByButtons = !value;
 		}
 
+
 		public function get selectedLevelsByButtons():Boolean
 		{
 			return this._selectedLevelsByButtons;
 		}
+
 
 		public function set selectedLevelsByButtons(value:Boolean):void
 		{
 			this._selectedLevelsByButtons = value;
 			this._selectedLevelsByBoxes = !value;
 		}
+		
+		
+		public function get debugStyle():CSSStyleDeclaration
+		{
+			return this._debugStyle;
+		}
+		
+		
+		public function get infoStyle():CSSStyleDeclaration
+		{
+			return this._infoStyle;
+		}
+		
+		
+		public function get warningStyle():CSSStyleDeclaration
+		{
+			return this._warningStyle;
+		}
+		
+		
+		public function get errorStyle():CSSStyleDeclaration
+		{
+			return this._errorStyle;
+		}
+		
 		
 		public function get fatalStyle():CSSStyleDeclaration
 		{
@@ -96,10 +136,14 @@ package com.rozdobudko.suvii.pysar.model
 		
 		private function init():void
 		{
+			this._debugStyle = new CSSStyleDeclaration();
+			this._infoStyle = new CSSStyleDeclaration();
+			this._warningStyle = new CSSStyleDeclaration();
+			this._errorStyle = new CSSStyleDeclaration();
 			this._fatalStyle = new CSSStyleDeclaration();
 
-			this.fatalStyle.setStyle("font-family", "Verdana");
-			this.fatalStyle.setStyle("color", "0x0B333C");
+//			this.fatalStyle.setStyle("font-family", "Verdana");
+//			this.fatalStyle.setStyle("color", "0x0B333C");
 		}
 		
 		// ------------------  HANDLERS ------------------- //

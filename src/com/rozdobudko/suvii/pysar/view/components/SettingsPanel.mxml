@@ -216,13 +216,14 @@
 					labelColor="0x0B333C"
 					clipContent="false" 
 					direction="vertical"
-					verticalGap="2"
+					verticalGap="3"
 				>
 					<settings:LevelStyleFormatter id="debugStyleFormatter"
 						width="100%" 
 						levelIconURI="@Embed(source='../../../../../../assets/debug.png')"
 						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
 						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						fontIconURI="@Embed(source='../../../../../../assets/font.png')"
 						text="{this.sampleText.text}" 
 					/>
 					<settings:LevelStyleFormatter id="infoStyleFormatter"
@@ -230,6 +231,7 @@
 						levelIconURI="@Embed(source='../../../../../../assets/info.png')"
 						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
 						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						fontIconURI="@Embed(source='../../../../../../assets/font.png')"
 						text="{this.sampleText.text}" 
 					/>
 					<settings:LevelStyleFormatter id="warningStyleFormatter"
@@ -237,6 +239,7 @@
 						levelIconURI="@Embed(source='../../../../../../assets/warning.png')"
 						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
 						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						fontIconURI="@Embed(source='../../../../../../assets/font.png')"
 						text="{this.sampleText.text}" 
 					/>
 					<settings:LevelStyleFormatter id="errorStyleFormatter"
@@ -244,6 +247,7 @@
 						levelIconURI="@Embed(source='../../../../../../assets/error.png')"
 						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
 						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						fontIconURI="@Embed(source='../../../../../../assets/font.png')"
 						text="{this.sampleText.text}" 
 					/>
 					<settings:LevelStyleFormatter id="fatalStyleFormatter"
@@ -251,6 +255,7 @@
 						levelIconURI="@Embed(source='../../../../../../assets/fatal.png')"
 						boldIconURI="@Embed(source='../../../../../../assets/text_bold.png')"
 						italicIconURI="@Embed(source='../../../../../../assets/text_italic.png')"
+						fontIconURI="@Embed(source='../../../../../../assets/font.png')"
 						text="{this.sampleText.text}" 
 					/>
 					<mx:Spacer/>

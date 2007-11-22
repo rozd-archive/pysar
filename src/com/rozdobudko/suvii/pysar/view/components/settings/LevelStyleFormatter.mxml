@@ -15,6 +15,7 @@
 			private var _levelIconURI:Object;
 			private var _boldIconURI:Object;
 			private var _italicIconURI:Object;
+			private var _fontIconURI:Object;
 		
 		
 			[Bindable]
@@ -58,6 +59,17 @@
 			public function get italicIconURI():Object
 			{
 				return this._italicIconURI;
+			}
+
+
+			[Bindable]
+			public function set fontIconURI(value:Object):void
+			{
+				this._fontIconURI = value;
+			}
+			public function get fontIconURI():Object
+			{
+				return this._fontIconURI;
 			}
 			
 			
@@ -110,5 +122,10 @@
 		toggle="true" 
 		icon="{this.italicIconURI}"
 		click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_ITALIC));"
+	/>
+	<mx:Button id="fontBut"
+		width="22" height="22"
+		icon="{this.fontIconURI}"
+		click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_FONT));"
 	/>
 </mx:HBox>

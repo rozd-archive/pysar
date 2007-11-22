@@ -11,8 +11,15 @@
 
             // Initialize the ArrayCollection when you
             // initialize the application.
-            public function initData():void {
+            public function initData():void
+            {
                 myAC = new ArrayCollection(myArray); 
+                
+                this.fontsBox.labelFunction = function(item:Object):String
+                {
+                	return item.fontName;
+                }
+                this.fontsBox.dataProvider = Font.enumerateFonts(true);
             }
 
             public function testCollection():void
@@ -31,4 +38,13 @@
     <mx:TextArea id="ta1" height="75" width="350"/> 
     <mx:Button label="run test" click="testCollection();" x="279" y="83"/>
     <mx:TextArea x="105" y="375"/>
+    <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+    	title="Select font"
+    	 x="115" y="175" width="309" height="115">
+    	<mx:ComboBox id="fontsBox" y="10" right="10" left="10"></mx:ComboBox>
+    	<mx:HBox right="10" left="10" horizontalAlign="right" verticalAlign="middle" bottom="10">
+    		<mx:Button label="OK" width="70"/>
+    		<mx:Button label="Cancel" width="70"/>
+    	</mx:HBox>
+    </mx:Panel>
 </mx:WindowedApplication>
