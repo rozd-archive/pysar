@@ -8,10 +8,24 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent;
 			import com.rozdobudko.suvii.pysar.Settings;
 			protected function showPopUp(type:String):void
 			{
 			
+			}
+			
+			private function fontButtonClickHandler(event:LevelStyleFormatterEvent):void
+			{
+				trace("SettingsPanel :: fontButtonClickHandler");
+				
+				var point:Point = new Point(0, event.target.y + event.target.height);
+				event.target.parent.localToGlobal(point);
+				this.globalToLocal(point);
+				
+				
+				this.fontsBox.visible = true;
+				this.fontsBox.y = point.y;
 			}
 		]]>
 	</mx:Script>
@@ -262,6 +276,11 @@
 					<mx:TextInput id="sampleText" text="Label" width="100%"/>
 				</sephiroth:LabelledBox>
 			</mx:VBox>
+			<mx:ComboBox id="fontsBox"
+				right="22" width="100%" maxWidth="240" y="186" 
+				fillAlphas="[1, 1]"
+				visible="false"
+			/>
 		</mx:Canvas>
 	</mx:TabNavigator>
 	<mx:Button label="Cancel" width="80" right="10" bottom="10" id="cancelBut"/>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle" horizontalGap="2" xmlns:text="flash.text.*">
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:text="flash.text.*" horizontalAlign="right" verticalGap="0">
 	<mx:Metadata>
+		[Event(name="clickFontButton", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
 		[Event(name="changeFont", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
 		[Event(name="changeColor", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
 		[Event(name="changeBold", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
@@ -16,7 +17,8 @@
 			private var _boldIconURI:Object;
 			private var _italicIconURI:Object;
 			private var _fontIconURI:Object;
-		
+			private var _selectedFont:Array;
+			private var _selectedSize:uint;
 		
 			[Bindable]
 			public function set text(value:String):void
@@ -100,32 +102,58 @@
 			{
 				return this.output.styleName as CSSStyleDeclaration;
 			}
+			
+			
+			[Bindable]
+			public function get selectedFont():Array
+			{
+				return this._selectedFont;
+			}
+			
+			public function set selectedFont(value:Array):void
+			{
+				this._selectedFont = value;
+			}
+			
+			
+			[Bindable]
+			public function get selectedSize():uint
+			{
+				return this._selectedSize;
+			}
+			
+			public function set selectedSize(value:uint):void
+			{
+				this._selectedSize = value;
+			}
 		]]>
 	</mx:Script>
 
-	<mx:Image source="{this.levelIconURI}"/>
-	<mx:Label id="output" 
-		width="100%" minWidth="60" 
-		text="{this.text}" 
-	/>
-	<mx:ColorPicker id="colorPicker"
-		change="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_COLOR));"
-	/>
-	<mx:Button id="boldBut"
-		width="22" height="22"
-		toggle="true" 
-		icon="{this.boldIconURI}"
-		click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_BOLD));"
-	/>
-	<mx:Button id="italicBut"
-		width="22" height="22"
-		toggle="true" 
-		icon="{this.italicIconURI}"
-		click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_ITALIC));"
-	/>
-	<mx:Button id="fontBut"
-		width="22" height="22"
-		icon="{this.fontIconURI}"
-		click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_FONT));"
-	/>
-</mx:HBox>
+	<mx:HBox verticalAlign="middle" horizontalGap="2" width="100%">
+		<mx:Image source="{this.levelIconURI}"/>
+		<mx:Label id="output" 
+			width="100%" minWidth="60" 
+			text="{this.text}" 
+		/>
+		<mx:ColorPicker id="colorPicker"
+			change="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_COLOR));"
+		/>
+		<mx:Button id="boldBut"
+			width="22" height="22"
+			toggle="true" 
+			icon="{this.boldIconURI}"
+			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_BOLD));"
+		/>
+		<mx:Button id="italicBut"
+			width="22" height="22"
+			toggle="true"  
+			icon="{this.italicIconURI}"
+			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_ITALIC));"
+		/>
+		<mx:Button id="fontBut"
+			width="22" height="22"
+			icon="{this.fontIconURI}"
+			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CLICK_FONT_BUTTON));"
+		/>
+	</mx:HBox>
+</mx:VBox>

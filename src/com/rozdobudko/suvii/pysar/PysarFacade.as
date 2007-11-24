@@ -10,12 +10,15 @@ package com.rozdobudko.suvii.pysar
 	import com.rozdobudko.suvii.pysar.controller.MenuSaveAsCommand;
 	import com.rozdobudko.suvii.pysar.controller.MenuSaveCommand;
 	import com.rozdobudko.suvii.pysar.controller.SettingsCloseCommand;
+	import com.rozdobudko.suvii.pysar.controller.SettingsHideFontPanelCommnad;
 	import com.rozdobudko.suvii.pysar.controller.SettingsShowCommand;
+	import com.rozdobudko.suvii.pysar.controller.SettingsShowFontPanelCommnad;
 	import com.rozdobudko.suvii.pysar.model.FileProxy;
 	import com.rozdobudko.suvii.pysar.model.FindProxy;
 	import com.rozdobudko.suvii.pysar.model.LogProxy;
 	import com.rozdobudko.suvii.pysar.model.MenuProxy;
 	import com.rozdobudko.suvii.pysar.model.OutputProxy;
+	import com.rozdobudko.suvii.pysar.model.SelectFontProxy;
 	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
 	
 	import mx.core.WindowedApplication;
@@ -47,6 +50,8 @@ package com.rozdobudko.suvii.pysar
 
 		public static const SETTINGS_SHOW:String			= "settingsShow";
 		public static const SETTINGS_CLOSE:String			= "settingsClose";
+		public static const SETTINGS_SHOW_FONT_PANEL:String	= "settingsShowFontPanel";
+		public static const SETTINGS_HIDE_FONT_PANEL:String	= "settingsHideFontPanel";
 		
 		// ----------------- PRIVATE FIELDS ---------------- //
 		
@@ -82,6 +87,7 @@ package com.rozdobudko.suvii.pysar
 			this.registerProxy(new FindProxy());
 			this.registerProxy(new OutputProxy());
 			this.registerProxy(new SettingsProxy());
+			this.registerProxy(new SelectFontProxy());
 		}
 		
 		
@@ -102,6 +108,8 @@ package com.rozdobudko.suvii.pysar
 			this.registerCommand(PysarFacade.FIND_PREVIOS, FindPreviosCommand);
 			this.registerCommand(PysarFacade.SETTINGS_SHOW, SettingsShowCommand);
 			this.registerCommand(PysarFacade.SETTINGS_CLOSE, SettingsCloseCommand);
+			this.registerCommand(PysarFacade.SETTINGS_SHOW_FONT_PANEL, SettingsShowFontPanelCommnad);
+			this.registerCommand(PysarFacade.SETTINGS_HIDE_FONT_PANEL, SettingsHideFontPanelCommnad);
 		}
 		
 		
