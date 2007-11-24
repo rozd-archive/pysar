@@ -1,10 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
 	title="Select font"
+	minWidth="200"
+	minHeight="160"
 	>
-	<mx:ComboBox y="10" right="10" left="10"></mx:ComboBox>
+	
+	<mx:Metadata>
+		[Event(name="close", type="flash.events.Event")]
+		[Event(name="cancel", type="flash.events.Event")]
+	</mx:Metadata>
+	
+	<mx:Script>
+		<![CDATA[
+			private var _fontsList:Array;
+			private var _size:uint;
+			
+			[Bindable]
+			public function set fontsList(value:Array):void
+			{
+				this._fontsList = value;
+			}
+			
+			public function get fontsList():Array
+			{
+				return this._fontsList;
+			}
+			
+			
+			[Bindable]
+			public function set size(value:uint):void
+			{
+				this._size = value;
+			}
+			
+			public function get size():uint
+			{
+				return this._size;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:ComboBox id="fontsBox"
+		y="10" right="10" left="10" 
+		labelField="fontName"
+		dataProvider="{this.fontsList}"
+	/>
 	<mx:HBox right="10" left="10" horizontalAlign="right" verticalAlign="middle" bottom="10">
-		<mx:Button label="OK" width="70"/>
-		<mx:Button label="Cancel" width="70"/>
+		<mx:Button 
+			label="OK" 
+			width="70"
+			click="this.dispatchEvent(new Event(Event.CLOSE));"
+		/>
+		<mx:Button 
+			label="Cancel" 
+			width="70"
+			click="this.dispatchEvent(new Event(Event.CANCEL));"
+		/>
+	</mx:HBox>
+	<mx:HBox y="40" horizontalAlign="right" verticalAlign="middle" right="10" left="10" horizontalGap="2">
+		<mx:Label text="Font size:"/>
+		<mx:NumericStepper minimum="8" maximum="64" id="sizeBox"/>
 	</mx:HBox>
 </mx:Panel>

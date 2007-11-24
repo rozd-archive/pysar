@@ -2,7 +2,7 @@ package com.rozdobudko.suvii.pysar.model
 {
 	import com.rozdobudko.suvii.pysar.view.components.SettingsPanel;
 	
-	import flash.text.StyleSheet;
+	import flash.text.Font;
 	
 	import mx.styles.CSSStyleDeclaration;
 	
@@ -34,6 +34,8 @@ package com.rozdobudko.suvii.pysar.model
 		private var _errorStyle:CSSStyleDeclaration;
 		
 		private var _fatalStyle:CSSStyleDeclaration;
+		
+		private var _font:Font;
 		
 		// ----------------- CONSTRUCTOR ----------------- //
 		
@@ -130,6 +132,19 @@ package com.rozdobudko.suvii.pysar.model
 		public function get fatalStyle():CSSStyleDeclaration
 		{
 			return this._fatalStyle;
+		}
+		
+		
+		[Bindable]
+		public function set font(value:Font):void
+		{
+			this._font = value;
+		}
+		
+		
+		public function get font():Font
+		{
+			return this._font;
 		}
 		
 		// ------------------- METHODS ------------------- //

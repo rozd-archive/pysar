@@ -2,17 +2,19 @@ package com.rozdobudko.suvii.pysar.view
 {
 	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import com.rozdobudko.suvii.pysar.Settings;
+	import com.rozdobudko.suvii.pysar.model.SelectFontProxy;
 	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
 	import com.rozdobudko.suvii.pysar.view.components.SettingsPanel;
+	import com.rozdobudko.suvii.pysar.view.components.settings.LevelStyleFormatter;
 	import com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent;
 	
 	import flash.events.MouseEvent;
 	
 	import mx.controls.RadioButtonGroup;
-	import mx.events.ColorPickerEvent;
 	import mx.events.ItemClickEvent;
 	
 	import org.puremvc.interfaces.IMediator;
+	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.mediator.Mediator;
 	import org.puremvc.patterns.observer.Notification;
 
@@ -55,26 +57,31 @@ package com.rozdobudko.suvii.pysar.view
 			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
 			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
 			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
 			
 			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
 			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
 			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
 			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
 			
 			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
 			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
 			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
 			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
 			
 			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
 			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
 			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
 			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
 			
 			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
 			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
 			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
 			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
+			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
 			
 			this.levelsBoxGroup = [
 									this.component.debugBox, 
@@ -113,6 +120,54 @@ package com.rozdobudko.suvii.pysar.view
 			return this.facade.retrieveProxy(SettingsProxy.NAME) as SettingsProxy;
 		}
 		
+		override public function listNotificationInterests():Array
+		{
+			return [
+					PysarFacade.SETTINGS_HIDE_FONT_PANEL
+				   ];
+		}
+		
+		override public function handleNotification(notification:INotification):void
+		{
+			switch(notification.getName())
+			{
+				case PysarFacade.SETTINGS_HIDE_FONT_PANEL :
+					
+					var formatter:LevelStyleFormatter = notification.getBody() as LevelStyleFormatter;
+					var proxy:SelectFontProxy = this.facade.retrieveProxy(SelectFontProxy.NAME) as SelectFontProxy;
+					
+					switch(formatter)
+					{
+						case this.component.debugStyleFormatter :
+							this.proxy.debugStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
+							this.proxy.debugStyle.setStyle("fontSize", proxy.selectedSize);
+							formatter.style = this.proxy.debugStyle;
+						break;
+						case this.component.infoStyleFormatter :
+							this.proxy.infoStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
+							this.proxy.infoStyle.setStyle("fontSize", proxy.selectedSize);
+							formatter.style = this.proxy.infoStyle;
+						break;
+						case this.component.warningStyleFormatter :
+							this.proxy.warningStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
+							this.proxy.warningStyle.setStyle("fontSize", proxy.selectedSize);
+							formatter.style = this.proxy.warningStyle;
+						break;
+						case this.component.errorStyleFormatter :
+							this.proxy.errorStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
+							this.proxy.errorStyle.setStyle("fontSize", proxy.selectedSize);
+							formatter.style = this.proxy.errorStyle;
+						break;
+						case this.component.fatalStyleFormatter :
+							this.proxy.fatalStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
+							this.proxy.fatalStyle.setStyle("fontSize", proxy.selectedSize);
+							formatter.style = this.proxy.fatalStyle;
+						break;
+					}
+				
+				break;
+			}
+		}
 		// -------------------- FIEDS -------------------- //
 		
 		
@@ -297,6 +352,14 @@ package com.rozdobudko.suvii.pysar.view
 					event.target.style = this.proxy.fatalStyle;
 				break;
 			}
+		}
+		
+		
+		private function styleFormatterClickFontButtonHandler(event:LevelStyleFormatterEvent):void
+		{
+			trace("SettingsMediator :: styleFormatterClickFontButtonHandler");
+			
+			this.sendNotification(PysarFacade.SETTINGS_SHOW_FONT_PANEL, event.target);
 		}
 	}
 }

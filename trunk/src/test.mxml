@@ -1,50 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="initData();">
-    <mx:Script>
-        <![CDATA[
-            import mx.collections.*;
-            public var myArray:Array = [{label:"MA", data:"Massachusetts"}, 
-            {label:"MN", data:"Minnesota"}, {label:"MO", data:"Missouri"}];
-            [Bindable]
-            public var myAC:ArrayCollection; 
-            public var myCursor:IViewCursor;
-
-            // Initialize the ArrayCollection when you
-            // initialize the application.
-            public function initData():void
-            {
-                myAC = new ArrayCollection(myArray); 
-                
-                this.fontsBox.labelFunction = function(item:Object):String
-                {
-                	return item.fontName;
-                }
-                this.fontsBox.dataProvider = Font.enumerateFonts(true);
-            }
-
-            public function testCollection():void
-            {
-                myCursor=myAC.createCursor();
-                ta1.text="At start. cursor is at: " + myCursor.current.label;
-                var removedItem:String=String(myCursor.remove());
-                ta1.text+="\nAfter removing the current item, the cursor is at: " + myCursor.current.label;
-                myCursor.insert({label:"ME", data:"Augusta"});
-                ta1.text+="\nAfter adding an item, the cursor is at: " + myCursor.current.label;
-            }
-        ]]>
-    </mx:Script>
-
-    <mx:ComboBox id="myCB" rowCount="7" dataProvider="{myAC}" x="380" y="10"/>
-    <mx:TextArea id="ta1" height="75" width="350"/> 
-    <mx:Button label="run test" click="testCollection();" x="279" y="83"/>
-    <mx:TextArea x="105" y="375"/>
-    <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
-    	title="Select font"
-    	 x="115" y="175" width="309" height="115">
-    	<mx:ComboBox id="fontsBox" y="10" right="10" left="10"></mx:ComboBox>
-    	<mx:HBox right="10" left="10" horizontalAlign="right" verticalAlign="middle" bottom="10">
-    		<mx:Button label="OK" width="70"/>
-    		<mx:Button label="Cancel" width="70"/>
-    	</mx:HBox>
-    </mx:Panel>
+<?xml version="1.0" ?>
+<mx:WindowedApplication initialize="createButton()"  height="100%"
+xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:aswing="org.aswing.*">
+	<mx:Script>
+		<![CDATA[
+			import org.aswing.JCheckBox;
+			import org.aswing.JSlider;
+			import mx.core.UIComponent;
+			import org.aswing.JButton;
+			
+			private var myButton:*;
+			
+			public var child:UIComponent;
+			
+			public function createButton():void
+			{
+				myButton = new JSlider();
+				myButton.setSizeWH(200,30);
+				myButton.setLocationXY(10,10);
+				child = new UIComponent();
+				child.addChild(myButton);
+				addChild(child);
+				
+				var slider:JSlider = new JSlider();
+			}
+		]]>
+	</mx:Script>
+	
 </mx:WindowedApplication>
