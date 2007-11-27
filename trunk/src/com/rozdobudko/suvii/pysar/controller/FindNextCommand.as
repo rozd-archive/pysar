@@ -12,6 +12,9 @@ package com.rozdobudko.suvii.pysar.controller
 	import org.puremvc.interfaces.ICommand;
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.command.SimpleCommand;
+	import mx.collections.CursorBookmark;
+	import org.puremvc.patterns.observer.Notification;
+	import com.rozdobudko.suvii.pysar.PysarFacade;
 
 	public class FindNextCommand extends SimpleCommand implements ICommand
 	{
@@ -32,8 +35,9 @@ package com.rozdobudko.suvii.pysar.controller
 			var findProxy:FindProxy = this.facade.retrieveProxy(FindProxy.NAME) as FindProxy;
 			var findMediator:FindMediator = this.facade.retrieveMediator(FindMediator.NAME) as FindMediator;
 			
-			//var cursor:IViewCursor = outputProxy.entries.createCursor();
 			var cursor:IViewCursor = outputProxy.cursor;
+			
+			var inited:Boolean;
 			
 			while(!cursor.afterLast)
 			{
@@ -43,11 +47,7 @@ package com.rozdobudko.suvii.pysar.controller
 				{
 					var logText:LogEntryText = entry.findData.cursor.current as LogEntryText;
 					
-					var index:int = logText.text.indexOf(findProxy.searchPhrase, entry.findData.endIndex);
-					
-					trace(index);
-					
-					trace(findProxy.searchPhrase+" : "+logText.text);
+					var index:int = logText.label.indexOf(findProxy.searchPhrase, entry.findData.endIndex);
 					
 					if(index == -1)
 					{
@@ -59,18 +59,39 @@ package com.rozdobudko.suvii.pysar.controller
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						/**
-						 * TODO: Знайти інший спосіб оновити вихідний інтерфейс.
-						 */
 						outputMediator.table.dataProvider = outputProxy.entries;
 						return;
 					}
-					
 					entry.findData.cursor.moveNext();
+				}
+				
+				if(!inited)
+				{
+					var bookmark:CursorBookmark = cursor.bookmark; 
+					
+					cursor.seek(CursorBookmark.FIRST);
+					while(!cursor.afterLast)
+					{
+						if(cursor.current != entry)
+						{
+							LogEntry(cursor.current).findData.cursor.seek(CursorBookmark.FIRST);
+							LogEntry(cursor.current).findData.beginIndex = 0;
+							LogEntry(cursor.current).findData.endIndex = 0;
+						}
+						cursor.moveNext();
+					}
+					
+					cursor.seek(bookmark);
+					
+					inited = true;
 				}
 				
 				cursor.moveNext();
 			}
+			
+			cursor.seek(CursorBookmark.FIRST);
+
+			this.facade.notifyObservers(new Notification(PysarFacade.FIND_NEXT));
 		}
 		
 		// ------------------- PureMVC ------------------- //

@@ -9,6 +9,7 @@ package com.rozdobudko.suvii.pysar.model
 	
 	import org.puremvc.interfaces.IProxy;
 	import org.puremvc.patterns.proxy.Proxy;
+	import mx.utils.UIDUtil;
 	
 	[Bindable("output")]
 	
@@ -26,16 +27,18 @@ package com.rozdobudko.suvii.pysar.model
 			 * Test
 			 */
 			this.addItem(new LogEntry(
+										"1",
 										0,
-										new LogEntryText("TESTE"), 
-										new LogEntryText("test"), 
-										new LogEntryText("Lorem")
+										new LogEntryText("1.1", "TESTE"), 
+										new LogEntryText("1.2", "Test"), 
+										new LogEntryText("1.3", "Lorem")
 										));
 			this.addItem(new LogEntry(
+										"2",
 										0,
-										new LogEntryText("TEST"), 
-										new LogEntryText("test"), 
-										new LogEntryText("Lorem ipsum")
+										new LogEntryText("2.1", "TEST"), 
+										new LogEntryText("2.2", "test"), 
+										new LogEntryText("2.3", "Lorem ipsum")
 										));
 //			this.addItem(new LogEntry(
 //										0, 

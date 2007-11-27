@@ -5,16 +5,16 @@
 			<mx:DataGrid id="outputDataGrid" editable="true" width="100%" height="100%">
 				<mx:columns>
 					<mx:DataGridColumn dataField="level" itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.LevelIconItemRenderer" width="22" />
-					<mx:DataGridColumn
-						headerText="Date" 
-						dataField="className" 
+					<mx:DataGridColumn 
+						headerText="Message" 
+						dataField="message" 
 						itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.ItemRenderer"
 						itemEditor="com.rozdobudko.suvii.pysar.view.components.output.ItemEditor"
 						editorDataField="dataItem"
 					/>
-					<mx:DataGridColumn 
-						headerText="Message" 
-						dataField="message" 
+					<mx:DataGridColumn
+						headerText="Date" 
+						dataField="className" 
 						itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.ItemRenderer"
 						itemEditor="com.rozdobudko.suvii.pysar.view.components.output.ItemEditor"
 						editorDataField="dataItem"

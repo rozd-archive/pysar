@@ -73,7 +73,19 @@ package com.rozdobudko.suvii.pysar.view
 			return this.component.hightlightingBut.selected;
 		}
 		
-		// ------------------  HANDLERS ------------------- //
+		public function get searchPhraseContain():Boolean
+		{
+			return this._searchPhraseContain;
+		}
+
+		public function set searchPhraseContain(value:Boolean):void
+		{
+			this._searchPhraseContain = value;
+			
+			this.component.searchBox.setStyle("backgroundColor", this.searchPhraseContain ? 0x
+		}
+		
+		// ------------------- HANDLERS ------------------- //
 		
 		
 		
@@ -81,7 +93,7 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function searchHandler(event:Event):void
 		{
-			trace("FindMediator :: searchHandler");
+//			trace("FindMediator :: searchHandler");
 			
 			this.facade.notifyObservers(new Notification(PysarFacade.FIND_SEARCH));
 		}
@@ -89,7 +101,7 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function nextHandler(event:Event):void
 		{
-			trace("FindMediator :: nextHandler");
+//			trace("FindMediator :: nextHandler");
 			
 			this.facade.notifyObservers(new Notification(PysarFacade.FIND_NEXT));
 		}
@@ -97,7 +109,7 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function previosHandler(event:Event):void
 		{
-			trace("FindMediator :: previosHandler");
+//			trace("FindMediator :: previosHandler");
 			
 			this.facade.notifyObservers(new Notification(PysarFacade.FIND_PREVIOS));
 		}
@@ -105,7 +117,7 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function hightlightHandler(event:Event):void
 		{
-			trace("FindMediator :: hightlightHandler");
+//			trace("FindMediator :: hightlightHandler");
 			
 			this.facade.notifyObservers(new Notification(PysarFacade.FIND_HIGHTLIGHT));
 		}
