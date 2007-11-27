@@ -50,14 +50,14 @@ package com.rozdobudko.suvii.pysar.controller
 					switch(notification.getName())
 					{
 						case PysarFacade.FIND_SEARCH :
-							index = logText.text.indexOf(findProxy.searchPhrase, 0);
+							index = logText.label.indexOf(findProxy.searchPhrase, 0);
 						break;
 						case PysarFacade.FIND_NEXT :
-							index = logText.text.indexOf(findProxy.searchPhrase, entry.findData.endIndex);
+							index = logText.label.indexOf(findProxy.searchPhrase, entry.findData.endIndex);
 						break;
 						case PysarFacade.FIND_PREVIOS :
-							index = logText.text.lastIndexOf(findProxy.searchPhrase, entry.findData.endIndex - findProxy.searchPhrase.length - 1);
-							trace(logText.text+" "+findProxy.searchPhrase);
+							index = logText.label.lastIndexOf(findProxy.searchPhrase, entry.findData.endIndex - findProxy.searchPhrase.length - 1);
+							trace(logText.label+" "+findProxy.searchPhrase);
 							trace(index+" "+(entry.findData.beginIndex - 1));
 						break;
 					}
@@ -92,7 +92,7 @@ package com.rozdobudko.suvii.pysar.controller
 				
 				if(notification.getName() == PysarFacade.FIND_PREVIOS)
 				{
-					//trace("output cursor move to previos");
+					trace("output cursor move to previos");
 					cursor.movePrevious();
 				}
 				else

@@ -47,22 +47,18 @@ package com.rozdobudko.suvii.pysar.view.components.output
 				return;
 			}
 			
-			this.text = logText.text;
+			this.text = logText.label;
 			
 			var format:TextFormat = this.getTextFormat();
 			
 			var beginIndex:int = LogEntry(this.data).findData.beginIndex;
 			var endIndex:int = LogEntry(this.data).findData.endIndex;
 			
-//			trace(this.text+" | "+LogEntry(this.data).findData.cursor.current +" - "+ logText + " === " + (LogEntry(this.data).findData.cursor.current === logText));
-			
 			if(beginIndex == endIndex || LogEntry(this.data).findData.cursor.current !== logText)
 			{
 				format.color = 0x000000;
 				
 				this.setSelection(0, 0);
-				
-				//this.setTextFormat(format);
 			}
 			else
 			{

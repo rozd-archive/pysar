@@ -2,28 +2,28 @@ package com.rozdobudko.suvii.pysar.model.data
 {
 	public class LogEntryText
 	{
-		private var _text:String;
+		private var _label:String;
 
-		public function LogEntryText(text:String)
+		public function LogEntryText(label:String)
 		{
 			super();
 			
-			this.text = text;
+			this.label = label;
 		}
 		
-		public function get text():String
+		public function get label():String
 		{
-			return this._text;
+			return this._label;
 		}
-		public function set text(value:String):void
+		public function set label(value:String):void
 		{
-			this._text = value;
+			this._label = value;
 		}
 		
 		public function toString():String
 		{
 			return	"[object LogEntryText | "+
-					this.text + "]";
+					this.label + "]";
 		}
 	}
 }
