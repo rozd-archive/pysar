@@ -52,7 +52,7 @@ package com.rozdobudko.suvii.pysar.view.components.output
 				return;
 			}
 			
-			this.text = this.dataItem.text;
+			this.text = this.dataItem.label;
 		}
 		
 		
@@ -68,7 +68,7 @@ package com.rozdobudko.suvii.pysar.view.components.output
 		{
 			trace("ItemEditor :: removedHandler");
 			
-			this.dataItem.text = this.text;
+			this.dataItem.label = this.text;
 			
 		}
 	}
