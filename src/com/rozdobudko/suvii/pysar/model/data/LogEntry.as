@@ -6,10 +6,11 @@ package com.rozdobudko.suvii.pysar.model.data
 		public var message:LogEntryText;
 		public var className:LogEntryText;
 		public var connectionName:LogEntryText;
+		private var id:String;
 		
 		private var _findData:LogEntryFindData;
 		
-		function LogEntry(level:int=0, message:LogEntryText=null, className:LogEntryText=null, connectionName:LogEntryText=null)
+		function LogEntry(id:String, level:int=0, message:LogEntryText=null, className:LogEntryText=null, connectionName:LogEntryText=null)
 		{
 			super();
 			
@@ -17,6 +18,8 @@ package com.rozdobudko.suvii.pysar.model.data
 			this.message = message;
 			this.className = className;
 			this.connectionName = connectionName;
+			
+			this.id = id;
 		}
 		
 		// -------------------- FIEDS -------------------- //
@@ -35,11 +38,11 @@ package com.rozdobudko.suvii.pysar.model.data
 		
 		public function toString():String
 		{
-			return	"[object LogEntry | " +
-					this.level + ", " +
-					this.message + ", " +
-					this.className +", " +
-					this.connectionName +"]";
+			return	"[object LogEntry | " + this.id + "]";
+//					this.level + ", " +
+//					this.message + ", " +
+//					this.className +", " +
+//					this.connectionName +"]";
 		}
 	}
 }

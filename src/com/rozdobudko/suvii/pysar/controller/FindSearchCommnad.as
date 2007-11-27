@@ -12,125 +12,130 @@ package com.rozdobudko.suvii.pysar.controller
 	
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.command.SimpleCommand;
+	import org.puremvc.interfaces.ICommand;
+	import org.puremvc.patterns.command.MacroCommand;
+	import mx.collections.CursorBookmark;
 
-	public class FindSearchCommnad extends SimpleCommand
+	public class FindSearchCommnad extends SimpleCommand implements ICommand
 	{
 		override public function execute(notification:INotification):void
 		{
-			trace("SearchCommnad :: execute : "+notification);
-//			
-//			var outputProxy:OutputProxy = this.facade.retrieveProxy(OutputProxy.NAME) as OutputProxy;
-//			var findProxy:FindProxy = this.facade.retrieveProxy(FindProxy.NAME) as FindProxy;
-//			
-//			var findMediator:FindMediator = this.facade.retrieveMediator(FindMediator.NAME) as FindMediator;
-//			var outputMediator:OutputMediator = this.facade.retrieveMediator(OutputMediator.NAME) as OutputMediator;
-//			
-//			//var cursor:IViewCursor = outputProxy.entries.createCursor();
-//			var cursor:IViewCursor = outputProxy.cursor;
-//			
-//			while(!cursor.afterLast && !cursor.beforeFirst)
-//			{
-//				var entry:LogEntry = cursor.current as LogEntry;
-//				
-//				if(entry.findData.cursor.afterLast)
-//				{
-//					entry.findData.cursor.movePrevious();
-//				}
-//				if(entry.findData.cursor.beforeFirst)
-//				{
-//					entry.findData.cursor.moveNext();
-//				}
-//				
-//				while(!entry.findData.cursor.afterLast && !entry.findData.cursor.beforeFirst)
-//				{
-//					var logText:LogEntryText = entry.findData.cursor.current as LogEntryText;
-//					
-//					var index:int;
-//					
-//					switch(notification.getName())
-//					{
-//						case PysarFacade.FIND_SEARCH :
-//							index = logText.text.indexOf(findProxy.searchPhrase, 0);
-//						break;
-//						case PysarFacade.FIND_NEXT :
-//							index = logText.text.indexOf(findProxy.searchPhrase, entry.findData.endIndex);
-//						break;
-//						case PysarFacade.FIND_PREVIOS :
-//							index = logText.text.lastIndexOf(findProxy.searchPhrase, entry.findData.endIndex - findProxy.searchPhrase.length - 1);
-//							trace(logText.text+" "+findProxy.searchPhrase);
-//							trace(index+" "+(entry.findData.beginIndex - 1));
-//						break;
-//					}
-//					
-//					if(index == -1)
-//					{
-//						entry.findData.beginIndex = 0;
-//						entry.findData.endIndex = 0;
-//					}
-//					else
-//					{
-//						entry.findData.beginIndex = index;
-//						entry.findData.endIndex = index + findProxy.searchPhrase.length;
-//						
-//						/**
-//						 * TODO: Знайти інший спосіб обновити вихідний інтерфейс.
-//						 */
-//						outputMediator.table.dataProvider = outputProxy.entries;
-//						return;
-//					}
-//					
-//					if(notification.getName() == PysarFacade.FIND_PREVIOS)
-//					{
-//						//trace("entry cursor move to previos");
-//						entry.findData.cursor.movePrevious();
-//					}
-//					else
-//					{
-//						entry.findData.cursor.moveNext();
-//					}
-//				}
-//				
-//				if(notification.getName() == PysarFacade.FIND_PREVIOS)
-//				{
-//					//trace("output cursor move to previos");
-//					cursor.movePrevious();
-//				}
-//				else
-//				{
-//					cursor.moveNext();
-//				}
-//			}
-//			outputMediator.table.dataProvider = outputProxy.entries;
-//			/**
-//			 * TODO: Use IViewCursor for navigation in output data.
-//			 */
-//			for(var i:uint; i<outputProxy.length; i++)
-//			{
-//				var entry:LogEntry = outputProxy.getItemAt(i);
-//				
-//				var textes:Array = [
-//									entry.message,
-//									entry.className,
-//									entry.connectionName
-//									];
-//				
-//				for(var j:uint=0; j<textes.length; j++)
-//				{
-//					var logText:LogEntryText = textes[j] as LogEntryText;
-//					
-//					logText.findData = new LogEntryFindData([]);
-//					
-//					var index:int = findProxy.searchPhrase != "" ?
-//									logText.text.indexOf(findProxy.searchPhrase, 0) :
-//									-1;
-//					var length:int = findProxy.searchPhrase.length;
-//					
-//					if(index != -1)
-//					{
-//						logText.findData.ranges.push(new LogEntryFindDataRange(index, index + length));
-//					}
-//				}
-//			}
+			trace("FindSearchCommnad :: execute");
+			
+			var outputProxy:OutputProxy = this.facade.retrieveProxy(OutputProxy.NAME) as OutputProxy;
+			var outputMediator:OutputMediator = this.facade.retrieveMediator(OutputMediator.NAME) as OutputMediator;
+			
+			var findProxy:FindProxy = this.facade.retrieveProxy(FindProxy.NAME) as FindProxy;
+			var findMediator:FindMediator = this.facade.retrieveMediator(FindMediator.NAME) as FindMediator;
+			
+			var cursor:IViewCursor = outputProxy.cursor;
+			
+			var bookmark:CursorBookmark = cursor.bookmark;
+			
+			cursor.seek(CursorBookmark.FIRST);
+			while(!cursor.afterLast)
+			{
+				if(cursor.current != bookmark.value)
+				{
+					LogEntry(cursor.current).findData.cursor.seek(CursorBookmark.FIRST);
+					LogEntry(cursor.current).findData.beginIndex = 0;
+					LogEntry(cursor.current).findData.endIndex = 0;
+				}
+				cursor.moveNext();
+			}
+			
+			cursor.seek(bookmark);
+			
+			var entry:LogEntry;
+			var logText:LogEntryText;
+			var index:int;
+			
+			while(!cursor.afterLast)
+			{
+				entry = cursor.current as LogEntry;
+				
+				trace("-------------------------------");
+				trace(entry+", beginIndex: "+entry.findData.beginIndex);
+				
+				while(!entry.findData.cursor.afterLast)
+				{
+					logText = entry.findData.cursor.current as LogEntryText;
+					
+					index = logText.label.indexOf(findProxy.searchPhrase, entry.findData.beginIndex);
+					
+					trace("    "+logText);
+					
+					if(index == -1)
+					{
+						entry.findData.beginIndex = 0;
+						entry.findData.endIndex = 0;
+					}
+					else
+					{
+						entry.findData.beginIndex = index;
+						entry.findData.endIndex = index + findProxy.searchPhrase.length;
+						
+						outputMediator.table.dataProvider = outputProxy.entries;
+						return;
+					}
+					
+					entry.findData.cursor.moveNext();
+				}
+				
+				cursor.moveNext();
+			}
+			
+			cursor.seek(CursorBookmark.FIRST);
+			
+			trace(cursor.bookmark.getViewIndex() +" - "+ (bookmark.getViewIndex() + 1) +" "+bookmark.value);
+			
+			while(cursor.bookmark.getViewIndex() <= bookmark.getViewIndex())
+			{
+				entry = cursor.current as LogEntry;
+				
+				trace("-------------------------------");
+				trace(entry+", beginIndex: "+entry.findData.beginIndex);
+				
+				while(!entry.findData.cursor.afterLast)
+				{
+					logText = entry.findData.cursor.current as LogEntryText;
+					
+					index = logText.label.indexOf(findProxy.searchPhrase, entry.findData.beginIndex);
+					
+					trace("    "+logText);
+					
+					if(index == -1)
+					{
+						entry.findData.beginIndex = 0;
+						entry.findData.endIndex = 0;
+					}
+					else
+					{
+						entry.findData.beginIndex = index;
+						entry.findData.endIndex = index + findProxy.searchPhrase.length;
+						
+						outputMediator.table.dataProvider = outputProxy.entries;
+						return;
+					}
+					
+					entry.findData.cursor.moveNext();
+				}
+				
+				cursor.moveNext();
+			}
+			
+			cursor.seek(CursorBookmark.FIRST);
+			while(!cursor.afterLast)
+			{
+				LogEntry(cursor.current).findData.cursor.seek(CursorBookmark.FIRST);
+				LogEntry(cursor.current).findData.beginIndex = 0;
+				LogEntry(cursor.current).findData.endIndex = 0;
+				
+				cursor.moveNext();
+			}
+			cursor.seek(CursorBookmark.FIRST);
+			
+			trace("NOT FOUND");
 		}
 	}
 }

@@ -27,9 +27,9 @@ package com.rozdobudko.suvii.pysar.model.data
 				throw new Error("0001");
 			}
 			
+			this._textes.addItem(this.owner.message);
 			this._textes.addItem(this.owner.className);
 			this._textes.addItem(this.owner.connectionName);
-			this._textes.addItem(this.owner.message);
 			
 			this._cursor = this._textes.createCursor();
 		}

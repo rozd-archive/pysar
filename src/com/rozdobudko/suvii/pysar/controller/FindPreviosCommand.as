@@ -12,6 +12,9 @@ package com.rozdobudko.suvii.pysar.controller
 	import org.puremvc.interfaces.ICommand;
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.command.SimpleCommand;
+	import mx.collections.CursorBookmark;
+	import com.rozdobudko.suvii.pysar.PysarFacade;
+	import org.puremvc.patterns.observer.Notification;
 
 	public class FindPreviosCommand extends SimpleCommand implements ICommand
 	{
@@ -32,8 +35,11 @@ package com.rozdobudko.suvii.pysar.controller
 			var findProxy:FindProxy = this.facade.retrieveProxy(FindProxy.NAME) as FindProxy;
 			var findMediator:FindMediator = this.facade.retrieveMediator(FindMediator.NAME) as FindMediator;
 			
-			//var cursor:IViewCursor = outputProxy.entries.createCursor();
 			var cursor:IViewCursor = outputProxy.cursor;
+			
+			var first_enter:Boolean = true;
+			
+			var inited:Boolean;
 			
 			while(!cursor.beforeFirst)
 			{
@@ -41,40 +47,24 @@ package com.rozdobudko.suvii.pysar.controller
 				
 				while(!entry.findData.cursor.beforeFirst)
 				{
-					if(entry.findData.cursor.afterLast)
-					{
-						entry.findData.cursor.movePrevious();
-					}
-					
 					var logText:LogEntryText = entry.findData.cursor.current as LogEntryText;
 					
-					var index:int = logText.text.lastIndexOf(findProxy.searchPhrase, 
-																					(entry.findData.endIndex - entry.findData.beginIndex - 1) > 0
-																					? entry.findData.endIndex - entry.findData.beginIndex - 1
-																					: findProxy.searchPhrase.length);
-//					var index:int = logText.text.lastIndexOf(findProxy.searchPhrase, Math.max(entry.findData.beginIndex - 1, 0));
+					entry.findData.beginIndex = isNaN(entry.findData.beginIndex) ? logText.label.length : entry.findData.beginIndex;
+					entry.findData.endIndex = isNaN(entry.findData.beginIndex) ? logText.label.length : entry.findData.endIndex;
 					
-					trace("----------------------------");
-					trace(entry.findData.beginIndex);
-					trace(entry.findData.endIndex);
-					trace(findProxy.searchPhrase+" : "+logText.text);
-					trace((entry.findData.endIndex - entry.findData.beginIndex - 1));
-					trace(index);
-					trace("----------------------------");
+					var index:int
+					index = logText.label.lastIndexOf(findProxy.searchPhrase, 2*entry.findData.beginIndex - entry.findData.endIndex);
 					
 					if(index == -1)
 					{
-						entry.findData.beginIndex = 0;
-						entry.findData.endIndex = 0;
+						entry.findData.beginIndex = logText.label.length;
+						entry.findData.endIndex = logText.label.length;
 					}
 					else
 					{
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						/**
-						 * TODO: Знайти інший спосіб оновити вихідний інтерфейс.
-						 */
 						outputMediator.table.dataProvider = outputProxy.entries;
 						return;
 					}
@@ -82,8 +72,33 @@ package com.rozdobudko.suvii.pysar.controller
 					entry.findData.cursor.movePrevious();
 				}
 				
+				if(!inited)
+				{
+					var bookmark:CursorBookmark = cursor.bookmark;
+					
+					cursor.seek(CursorBookmark.FIRST);
+					while(!cursor.afterLast)
+					{
+						if(cursor.current != entry)
+						{
+							LogEntry(cursor.current).findData.cursor.seek(CursorBookmark.LAST);
+							LogEntry(cursor.current).findData.beginIndex = null;
+							LogEntry(cursor.current).findData.endIndex = null;
+						}
+						cursor.moveNext();
+					}
+					
+					cursor.seek(bookmark);
+					
+					inited = true;
+				}
+				
 				cursor.movePrevious();
 			}
+			
+			cursor.seek(CursorBookmark.LAST);
+			
+			this.facade.notifyObservers(new Notification(PysarFacade.FIND_PREVIOS));
 		}
 		
 		// ------------------- PureMVC ------------------- //
