@@ -9,6 +9,10 @@ package com.rozdobudko.suvii.pysar.view.components.output
 	import mx.controls.dataGridClasses.DataGridItemRenderer;
 	import mx.controls.dataGridClasses.DataGridListData;
 	import mx.controls.listClasses.IListItemRenderer;
+	import mx.formatters.SwitchSymbolFormatter;
+	import com.rozdobudko.suvii.pysar.Settings;
+	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
+	import com.rozdobudko.suvii.pysar.PysarFacade;
 
 	public class ItemRenderer extends DataGridItemRenderer implements IListItemRenderer
 	{
@@ -21,16 +25,8 @@ package com.rozdobudko.suvii.pysar.view.components.output
 		
 		// -------------------- FIEDS -------------------- //
 		
-		override public function set data(value:Object):void
-		{
-			super.data = value;
-		}
-		
-		override public function get data():Object
-		{
-			return super.data;
-		}
-		
+
+
 		// ------------------- METHODS ------------------- //
 		
 		override public function validateProperties():void
@@ -49,22 +45,25 @@ package com.rozdobudko.suvii.pysar.view.components.output
 			
 			this.text = logText.label;
 			
-			var format:TextFormat = this.getTextFormat();
-			
 			var beginIndex:int = LogEntry(this.data).findData.beginIndex;
 			var endIndex:int = LogEntry(this.data).findData.endIndex;
 			
 			if(beginIndex == endIndex || LogEntry(this.data).findData.cursor.current !== logText)
 			{
-				format.color = 0x000000;
-				
 				this.setSelection(0, 0);
 			}
 			else
 			{
-				format.color = 0xFF9900;
-				
 				this.setSelection(beginIndex, endIndex);
+			}
+			
+			var settingsProxy:SettingsProxy = PysarFacade.getInstance().retrieveProxy(SettingsProxy.NAME) as SettingsProxy;
+			
+			switch(LogEntry(this.data).level)
+			{
+				case Settings.LEVEL_DEBUG :
+					this.setStyle("fontWeight", "bold");
+				break;
 			}
 		}
 		override public function validateNow():void

@@ -13,8 +13,9 @@ package com.rozdobudko.suvii.pysar.view
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.interfaces.IObserver;
 	import org.puremvc.patterns.mediator.Mediator;
+	import mx.formatters.SwitchSymbolFormatter;
 	
-	public class OutputMediator extends Mediator implements IMediator, IObserver
+	public class OutputMediator extends Mediator implements IMediator
 	{
 		public static const NAME:String = "OutputMediator";
 		
@@ -22,9 +23,24 @@ package com.rozdobudko.suvii.pysar.view
 		{
 			super(component);
 			
-			View.getInstance().registerObserver(PysarFacade.OUTPUT_UPDATE, this);
-			
 			this.table.dataProvider = this.proxy.entries;
+		}
+		
+		override public function listNotificationInterests():Array
+		{
+			return [
+			       	PysarFacade.OUTPUT_UPDATE
+				   ]
+		}
+		
+		override public function handleNotification(notification:INotification):void
+		{
+			switch(notification.getName())
+			{
+				case PysarFacade.OUTPUT_UPDATE :
+					this.table.dataProvider = this.proxy.entries;
+				break;
+			}
 		}
 		
 		// ------------------- PureMVC ------------------- //
@@ -58,30 +74,7 @@ package com.rozdobudko.suvii.pysar.view
 		
 		// ------------------  HANDLERS ------------------- //
 		
-		public function notifyObserver(notification:INotification):void
-		{
-			trace("OutputMediator :: notification : "+notification.getName());
-			
-			/**
-			 * TODO: Add binding to bind "output" field from OutputProxy, and remove this notification.
-			 */
-//			this.area.text = this.proxy.output.toString();
-		}
 		
-		public function compareNotifyContext(object:Object):Boolean
-		{
-			return false;
-		}
-		
-		public function setNotifyContext(notifyContext:Object):void
-		{
-			
-		}
-		
-		public function setNotifyMethod(notifyMethod:Function):void
-		{
-			
-		}
 		
 		// ---------------- USER INTERACTION -------------- //
 		

@@ -15,12 +15,13 @@ package com.rozdobudko.suvii.pysar.controller
 	import org.puremvc.interfaces.ICommand;
 	import org.puremvc.patterns.command.MacroCommand;
 	import mx.collections.CursorBookmark;
+	import org.puremvc.patterns.observer.Notification;
 
 	public class FindSearchCommnad extends SimpleCommand implements ICommand
 	{
 		override public function execute(notification:INotification):void
 		{
-			trace("FindSearchCommnad :: execute");
+//			trace("FindSearchCommnad :: execute");
 			
 			var outputProxy:OutputProxy = this.facade.retrieveProxy(OutputProxy.NAME) as OutputProxy;
 			var outputMediator:OutputMediator = this.facade.retrieveMediator(OutputMediator.NAME) as OutputMediator;
@@ -54,16 +55,11 @@ package com.rozdobudko.suvii.pysar.controller
 			{
 				entry = cursor.current as LogEntry;
 				
-				trace("-------------------------------");
-				trace(entry+", beginIndex: "+entry.findData.beginIndex);
-				
 				while(!entry.findData.cursor.afterLast)
 				{
 					logText = entry.findData.cursor.current as LogEntryText;
 					
 					index = logText.label.indexOf(findProxy.searchPhrase, entry.findData.beginIndex);
-					
-					trace("    "+logText);
 					
 					if(index == -1)
 					{
@@ -75,7 +71,9 @@ package com.rozdobudko.suvii.pysar.controller
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						outputMediator.table.dataProvider = outputProxy.entries;
+						this.facade.notifyObservers(new Notification(PysarFacade.FIND_PHRASE, true));
+						this.sendNotification(PysarFacade.OUTPUT_UPDATE);
+						
 						return;
 					}
 					
@@ -87,22 +85,15 @@ package com.rozdobudko.suvii.pysar.controller
 			
 			cursor.seek(CursorBookmark.FIRST);
 			
-			trace(cursor.bookmark.getViewIndex() +" - "+ (bookmark.getViewIndex() + 1) +" "+bookmark.value);
-			
 			while(cursor.bookmark.getViewIndex() <= bookmark.getViewIndex())
 			{
 				entry = cursor.current as LogEntry;
-				
-				trace("-------------------------------");
-				trace(entry+", beginIndex: "+entry.findData.beginIndex);
 				
 				while(!entry.findData.cursor.afterLast)
 				{
 					logText = entry.findData.cursor.current as LogEntryText;
 					
 					index = logText.label.indexOf(findProxy.searchPhrase, entry.findData.beginIndex);
-					
-					trace("    "+logText);
 					
 					if(index == -1)
 					{
@@ -114,7 +105,9 @@ package com.rozdobudko.suvii.pysar.controller
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						outputMediator.table.dataProvider = outputProxy.entries;
+						this.facade.notifyObservers(new Notification(PysarFacade.FIND_PHRASE, true));
+						this.sendNotification(PysarFacade.OUTPUT_UPDATE);
+						
 						return;
 					}
 					
@@ -135,7 +128,9 @@ package com.rozdobudko.suvii.pysar.controller
 			}
 			cursor.seek(CursorBookmark.FIRST);
 			
-			trace("NOT FOUND");
+			outputMediator.table.dataProvider = outputProxy.entries;
+			
+			this.facade.notifyObservers(new Notification(PysarFacade.FIND_PHRASE, false));
 		}
 	}
 }

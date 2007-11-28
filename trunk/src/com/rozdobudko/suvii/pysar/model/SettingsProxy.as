@@ -55,18 +55,6 @@ package com.rozdobudko.suvii.pysar.model
 		
 		// -------------------- FIEDS -------------------- //
 		
-		public function get popUp():SettingsPanel
-		{
-			return this._popUp;
-		}
-		
-		
-		public function set popUp(value:SettingsPanel):void
-		{
-			this._popUp = value;
-		}
-		
-		
 		public function get levels():Array
 		{
 			return this._levels;
@@ -104,47 +92,44 @@ package com.rozdobudko.suvii.pysar.model
 			this._selectedLevelsByBoxes = !value;
 		}
 		
-		
+		/**
+		 * Style of <b>debug</b> level row.
+		 */
 		public function get debugStyle():CSSStyleDeclaration
 		{
 			return this._debugStyle;
 		}
 		
-		
+		/**
+		 * Style of <b>info</b> level row.
+		 */
 		public function get infoStyle():CSSStyleDeclaration
 		{
 			return this._infoStyle;
 		}
 		
-		
+		/**
+		 * Style of <b>warning</b> level row.
+		 */
 		public function get warningStyle():CSSStyleDeclaration
 		{
 			return this._warningStyle;
 		}
 		
-		
+		/**
+		 * Style of <b>error</b> level row.
+		 */
 		public function get errorStyle():CSSStyleDeclaration
 		{
 			return this._errorStyle;
 		}
 		
-		
+		/**
+		 * Style of <b>fatal</b> level row.
+		 */
 		public function get fatalStyle():CSSStyleDeclaration
 		{
 			return this._fatalStyle;
-		}
-		
-		
-		[Bindable]
-		public function set font(value:Font):void
-		{
-			this._font = value;
-		}
-		
-		
-		public function get font():Font
-		{
-			return this._font;
 		}
 		
 		// ------------------- METHODS ------------------- //
@@ -156,9 +141,12 @@ package com.rozdobudko.suvii.pysar.model
 			this._warningStyle = new CSSStyleDeclaration();
 			this._errorStyle = new CSSStyleDeclaration();
 			this._fatalStyle = new CSSStyleDeclaration();
-
-//			this.fatalStyle.setStyle("font-family", "Verdana");
-//			this.fatalStyle.setStyle("color", "0x0B333C");
+			
+			this.debugStyle.setStyle("fontWeight", "normal");
+			this.infoStyle.setStyle("fontWeight", "normal");
+			this.warningStyle.setStyle("fontWeight", "normal");
+			this.errorStyle.setStyle("fontWeight", "normal");
+			this.fatalStyle.setStyle("fontWeight", "normal");
 		}
 		
 		// ------------------  HANDLERS ------------------- //

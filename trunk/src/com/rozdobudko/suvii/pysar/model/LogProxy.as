@@ -17,6 +17,7 @@ package com.rozdobudko.suvii.pysar.model
 	import org.puremvc.patterns.observer.Notification;
 	import org.puremvc.patterns.proxy.Proxy;
 	import mx.utils.UIDUtil;
+	import com.rozdobudko.suvii.pysar.model.data.LogEntryFindData;
 
 	public class LogProxy extends Proxy implements IProxy
 	{
@@ -30,7 +31,7 @@ package com.rozdobudko.suvii.pysar.model
 		{
 			super(proxyName, data);
 			
-			this._entries = new ArrayCollection();
+			this.setData(new ArrayCollection());
 			
 			this.connections = new ArrayCollection();
 			
@@ -56,7 +57,7 @@ package com.rozdobudko.suvii.pysar.model
 		
 		public function get entries():ArrayCollection
 		{
-			return this._entries;
+			return this.getData() as ArrayCollection;
 		}
 
 		// ------------------- METHODS ------------------- //
@@ -72,15 +73,17 @@ package com.rozdobudko.suvii.pysar.model
 		{
 			trace("LogProxy :: log");
 			
-			this.entries.addItem(new LogEntry(
+			var entry:LogEntry = new LogEntry(
 												UIDUtil.createUID(),
 												level, 
 												new LogEntryText(UIDUtil.createUID(), message), 
 												new LogEntryText(UIDUtil.createUID(), className), 
 												new LogEntryText(UIDUtil.createUID(), connectionName)
-												));
+											  )
+											  
+			this.entries.addItem(entry);
 			
-			this.facade.notifyObservers(new Notification(PysarFacade.LOG_ADD));
+			this.sendNotification(PysarFacade.LOG_ADD, entry);
 		}
 		
 		// ------------------ HANDLERS ------------------- //

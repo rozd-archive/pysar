@@ -5,7 +5,7 @@ package com.rozdobudko.suvii.pysar.model
 
 	public class FileProxy extends Proxy implements IProxy
 	{
-		public static const NAME:String = "LogProxy";
+		public static const NAME:String = "FileProxy";
 		
 		public function FileProxy(proxyName:String=null, data:Object=null)
 		{

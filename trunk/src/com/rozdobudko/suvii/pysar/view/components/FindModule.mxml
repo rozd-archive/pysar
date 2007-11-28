@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:ApplicationControlBar xmlns:mx="http://www.adobe.com/2006/mxml" left="10" right="10" bottom="10">
+<mx:ApplicationControlBar xmlns:mx="http://www.adobe.com/2006/mxml" left="10" right="10" bottom="10" xmlns:ui="com.rozdobudko.suvii.pysar.view.components.ui.*">
 	<mx:Script>
 		<![CDATA[
 			import com.rozdobudko.suvii.pysar.view.components.search.events.FindEvent;
@@ -33,7 +33,15 @@
 	<mx:CheckBox label="Match case" id="caseBox"/>
 	<mx:VRule height="20"/>
 	<mx:HBox width="100%" horizontalAlign="left">
-		<mx:TextInput text="Include" toolTip="Include" maxWidth="300" minWidth="50"  width="100%" id="includeBox"/>
-		<mx:TextInput text="Exclude" toolTip="Exclude" maxWidth="300" minWidth="50"  width="100%" id="excludeBox"/>
+		<ui:ClearTextInput id="includeBox" 
+			toolTip="Include" maxWidth="300" minWidth="50"  width="100%"
+			defultText="Include" 
+			defultTextColor="#CCCCCC"
+		/>
+		<ui:ClearTextInput id="excludeBox" 
+			toolTip="Exclude" maxWidth="300" minWidth="50"  width="100%"
+			defultText="Exclude" 
+			defultTextColor="#CCCCCC"
+		/>
 	</mx:HBox>
 </mx:ApplicationControlBar>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="init()">
+	<mx:Script>
+		<![CDATA[
+			private var a1:Array = [1, 2, 3];
+			
+			private var o1:Object = {
+										a:[0, 1, 2]
+									};
+			
+			private function init():void
+			{
+				var a2:Array = this.o1.a.concat();
+				a2.push(4);
+				trace(a2)
+				trace(this.o1.a);
+			}
+		]]>
+	</mx:Script>
+</mx:WindowedApplication>

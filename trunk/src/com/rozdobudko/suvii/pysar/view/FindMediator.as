@@ -11,10 +11,19 @@ package com.rozdobudko.suvii.pysar.view
 	import org.puremvc.interfaces.IMediator;
 	import org.puremvc.patterns.mediator.Mediator;
 	import org.puremvc.patterns.observer.Notification;
+	import org.puremvc.interfaces.INotification;
 	
 	public class FindMediator extends Mediator implements IMediator
 	{
-		public static const NAME:String = "FindMediator"; 
+		// ---------------- STATIC FIELDS ---------------- //
+
+		public static const NAME:String = "FindMediator";
+
+		// ---------------- PRIVATE FIELDS --------------- //
+		
+		private var _searchPhraseNotFound:Boolean;
+		
+		// ------------------ CONSTRUCTOR ---------------- //
 		
 		public function FindMediator(component:Object)
 		{
@@ -23,11 +32,29 @@ package com.rozdobudko.suvii.pysar.view
 			this.component.addEventListener(FindEvent.SEARCH, this.searchHandler);
 			
 			this.component.searchBox.addEventListener(Event.CHANGE, this.searchHandler);
+			this.component.includeBox.addEventListener(Event.CHANGE, this.includeHandler);
+			this.component.excludeBox.addEventListener(Event.CHANGE, this.excludeHandler);
 			this.component.nextBut.addEventListener(MouseEvent.CLICK, this.nextHandler);
 			this.component.previosBut.addEventListener(MouseEvent.CLICK, this.previosHandler);
 			this.component.hightlightingBut.addEventListener(MouseEvent.CLICK, this.hightlightHandler);
 		}
 		
+		override public function listNotificationInterests():Array
+		{
+			return [
+					PysarFacade.FIND_PHRASE
+				   ];
+		}
+		
+		override public function handleNotification(notification:INotification):void
+		{
+			switch(notification.getName())
+			{
+				case PysarFacade.FIND_PHRASE :
+					this.searchPhraseNotFound = !notification.getBody();
+				break;
+			}
+		}
 		
 		// ------------------- PureMVC ------------------- //
 		
@@ -73,16 +100,18 @@ package com.rozdobudko.suvii.pysar.view
 			return this.component.hightlightingBut.selected;
 		}
 		
-		public function get searchPhraseContain():Boolean
+		public function get searchPhraseNotFound():Boolean
 		{
-			return this._searchPhraseContain;
+			return this._searchPhraseNotFound;
 		}
 
-		public function set searchPhraseContain(value:Boolean):void
+		public function set searchPhraseNotFound(value:Boolean):void
 		{
-			this._searchPhraseContain = value;
+			this._searchPhraseNotFound = value;
 			
-			this.component.searchBox.setStyle("backgroundColor", this.searchPhraseContain ? 0x
+			this.component.searchBox.setStyle("backgroundColor", this.searchPhraseNotFound ? "0xFF6666" : "0xFFFFFF");
+			
+			this.component.searchBox.setStyle("color", this.searchPhraseNotFound ? "0xFFFFFF" : "0x0B333C");
 		}
 		
 		// ------------------- HANDLERS ------------------- //
@@ -93,15 +122,16 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function searchHandler(event:Event):void
 		{
-//			trace("FindMediator :: searchHandler");
-			
 			this.facade.notifyObservers(new Notification(PysarFacade.FIND_SEARCH));
 		}
 		
 		
 		private function nextHandler(event:Event):void
 		{
-//			trace("FindMediator :: nextHandler");
+			if(this.searchPhraseNotFound || this.searchPhrase == "")
+			{
+				return;
+			}
 			
 			this.facade.notifyObservers(new Notification(PysarFacade.FIND_NEXT));
 		}
@@ -109,7 +139,10 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function previosHandler(event:Event):void
 		{
-//			trace("FindMediator :: previosHandler");
+			if(this.searchPhraseNotFound || this.searchPhrase == "")
+			{
+				return;
+			}
 			
 			this.facade.notifyObservers(new Notification(PysarFacade.FIND_PREVIOS));
 		}
@@ -117,9 +150,19 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function hightlightHandler(event:Event):void
 		{
-//			trace("FindMediator :: hightlightHandler");
-			
 			this.facade.notifyObservers(new Notification(PysarFacade.FIND_HIGHTLIGHT));
+		}
+		
+
+		private function includeHandler(event:Event):void
+		{
+			this.sendNotification(PysarFacade.FIND_INCLUDE);
+		}
+
+
+		private function excludeHandler(event:Event):void
+		{
+			this.sendNotification(PysarFacade.FIND_EXCLUDE);
 		}
 	}
 }

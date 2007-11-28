@@ -10,6 +10,7 @@ package com.rozdobudko.suvii.pysar.model
 	import org.puremvc.interfaces.IProxy;
 	import org.puremvc.patterns.proxy.Proxy;
 	import mx.utils.UIDUtil;
+	import com.rozdobudko.suvii.pysar.PysarFacade;
 	
 	[Bindable("output")]
 	
@@ -22,38 +23,6 @@ package com.rozdobudko.suvii.pysar.model
 		public function OutputProxy()
 		{
 			super(NAME, new ArrayCollection());
-			
-			/**
-			 * Test
-			 */
-			this.addItem(new LogEntry(
-										"1",
-										0,
-										new LogEntryText("1.1", "TESTE"), 
-										new LogEntryText("1.2", "Test"), 
-										new LogEntryText("1.3", "Lorem")
-										));
-			this.addItem(new LogEntry(
-										"2",
-										0,
-										new LogEntryText("2.1", "TEST"), 
-										new LogEntryText("2.2", "test"), 
-										new LogEntryText("2.3", "Lorem ipsum")
-										));
-//			this.addItem(new LogEntry(
-//										0, 
-//										new LogEntryText("Lorem ipsum dolorem sit amet"), 
-//										new LogEntryText("test"), 
-//										new LogEntryText("Lorem")
-//										));
-//			this.addItem(new LogEntry(
-//										0, 
-//										new LogEntryText("Як умру то поховайте, мене на долині."), 
-//										new LogEntryText("test"), 
-//										new LogEntryText("Lorem")
-//										));
-			
-			this._cursor = this.entries.createCursor();
 		}
 		
 		// ------------------- PureMVC ------------------- //
@@ -73,11 +42,18 @@ package com.rozdobudko.suvii.pysar.model
 		public function set entries(data:ArrayCollection):void
 		{
 			this.setData(data);
+			
+			this.sendNotification(PysarFacade.OUTPUT_UPDATE);
 		}
 		
 		
 		public function get cursor():IViewCursor
 		{
+			if(!this._cursor)
+			{
+				this._cursor = this.entries.createCursor();
+			}
+			
 			return this._cursor;
 		}
 		
@@ -92,6 +68,11 @@ package com.rozdobudko.suvii.pysar.model
 		public function getItemAt(index:int):LogEntry
 		{
 			return this.entries.getItemAt(index) as LogEntry;
+		}
+		
+		public function resetCursor():void
+		{
+			this._cursor = this.entries.createCursor();
 		}
 	}
 }

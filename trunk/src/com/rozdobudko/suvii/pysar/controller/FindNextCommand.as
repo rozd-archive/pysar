@@ -27,13 +27,12 @@ package com.rozdobudko.suvii.pysar.controller
 		
 		override public function execute(notification:INotification):void
 		{
-			trace("FindNextCommand :: execute : "+notification);
+//			trace("FindNextCommand :: execute : "+notification);
 			
 			var outputProxy:OutputProxy = this.facade.retrieveProxy(OutputProxy.NAME) as OutputProxy;
 			var outputMediator:OutputMediator = this.facade.retrieveMediator(OutputMediator.NAME) as OutputMediator;
 			
 			var findProxy:FindProxy = this.facade.retrieveProxy(FindProxy.NAME) as FindProxy;
-			var findMediator:FindMediator = this.facade.retrieveMediator(FindMediator.NAME) as FindMediator;
 			
 			var cursor:IViewCursor = outputProxy.cursor;
 			
@@ -59,7 +58,7 @@ package com.rozdobudko.suvii.pysar.controller
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						outputMediator.table.dataProvider = outputProxy.entries;
+						this.sendNotification(PysarFacade.OUTPUT_UPDATE);
 						return;
 					}
 					entry.findData.cursor.moveNext();

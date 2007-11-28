@@ -7,6 +7,7 @@ package com.rozdobudko.suvii.pysar.controller
 	import org.puremvc.interfaces.ICommand;
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.command.SimpleCommand;
+	import com.rozdobudko.suvii.pysar.PysarFacade;
 	
 	public class DeployCommand extends SimpleCommand implements ICommand
 	{
@@ -22,6 +23,8 @@ package com.rozdobudko.suvii.pysar.controller
 			this.facade.registerMediator(new FindMediator(application.findModule));
 			this.facade.registerMediator(new OutputMediator(application.outputModule));
 			this.facade.registerMediator(new MenuMediator(application.menuModule));
+			
+			this.sendNotification(PysarFacade.TEMP);
 		}
 	}
 }
