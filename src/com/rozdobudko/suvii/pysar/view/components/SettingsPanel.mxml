@@ -210,9 +210,11 @@
 				>
 					<mx:HBox x="10" y="10" width="100%" verticalAlign="middle">
 						<mx:Label text="Set DataGrid columns:"/>
-						<mx:Button width="23" height="21" paddingLeft="11" paddingTop="2" click="showPopUp('customizingFields')">
-							<mx:icon>@Embed(source='../../../../../../assets/application_view_columns.png')</mx:icon>
-						</mx:Button>
+						<mx:Button 
+							width="23" height="21" paddingLeft="11" paddingTop="2"
+							icon="@Embed(source='../../../../../../assets/application_view_columns.png')" 
+							click="showPopUp('customizingFields')"
+						/>
 					</mx:HBox>
 				</sephiroth:LabelledBox>
 				<sephiroth:LabelledBox 

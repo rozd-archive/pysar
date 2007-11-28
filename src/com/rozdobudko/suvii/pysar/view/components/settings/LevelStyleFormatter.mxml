@@ -17,8 +17,6 @@
 			private var _boldIconURI:Object;
 			private var _italicIconURI:Object;
 			private var _fontIconURI:Object;
-			private var _selectedFont:Array;
-			private var _selectedSize:uint;
 		
 			[Bindable]
 			public function set text(value:String):void
@@ -103,29 +101,6 @@
 				return this.output.styleName as CSSStyleDeclaration;
 			}
 			
-			
-			[Bindable]
-			public function get selectedFont():Array
-			{
-				return this._selectedFont;
-			}
-			
-			public function set selectedFont(value:Array):void
-			{
-				this._selectedFont = value;
-			}
-			
-			
-			[Bindable]
-			public function get selectedSize():uint
-			{
-				return this._selectedSize;
-			}
-			
-			public function set selectedSize(value:uint):void
-			{
-				this._selectedSize = value;
-			}
 		]]>
 	</mx:Script>
 
@@ -136,24 +111,25 @@
 			text="{this.text}" 
 		/>
 		<mx:ColorPicker id="colorPicker"
-			change="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_COLOR));"
+			change="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_COLOR, true));"
 		/>
 		<mx:Button id="boldBut"
 			width="22" height="22"
 			toggle="true" 
 			icon="{this.boldIconURI}"
-			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_BOLD));"
+			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_BOLD, true));"
 		/>
 		<mx:Button id="italicBut"
 			width="22" height="22"
 			toggle="true"  
 			icon="{this.italicIconURI}"
-			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_ITALIC));"
+			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_ITALIC, true));"
 		/>
 		<mx:Button id="fontBut"
 			width="22" height="22"
 			icon="{this.fontIconURI}"
-			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CLICK_FONT_BUTTON));"
+			enabled="false"
+			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, true));"
 		/>
 	</mx:HBox>
 </mx:VBox>

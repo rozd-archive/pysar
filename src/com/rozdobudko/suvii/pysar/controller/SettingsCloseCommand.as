@@ -8,6 +8,7 @@ package com.rozdobudko.suvii.pysar.controller
 	import org.puremvc.interfaces.ICommand;
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.command.SimpleCommand;
+	import mx.core.IFlexDisplayObject;
 
 	public class SettingsCloseCommand extends SimpleCommand implements ICommand
 	{
@@ -18,14 +19,13 @@ package com.rozdobudko.suvii.pysar.controller
 		
 		override public function execute(notification:INotification):void
 		{
-			var settingsProxy:SettingsProxy = this.facade.retrieveProxy(SettingsProxy.NAME) as SettingsProxy;
+			var settingsMediator:SettingsMediator = this.facade.retrieveMediator(SettingsMediator.NAME) as SettingsMediator;
 			
-			if(settingsProxy.popUp)
+			if(settingsMediator)
 			{
-				PopUpManager.removePopUp(settingsProxy.popUp);
-				settingsProxy.popUp = null;
+				PopUpManager.removePopUp(settingsMediator.getViewComponent() as IFlexDisplayObject);
 				
-				this.facade.retrieveMediator(SettingsMediator.NAME);
+				this.facade.removeMediator(SettingsMediator.NAME);
 			}
 		}
 		

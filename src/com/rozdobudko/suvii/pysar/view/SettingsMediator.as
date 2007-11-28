@@ -2,7 +2,6 @@ package com.rozdobudko.suvii.pysar.view
 {
 	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import com.rozdobudko.suvii.pysar.Settings;
-	import com.rozdobudko.suvii.pysar.model.SelectFontProxy;
 	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
 	import com.rozdobudko.suvii.pysar.view.components.SettingsPanel;
 	import com.rozdobudko.suvii.pysar.view.components.settings.LevelStyleFormatter;
@@ -17,6 +16,7 @@ package com.rozdobudko.suvii.pysar.view
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.mediator.Mediator;
 	import org.puremvc.patterns.observer.Notification;
+	import flash.utils.Dictionary;
 
 	public class SettingsMediator extends Mediator implements IMediator
 	{
@@ -34,54 +34,28 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private var levels:Array;
 		
+		/**
+		 * Collection of styles from <code>SettingsProxy</code>, all elements is CSSStyleDeclaration type.
+		 * As a key using instance of <code>LevelStyleFormatterEvent</code>.
+		 */
+		private var stylesMap:Dictionary;
+		
 		// ----------------- CONSTRUCTOR ----------------- //
 		
 		public function SettingsMediator(viewComponent:Object=null)
 		{
 			super(viewComponent);
-			
-			this.component.container.creationPolicy
-			
+				
+				// main
+				
 			this.component.cancelBut.addEventListener(MouseEvent.CLICK, this.cancelClickHandler);
 			this.component.okBut.addEventListener(MouseEvent.CLICK, this.okClickHandler);
 			
-			this.component.levelsRadioGroup.addEventListener(ItemClickEvent.ITEM_CLICK, this.levelGroupClickHandler);
-			
-			this.component.debugBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
-			this.component.infoBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
-			this.component.warningBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
-			this.component.errorBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
-			this.component.fatalBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
-			
-			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
-			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
-			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
-			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
-			this.component.debugStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
-			
-			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
-			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
-			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
-			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
-			this.component.infoStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
-			
-			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
-			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
-			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
-			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
-			this.component.warningStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
-			
-			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
-			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
-			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
-			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
-			this.component.errorStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
-			
-			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleFormatterChangeFontHandler);
-			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleFormatterChangeColorHandler);
-			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleFormatterChangeBoldHandler);
-			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleFormatterChangeItalicHandler);
-			this.component.fatalStyleFormatter.addEventListener(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, this.styleFormatterClickFontButtonHandler);
+				// levels 
+				
+			this.levelsRadioGroup = this.component.levelsRadioGroup;
+								  
+			this.levelsRadioGroup.addEventListener(ItemClickEvent.ITEM_CLICK, this.levelGroupClickHandler);
 			
 			this.levelsBoxGroup = [
 									this.component.debugBox, 
@@ -90,15 +64,35 @@ package com.rozdobudko.suvii.pysar.view
 									this.component.errorBox, 
 									this.component.fatalBox
 								  ];
-								  
-			this.levelsRadioGroup = this.component.levelsRadioGroup;
+			
+			this.component.debugBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
+			this.component.infoBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
+			this.component.warningBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
+			this.component.errorBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
+			this.component.fatalBox.addEventListener(MouseEvent.CLICK, this.levelBoxClickHandler);
 			
 			this.icons = [];
-			this.icons[Settings.LEVEL_DEBUG] = this.component.debugIconImage;
-			this.icons[Settings.LEVEL_INFO] = this.component.infoIconImage;
-			this.icons[Settings.LEVEL_WARNING] = this.component.warningIconImage;
-			this.icons[Settings.LEVEL_ERROR] = this.component.errorIconImage;
-			this.icons[Settings.LEVEL_FATAL] = this.component.fatalIconImage;
+			this.icons[Settings.LEVEL_DEBUG] =		this.component.debugIconImage;
+			this.icons[Settings.LEVEL_INFO] =		this.component.infoIconImage;
+			this.icons[Settings.LEVEL_WARNING] =	this.component.warningIconImage;
+			this.icons[Settings.LEVEL_ERROR] =		this.component.errorIconImage;
+			this.icons[Settings.LEVEL_FATAL] =		this.component.fatalIconImage;
+			
+				// styles
+			
+			this.component.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleChangeFontHandler);
+			this.component.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleChangeColorHandler);
+			this.component.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleChangeBoldHandler);
+			this.component.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleChangeItalicHandler);
+			
+			this.stylesMap = new Dictionary();
+			this.stylesMap[this.component.debugStyleFormatter] =	this.proxy.debugStyle;
+			this.stylesMap[this.component.infoStyleFormatter] =		this.proxy.infoStyle;
+			this.stylesMap[this.component.warningStyleFormatter] =	this.proxy.warningStyle;
+			this.stylesMap[this.component.errorStyleFormatter] =	this.proxy.errorStyle;
+			this.stylesMap[this.component.fatalStyleFormatter] =	this.proxy.fatalStyle;
+			
+				// init
 			
 			this.init();
 		}
@@ -120,54 +114,6 @@ package com.rozdobudko.suvii.pysar.view
 			return this.facade.retrieveProxy(SettingsProxy.NAME) as SettingsProxy;
 		}
 		
-		override public function listNotificationInterests():Array
-		{
-			return [
-					PysarFacade.SETTINGS_HIDE_FONT_PANEL
-				   ];
-		}
-		
-		override public function handleNotification(notification:INotification):void
-		{
-			switch(notification.getName())
-			{
-				case PysarFacade.SETTINGS_HIDE_FONT_PANEL :
-					
-					var formatter:LevelStyleFormatter = notification.getBody() as LevelStyleFormatter;
-					var proxy:SelectFontProxy = this.facade.retrieveProxy(SelectFontProxy.NAME) as SelectFontProxy;
-					
-					switch(formatter)
-					{
-						case this.component.debugStyleFormatter :
-							this.proxy.debugStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
-							this.proxy.debugStyle.setStyle("fontSize", proxy.selectedSize);
-							formatter.style = this.proxy.debugStyle;
-						break;
-						case this.component.infoStyleFormatter :
-							this.proxy.infoStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
-							this.proxy.infoStyle.setStyle("fontSize", proxy.selectedSize);
-							formatter.style = this.proxy.infoStyle;
-						break;
-						case this.component.warningStyleFormatter :
-							this.proxy.warningStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
-							this.proxy.warningStyle.setStyle("fontSize", proxy.selectedSize);
-							formatter.style = this.proxy.warningStyle;
-						break;
-						case this.component.errorStyleFormatter :
-							this.proxy.errorStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
-							this.proxy.errorStyle.setStyle("fontSize", proxy.selectedSize);
-							formatter.style = this.proxy.errorStyle;
-						break;
-						case this.component.fatalStyleFormatter :
-							this.proxy.fatalStyle.setStyle("fontFamily", proxy.selectedFont.fontName);
-							this.proxy.fatalStyle.setStyle("fontSize", proxy.selectedSize);
-							formatter.style = this.proxy.fatalStyle;
-						break;
-					}
-				
-				break;
-			}
-		}
 		// -------------------- FIEDS -------------------- //
 		
 		
@@ -176,14 +122,20 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function init():void
 		{
-			this.levels = this.proxy.levels || [];
+			this.levels = this.proxy.levels ? this.proxy.levels.concat() : [];
+			
+			this.component.debugStyleFormatter.style =		this.proxy.debugStyle;
+			this.component.infoStyleFormatter.style =		this.proxy.infoStyle;
+			this.component.warningStyleFormatter.style =	this.proxy.warningStyle;
+			this.component.errorStyleFormatter.style =		this.proxy.errorStyle;
+			this.component.fatalStyleFormatter.style =		this.proxy.fatalStyle;
 			
 			this.updateLevelsIcons();
 		}
 		
 		private function save():void
 		{
-			this.proxy.levels = this.levels;
+			this.proxy.levels = this.levels.concat();
 		}
 		
 		private function updateLevelsIcons():void
@@ -259,107 +211,33 @@ package com.rozdobudko.suvii.pysar.view
 		}
 	
 	
-		private function styleFormatterChangeFontHandler(event:LevelStyleFormatterEvent):void
+		private function styleChangeFontHandler(event:LevelStyleFormatterEvent):void
 		{
-			trace("SettingsMediator :: styleFormatterChangeFontHandler");
+			trace("SettingsMediator :: styleChangeFontHandler");
 		}
 		
 		
-		private function styleFormatterChangeColorHandler(event:LevelStyleFormatterEvent):void
+		private function styleChangeColorHandler(event:LevelStyleFormatterEvent):void
 		{
-			trace("SettingsMediator :: styleFormatterChangeColorHandler");
+//			trace("SettingsMediator :: styleChangeColorHandler");
 			
-			switch(event.target)
-			{
-				case this.component.debugStyleFormatter :
-					this.proxy.debugStyle.setStyle("color", event.target.color.toString());
-					event.target.style = this.proxy.debugStyle;
-				break;
-				case this.component.infoStyleFormatter :
-					this.proxy.infoStyle.setStyle("color", event.target.color.toString());
-					event.target.style = this.proxy.infoStyle;
-				break;
-				case this.component.warningStyleFormatter :
-					this.proxy.warningStyle.setStyle("color", event.target.color.toString());
-					event.target.style = this.proxy.warningStyle;
-				break;
-				case this.component.errorStyleFormatter :
-					this.proxy.errorStyle.setStyle("color", event.target.color.toString());
-					event.target.style = this.proxy.errorStyle;
-				break;
-				case this.component.fatalStyleFormatter :
-					this.proxy.fatalStyle.setStyle("color", event.target.color.toString());
-					event.target.style = this.proxy.fatalStyle;
-				break;
-			}
+			this.stylesMap[event.target].setStyle("color", event.target.color.toString());
 		}
 		
 		
-		private function styleFormatterChangeBoldHandler(event:LevelStyleFormatterEvent):void
+		private function styleChangeBoldHandler(event:LevelStyleFormatterEvent):void
 		{
-			trace("SettingsMediator :: styleFormatterChangeBoldHandler");
+//			trace("SettingsMediator :: styleChangeBoldHandler");
 			
-			switch(event.target)
-			{
-				case this.component.debugStyleFormatter :
-					this.proxy.debugStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
-					event.target.style = this.proxy.debugStyle;
-				break;
-				case this.component.infoStyleFormatter :
-					this.proxy.infoStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
-					event.target.style = this.proxy.infoStyle;
-				break;
-				case this.component.warningStyleFormatter :
-					this.proxy.warningStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
-					event.target.style = this.proxy.warningStyle;
-				break;
-				case this.component.errorStyleFormatter :
-					this.proxy.errorStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
-					event.target.style = this.proxy.errorStyle;
-				break;
-				case this.component.fatalStyleFormatter :
-					this.proxy.fatalStyle.setStyle("fontWeight", event.target.bold ? "bold" : "normal");
-					event.target.style = this.proxy.fatalStyle;
-				break;
-			}
+			this.stylesMap[event.target].setStyle("fontWeight", event.target.bold ? "bold" : "normal");
 		}
 		
 		
-		private function styleFormatterChangeItalicHandler(event:LevelStyleFormatterEvent):void
+		private function styleChangeItalicHandler(event:LevelStyleFormatterEvent):void
 		{
-			trace("SettingsMediator :: styleFormatterChangeItalicHandler");
+//			trace("SettingsMediator :: styleChangeItalicHandler");
 			
-			switch(event.target)
-			{
-				case this.component.debugStyleFormatter :
-					this.proxy.debugStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
-					event.target.style = this.proxy.debugStyle;
-				break;
-				case this.component.infoStyleFormatter :
-					this.proxy.infoStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
-					event.target.style = this.proxy.infoStyle;
-				break;
-				case this.component.warningStyleFormatter :
-					this.proxy.warningStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
-					event.target.style = this.proxy.warningStyle;
-				break;
-				case this.component.errorStyleFormatter :
-					this.proxy.errorStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
-					event.target.style = this.proxy.errorStyle;
-				break;
-				case this.component.fatalStyleFormatter :
-					this.proxy.fatalStyle.setStyle("fontStyle", event.target.italic ? "italic" : "normal");
-					event.target.style = this.proxy.fatalStyle;
-				break;
-			}
-		}
-		
-		
-		private function styleFormatterClickFontButtonHandler(event:LevelStyleFormatterEvent):void
-		{
-			trace("SettingsMediator :: styleFormatterClickFontButtonHandler");
-			
-			this.sendNotification(PysarFacade.SETTINGS_SHOW_FONT_PANEL, event.target);
+			this.stylesMap[event.target].setStyle("fontStyle", event.target.italic ? "italic" : "normal");
 		}
 	}
 }

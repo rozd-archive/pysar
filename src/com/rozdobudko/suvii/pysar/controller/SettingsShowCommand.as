@@ -22,12 +22,12 @@ package com.rozdobudko.suvii.pysar.controller
 		{
 			var settingsProxy:SettingsProxy = this.facade.retrieveProxy(SettingsProxy.NAME) as SettingsProxy;
 			
-			if(!settingsProxy.popUp)
+			if(!this.facade.retrieveMediator(SettingsMediator.NAME))
 			{
-				settingsProxy.popUp = PopUpManager.createPopUp(PysarFacade.getInstance().application, SettingsPanel) as SettingsPanel;
-				PopUpManager.centerPopUp(settingsProxy.popUp);
+				var panel:SettingsPanel = PopUpManager.createPopUp(PysarFacade.getInstance().application, SettingsPanel) as SettingsPanel;
+				PopUpManager.centerPopUp(panel);
 				
-				this.facade.registerMediator(new SettingsMediator(settingsProxy.popUp));
+				this.facade.registerMediator(new SettingsMediator(panel));
 			}
 		}
 	}
