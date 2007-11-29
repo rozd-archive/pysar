@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:text="flash.text.*" horizontalAlign="right" verticalGap="0">
-	<mx:Metadata>
-		[Event(name="clickFontButton", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
-		[Event(name="changeFont", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
-		[Event(name="changeColor", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
-		[Event(name="changeBold", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
-		[Event(name="changeItalic", type="com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent")]
-	</mx:Metadata>
 	<mx:Script>
 		<![CDATA[
 			import com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent;
 			import mx.events.ColorPickerEvent;
-		
+			
+			// -------------- PRIVATE VARIABLES -------------- //
+			
 			private var _text:String;
+			
 			private var _levelIconURI:Object;
+			
 			private var _boldIconURI:Object;
+			
 			private var _italicIconURI:Object;
+			
 			private var _fontIconURI:Object;
-		
+			
+			private var _style:CSSStyleDeclaration;
+			
+			// -------------------- FIEDS -------------------- //
+			
 			[Bindable]
 			public function set text(value:String):void
 			{
@@ -72,25 +75,6 @@
 				return this._fontIconURI;
 			}
 			
-			
-			public function get color():uint
-			{
-				return this.colorPicker.selectedColor;
-			}
-			
-			
-			public function get bold():Boolean
-			{
-				return this.boldBut.selected;
-			}
-
-
-			public function get italic():Boolean
-			{
-				return this.italicBut.selected;
-			}
-			
-			
 			public function set style(value:CSSStyleDeclaration):void
 			{
 				this.output.styleName = value;
@@ -101,6 +85,32 @@
 				return this.output.styleName as CSSStyleDeclaration;
 			}
 			
+			// ------------------  HANDLERS ------------------- //
+			
+			private function changeColorHandler(event:ColorPickerEvent):void
+			{
+				this.style.setStyle("color", this.colorPicker.selectedColor);
+			}
+			
+			
+			private function changeBoldHandler(event:MouseEvent):void
+			{
+				this.style.setStyle("fontWeight", this.boldBut.selected ? "bold" : "normal");
+			}
+			
+			
+			private function changeItalicHandler(event:MouseEvent):void
+			{
+				this.style.setStyle("fontStyle", this.italicBut.selected ? "italic" : "normal");
+			}
+			
+			
+			private function changeFontHandler(event:MouseEvent):void
+			{
+				/**
+				 * TODO: Coming soon.
+				 */
+			}
 		]]>
 	</mx:Script>
 
@@ -111,25 +121,25 @@
 			text="{this.text}" 
 		/>
 		<mx:ColorPicker id="colorPicker"
-			change="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_COLOR, true));"
+			change="this.changeColorHandler(event);"
 		/>
 		<mx:Button id="boldBut"
 			width="22" height="22"
 			toggle="true" 
 			icon="{this.boldIconURI}"
-			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_BOLD, true));"
+			click="this.changeBoldHandler(event);"
 		/>
 		<mx:Button id="italicBut"
 			width="22" height="22"
 			toggle="true"  
 			icon="{this.italicIconURI}"
-			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CHANGE_ITALIC, true));"
+			click="this.changeItalicHandler(event);"
 		/>
 		<mx:Button id="fontBut"
 			width="22" height="22"
 			icon="{this.fontIconURI}"
 			enabled="false"
-			click="this.dispatchEvent(new LevelStyleFormatterEvent(LevelStyleFormatterEvent.CLICK_FONT_BUTTON, true));"
+			click="this.changeFontHandler(event);"
 		/>
 	</mx:HBox>
 </mx:VBox>

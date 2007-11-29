@@ -1,20 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" creationComplete="init()">
-	<mx:Script>
-		<![CDATA[
-			private var a1:Array = [1, 2, 3];
-			
-			private var o1:Object = {
-										a:[0, 1, 2]
-									};
-			
-			private function init():void
-			{
-				var a2:Array = this.o1.a.concat();
-				a2.push(4);
-				trace(a2)
-				trace(this.o1.a);
-			}
-		]]>
-	</mx:Script>
+<?xml version="1.0"?> 
+<!-- styles/StyleDeclarationClassSelector.mxml -->
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="initApp()">
+  <mx:Script><![CDATA[
+  	import com.rozdobudko.suvii.utils.ObjectUtils; 
+     import mx.styles.StyleManager;
+     
+     private var myDynStyle:CSSStyleDeclaration;
+
+     private function initApp():void {
+        myDynStyle = new CSSStyleDeclaration('myDynStyle');
+
+        myDynStyle.setStyle('color', 'blue');
+        myDynStyle.setStyle('fontFamily', 'georgia');
+        myDynStyle.setStyle('themeColor', 'green');
+        myDynStyle.setStyle('fontSize', 24);
+     
+        // Apply the new style using a class selector. 
+        // This maintains the values of the existing style 
+        // properties that are not over-ridden by the new 
+        // CSSStyleDeclaration.
+        StyleManager.setStyleDeclaration(".myButtonStyle", 
+            myDynStyle, true);
+        
+        // You can also apply the new style by setting the 
+        // value of the  styleName property in ActionScript.
+        myOtherButton.styleName=myDynStyle;
+        
+        var style:CSSStyleDeclaration = ObjectUtils.copy(myDynStyle) as CSSStyleDeclaration;
+        trace(style.getStyle('fontSize'));
+     }
+  ]]></mx:Script>
+
+  <mx:Button id="myButton"
+        label="Click Me" 
+        styleName="myButtonStyle"
+  />
+
+  <mx:Button id="myOtherButton" label="Click Me"/>
+
 </mx:WindowedApplication>

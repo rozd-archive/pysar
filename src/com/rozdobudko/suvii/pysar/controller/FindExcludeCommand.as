@@ -12,7 +12,7 @@ package com.rozdobudko.suvii.pysar.controller
 		
 		override protected function initializeMacroCommand():void
 		{
-			this.addSubCommand(FindMaskCommand);
+			this.addSubCommand(FilteringCommand);
 		}
 		
 	}
