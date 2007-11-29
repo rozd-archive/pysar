@@ -16,7 +16,7 @@ package com.rozdobudko.suvii.pysar.controller
 		 */
 		override public function execute(note:INotification):void	
 		{
-			trace("DeployCommand :: execute");
+//			trace("DeployCommand :: execute");
 			
 			var application:Pysar = note.getBody() as Pysar;
 			
