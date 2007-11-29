@@ -1,5 +1,11 @@
 package com.rozdobudko.suvii.pysar.model.data
 {
+	import mx.styles.CSSStyleDeclaration;
+	import mx.formatters.SwitchSymbolFormatter;
+	import com.rozdobudko.suvii.pysar.Settings;
+	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
+	import com.rozdobudko.suvii.pysar.PysarFacade;
+	
 	public class LogEntry
 	{
 		private var id:String;
@@ -25,6 +31,9 @@ package com.rozdobudko.suvii.pysar.model.data
 		
 		// -------------------- FIEDS -------------------- //
 		
+		/**
+		 * 
+		 */
 		public function get findData():LogEntryFindData
 		{
 			return this._findData;
@@ -33,6 +42,35 @@ package com.rozdobudko.suvii.pysar.model.data
 		public function set findData(value:LogEntryFindData):void
 		{
 			this._findData = value;
+		}
+		
+		/**
+		 * Style of the output DataGrid and Text components.
+		 */
+		public function get style():CSSStyleDeclaration
+		{
+			var settingsProxy:SettingsProxy = PysarFacade.getInstance().retrieveProxy(SettingsProxy.NAME) as SettingsProxy;
+			
+			switch(this.level)
+			{
+				case Settings.LEVEL_DEBUG :
+					return settingsProxy.debugStyle;
+				break;
+				case Settings.LEVEL_INFO :
+					return settingsProxy.infoStyle;
+				break;
+				case Settings.LEVEL_WARNING :
+					return settingsProxy.warningStyle;
+				break;
+				case Settings.LEVEL_ERROR :
+					return settingsProxy.errorStyle;
+				break;
+				case Settings.LEVEL_FATAL :
+					return settingsProxy.fatalStyle;
+				break;
+			}
+			
+			return null;
 		}
 		
 		// ------------------- METHODS ------------------- //

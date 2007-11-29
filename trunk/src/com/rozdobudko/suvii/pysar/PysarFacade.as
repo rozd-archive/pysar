@@ -25,6 +25,7 @@ package com.rozdobudko.suvii.pysar
 	import com.rozdobudko.suvii.pysar.controller.FindIncludeCommnad;
 	import com.rozdobudko.suvii.pysar.controller.TempCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindExcludeCommand;
+	import com.rozdobudko.suvii.pysar.controller.SettingsChangeCommand;
 	
 	public class PysarFacade extends Facade implements IFacade
 	{
@@ -56,6 +57,7 @@ package com.rozdobudko.suvii.pysar
 
 		public static const SETTINGS_SHOW:String			= "settingsShow";
 		public static const SETTINGS_CLOSE:String			= "settingsClose";
+		public static const SETTINGS_CHANGE:String			= "settingsChange";
 		
 		// ----------------- PRIVATE FIELDS ---------------- //
 		
@@ -115,6 +117,7 @@ package com.rozdobudko.suvii.pysar
 			this.registerCommand(PysarFacade.FIND_EXCLUDE, FindExcludeCommand);
 			this.registerCommand(PysarFacade.SETTINGS_SHOW, SettingsShowCommand);
 			this.registerCommand(PysarFacade.SETTINGS_CLOSE, SettingsCloseCommand);
+			this.registerCommand(PysarFacade.SETTINGS_CHANGE, SettingsChangeCommand);
 		}
 		
 		

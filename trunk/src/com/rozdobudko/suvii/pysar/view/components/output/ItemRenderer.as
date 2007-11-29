@@ -1,18 +1,11 @@
 package com.rozdobudko.suvii.pysar.view.components.output
 {
 	import com.rozdobudko.suvii.pysar.model.data.LogEntry;
-	import com.rozdobudko.suvii.pysar.model.data.LogEntryFindDataRange;
 	import com.rozdobudko.suvii.pysar.model.data.LogEntryText;
-	
-	import flash.text.TextFormat;
 	
 	import mx.controls.dataGridClasses.DataGridItemRenderer;
 	import mx.controls.dataGridClasses.DataGridListData;
 	import mx.controls.listClasses.IListItemRenderer;
-	import mx.formatters.SwitchSymbolFormatter;
-	import com.rozdobudko.suvii.pysar.Settings;
-	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
-	import com.rozdobudko.suvii.pysar.PysarFacade;
 
 	public class ItemRenderer extends DataGridItemRenderer implements IListItemRenderer
 	{
@@ -25,8 +18,21 @@ package com.rozdobudko.suvii.pysar.view.components.output
 		
 		// -------------------- FIEDS -------------------- //
 		
+		override public function get data():Object
+		{
+			return super.data;
+		}
 
-
+		override public function set data(value:Object):void
+		{
+			super.data = value;
+		}
+		
+		public function get entry():LogEntry
+		{
+			return this.data as LogEntry;
+		}
+		
 		// ------------------- METHODS ------------------- //
 		
 		override public function validateProperties():void
@@ -45,10 +51,10 @@ package com.rozdobudko.suvii.pysar.view.components.output
 			
 			this.text = logText.label;
 			
-			var beginIndex:int = LogEntry(this.data).findData.beginIndex;
-			var endIndex:int = LogEntry(this.data).findData.endIndex;
+			var beginIndex:int = this.entry.findData.beginIndex;
+			var endIndex:int = this.entry.findData.endIndex;
 			
-			if(beginIndex == endIndex || LogEntry(this.data).findData.cursor.current !== logText)
+			if(beginIndex == endIndex || this.entry.findData.cursor.current !== logText)
 			{
 				this.setSelection(0, 0);
 			}
@@ -57,19 +63,12 @@ package com.rozdobudko.suvii.pysar.view.components.output
 				this.setSelection(beginIndex, endIndex);
 			}
 			
-			var settingsProxy:SettingsProxy = PysarFacade.getInstance().retrieveProxy(SettingsProxy.NAME) as SettingsProxy;
-			
-			switch(LogEntry(this.data).level)
-			{
-				case Settings.LEVEL_DEBUG :
-					this.setStyle("fontWeight", "bold");
-				break;
-			}
+			this.styleName = this.entry.style;
 		}
 		override public function validateNow():void
 		{
 //			trace("ItemRenderer :: validateNow");
-//			super.validateNow();
+			super.validateNow();
 		}
 		
 	}

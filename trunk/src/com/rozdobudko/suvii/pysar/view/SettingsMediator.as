@@ -4,19 +4,20 @@ package com.rozdobudko.suvii.pysar.view
 	import com.rozdobudko.suvii.pysar.Settings;
 	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
 	import com.rozdobudko.suvii.pysar.view.components.SettingsPanel;
-	import com.rozdobudko.suvii.pysar.view.components.settings.LevelStyleFormatter;
 	import com.rozdobudko.suvii.pysar.view.events.LevelStyleFormatterEvent;
 	
 	import flash.events.MouseEvent;
+	import flash.utils.Dictionary;
 	
 	import mx.controls.RadioButtonGroup;
 	import mx.events.ItemClickEvent;
 	
 	import org.puremvc.interfaces.IMediator;
-	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.mediator.Mediator;
 	import org.puremvc.patterns.observer.Notification;
-	import flash.utils.Dictionary;
+	import mx.styles.CSSStyleDeclaration;
+	
+	import com.rozdobudko.suvii.utils.ObjectUtils;
 
 	public class SettingsMediator extends Mediator implements IMediator
 	{
@@ -78,22 +79,6 @@ package com.rozdobudko.suvii.pysar.view
 			this.icons[Settings.LEVEL_ERROR] =		this.component.errorIconImage;
 			this.icons[Settings.LEVEL_FATAL] =		this.component.fatalIconImage;
 			
-				// styles
-			
-			this.component.addEventListener(LevelStyleFormatterEvent.CHANGE_FONT, this.styleChangeFontHandler);
-			this.component.addEventListener(LevelStyleFormatterEvent.CHANGE_COLOR, this.styleChangeColorHandler);
-			this.component.addEventListener(LevelStyleFormatterEvent.CHANGE_BOLD, this.styleChangeBoldHandler);
-			this.component.addEventListener(LevelStyleFormatterEvent.CHANGE_ITALIC, this.styleChangeItalicHandler);
-			
-			this.stylesMap = new Dictionary();
-			this.stylesMap[this.component.debugStyleFormatter] =	this.proxy.debugStyle;
-			this.stylesMap[this.component.infoStyleFormatter] =		this.proxy.infoStyle;
-			this.stylesMap[this.component.warningStyleFormatter] =	this.proxy.warningStyle;
-			this.stylesMap[this.component.errorStyleFormatter] =	this.proxy.errorStyle;
-			this.stylesMap[this.component.fatalStyleFormatter] =	this.proxy.fatalStyle;
-			
-				// init
-			
 			this.init();
 		}
 		
@@ -124,11 +109,11 @@ package com.rozdobudko.suvii.pysar.view
 		{
 			this.levels = this.proxy.levels ? this.proxy.levels.concat() : [];
 			
-			this.component.debugStyleFormatter.style =		this.proxy.debugStyle;
-			this.component.infoStyleFormatter.style =		this.proxy.infoStyle;
-			this.component.warningStyleFormatter.style =	this.proxy.warningStyle;
-			this.component.errorStyleFormatter.style =		this.proxy.errorStyle;
-			this.component.fatalStyleFormatter.style =		this.proxy.fatalStyle;
+			this.component.debugStyleFormatter.style =		this.cloneStyle(this.proxy.debugStyle);
+			this.component.infoStyleFormatter.style =		this.cloneStyle(this.proxy.infoStyle);
+			this.component.warningStyleFormatter.style =	this.cloneStyle(this.proxy.warningStyle);
+			this.component.errorStyleFormatter.style =		this.cloneStyle(this.proxy.errorStyle);
+			this.component.fatalStyleFormatter.style =		this.cloneStyle(this.proxy.fatalStyle);
 			
 			this.updateLevelsIcons();
 		}
@@ -136,6 +121,12 @@ package com.rozdobudko.suvii.pysar.view
 		private function save():void
 		{
 			this.proxy.levels = this.levels.concat();
+			
+			this.copyStyle(this.component.debugStyleFormatter.style, this.proxy.debugStyle);
+			this.copyStyle(this.component.infoStyleFormatter.style, this.proxy.infoStyle);
+			this.copyStyle(this.component.warningStyleFormatter.style, this.proxy.warningStyle);
+			this.copyStyle(this.component.errorStyleFormatter.style, this.proxy.errorStyle);
+			this.copyStyle(this.component.fatalStyleFormatter.style, this.proxy.fatalStyle);
 		}
 		
 		private function updateLevelsIcons():void
@@ -161,6 +152,36 @@ package com.rozdobudko.suvii.pysar.view
 			}
 		}
 		
+		/**
+		 * @private
+		 * Copy of the all styles from one style object to other.
+		 * @param host The source object.
+		 * @param site The object that get the styles.
+		 */
+		private function copyStyle(host:CSSStyleDeclaration, site:CSSStyleDeclaration):void
+		{
+			site.setStyle("color", host.getStyle("color")); 
+			site.setStyle("fontFamily", host.getStyle("fontFamily")); 
+			site.setStyle("fontStyle", host.getStyle("fontStyle")); 
+			site.setStyle("fontWeight", host.getStyle("fontWeight")); 
+			site.setStyle("paddingLeft", host.getStyle("paddingLeft")); 
+			site.setStyle("paddingRight", host.getStyle("paddingRight"));
+		}
+		
+		/**
+		 * @private
+		 * Clone of the CSSStyleDeclaration style object.
+		 * @param The clonable object.
+		 */
+		private function cloneStyle(style:CSSStyleDeclaration):CSSStyleDeclaration
+		{
+			var clone:CSSStyleDeclaration = new CSSStyleDeclaration();
+			
+			this.copyStyle(style, clone);
+			
+			return clone;
+		}
+		
 		// ------------------- HANDLERS ------------------- //
 		
 		
@@ -177,7 +198,7 @@ package com.rozdobudko.suvii.pysar.view
 		{
 			this.save();
 			
-			this.facade.notifyObservers(new Notification(PysarFacade.SETTINGS_CLOSE));
+			this.facade.notifyObservers(new Notification(PysarFacade.SETTINGS_CHANGE));
 		}
 		
 		
@@ -210,34 +231,5 @@ package com.rozdobudko.suvii.pysar.view
 			this.updateLevelsIcons();
 		}
 	
-	
-		private function styleChangeFontHandler(event:LevelStyleFormatterEvent):void
-		{
-			trace("SettingsMediator :: styleChangeFontHandler");
-		}
-		
-		
-		private function styleChangeColorHandler(event:LevelStyleFormatterEvent):void
-		{
-//			trace("SettingsMediator :: styleChangeColorHandler");
-			
-			this.stylesMap[event.target].setStyle("color", event.target.color.toString());
-		}
-		
-		
-		private function styleChangeBoldHandler(event:LevelStyleFormatterEvent):void
-		{
-//			trace("SettingsMediator :: styleChangeBoldHandler");
-			
-			this.stylesMap[event.target].setStyle("fontWeight", event.target.bold ? "bold" : "normal");
-		}
-		
-		
-		private function styleChangeItalicHandler(event:LevelStyleFormatterEvent):void
-		{
-//			trace("SettingsMediator :: styleChangeItalicHandler");
-			
-			this.stylesMap[event.target].setStyle("fontStyle", event.target.italic ? "italic" : "normal");
-		}
 	}
 }

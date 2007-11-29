@@ -8,6 +8,7 @@ package com.rozdobudko.suvii.pysar.model
 	
 	import org.puremvc.interfaces.IProxy;
 	import org.puremvc.patterns.proxy.Proxy;
+	import com.rozdobudko.suvii.pysar.Settings;
 
 	public class SettingsProxy extends Proxy implements IProxy
 	{
@@ -100,6 +101,11 @@ package com.rozdobudko.suvii.pysar.model
 			return this._debugStyle;
 		}
 		
+		public function set debugStyle(value:CSSStyleDeclaration)
+		{
+			this._debugStyle = value;
+		}
+		
 		/**
 		 * Style of <b>info</b> level row.
 		 */
@@ -142,11 +148,29 @@ package com.rozdobudko.suvii.pysar.model
 			this._errorStyle = new CSSStyleDeclaration();
 			this._fatalStyle = new CSSStyleDeclaration();
 			
-			this.debugStyle.setStyle("fontWeight", "normal");
-			this.infoStyle.setStyle("fontWeight", "normal");
-			this.warningStyle.setStyle("fontWeight", "normal");
-			this.errorStyle.setStyle("fontWeight", "normal");
-			this.fatalStyle.setStyle("fontWeight", "normal");
+			/**
+			 * TODO: Test
+			 */
+			
+			this.setDefaultStyle(this.debugStyle);
+			this.setDefaultStyle(this.infoStyle);
+			this.setDefaultStyle(this.warningStyle);
+			this.setDefaultStyle(this.errorStyle);
+			this.setDefaultStyle(this.fatalStyle);
+			
+			this.levels = [];
+			this.levels[Settings.LEVEL_DEBUG] = true;
+			this.levels[Settings.LEVEL_INFO] = true;
+			this.levels[Settings.LEVEL_WARNING] = true;
+			this.levels[Settings.LEVEL_ERROR] = true;
+			this.levels[Settings.LEVEL_FATAL] = true;
+		}
+		
+		private function setDefaultStyle(style:CSSStyleDeclaration):void
+		{
+			style.setStyle("fontWeight", "normal");
+			style.setStyle("paddingLeft", 5);
+			style.setStyle("paddingRight", 5);
 		}
 		
 		// ------------------  HANDLERS ------------------- //
