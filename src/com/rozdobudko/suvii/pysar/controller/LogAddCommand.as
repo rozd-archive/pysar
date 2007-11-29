@@ -16,8 +16,6 @@ package com.rozdobudko.suvii.pysar.controller
 		
 		override public function execute(notification:INotification):void
 		{
-			trace("LogAddCommand :: execute");
-			
 			var outputProxy:OutputProxy = this.facade.retrieveProxy(OutputProxy.NAME) as OutputProxy;
 			
 			outputProxy.addItem(notification.getBody() as LogEntry);

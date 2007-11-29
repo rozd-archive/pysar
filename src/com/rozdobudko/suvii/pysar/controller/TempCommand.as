@@ -22,6 +22,11 @@ package com.rozdobudko.suvii.pysar.controller
 			logProxy.log(3, "TEST Lorem ipsum, dolorem", "className", "connectionName");
 			logProxy.log(4, "TEST Lorem ipsum, dolorem", "className", "connectionName");
 			logProxy.log(1, "TEST Lorem ipsum, dolorem", "className", "connectionName");
+			
+			for(var i:uint; i<1000; i++)
+			{
+				//logProxy.log(i%5, "TEST Lorem ipsum, dolorem", "className_"+i, "connectionName");
+			}
 		}
 		
 	}

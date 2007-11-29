@@ -71,7 +71,7 @@ package com.rozdobudko.suvii.pysar.model
 		
 		public function log(level:int, message:String, className:String, connectionName:String):void
 		{
-			trace("LogProxy :: log");
+//			trace("LogProxy :: log");
 			
 			var entry:LogEntry = new LogEntry(
 												UIDUtil.createUID(),

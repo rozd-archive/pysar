@@ -12,6 +12,7 @@ package com.rozdobudko.suvii.pysar.controller
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.command.SimpleCommand;
 	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
+	import flash.utils.getTimer;
 
 	public class FilteringCommand extends SimpleCommand implements ICommand
 	{
@@ -26,6 +27,10 @@ package com.rozdobudko.suvii.pysar.controller
 			var outputProxy:OutputProxy = this.facade.retrieveProxy(OutputProxy.NAME) as OutputProxy;
 			var settingsProxy:SettingsProxy = this.facade.retrieveProxy(SettingsProxy.NAME) as SettingsProxy;
 			var findMediator:FindMediator = this.facade.retrieveMediator(FindMediator.NAME) as FindMediator;
+			
+			
+			var t:Number = getTimer(); 
+			
 			
 			outputProxy.entries = new ArrayCollection();
 			
@@ -46,6 +51,9 @@ package com.rozdobudko.suvii.pysar.controller
 			}
 			
 			outputProxy.resetCursor();
+			
+			
+			trace("FilteringCommand :: time generation (ms): "+(getTimer() - t));
 		}
 	}
 }
