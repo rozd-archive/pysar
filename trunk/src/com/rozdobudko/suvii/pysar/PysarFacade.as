@@ -1,6 +1,8 @@
 package com.rozdobudko.suvii.pysar
 {
 	import com.rozdobudko.suvii.pysar.controller.DeployCommand;
+	import com.rozdobudko.suvii.pysar.controller.FindExcludeCommand;
+	import com.rozdobudko.suvii.pysar.controller.FindIncludeCommnad;
 	import com.rozdobudko.suvii.pysar.controller.FindNextCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindPreviosCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindSearchCommnad;
@@ -9,8 +11,11 @@ package com.rozdobudko.suvii.pysar
 	import com.rozdobudko.suvii.pysar.controller.MenuPrintCommand;
 	import com.rozdobudko.suvii.pysar.controller.MenuSaveAsCommand;
 	import com.rozdobudko.suvii.pysar.controller.MenuSaveCommand;
+	import com.rozdobudko.suvii.pysar.controller.SettingsChangeCommand;
 	import com.rozdobudko.suvii.pysar.controller.SettingsCloseCommand;
 	import com.rozdobudko.suvii.pysar.controller.SettingsShowCommand;
+	import com.rozdobudko.suvii.pysar.controller.ShowAlertCommand;
+	import com.rozdobudko.suvii.pysar.controller.TempCommand;
 	import com.rozdobudko.suvii.pysar.model.FileProxy;
 	import com.rozdobudko.suvii.pysar.model.FindProxy;
 	import com.rozdobudko.suvii.pysar.model.LogProxy;
@@ -22,10 +27,6 @@ package com.rozdobudko.suvii.pysar
 	
 	import org.puremvc.interfaces.IFacade;
 	import org.puremvc.patterns.facade.Facade;
-	import com.rozdobudko.suvii.pysar.controller.FindIncludeCommnad;
-	import com.rozdobudko.suvii.pysar.controller.TempCommand;
-	import com.rozdobudko.suvii.pysar.controller.FindExcludeCommand;
-	import com.rozdobudko.suvii.pysar.controller.SettingsChangeCommand;
 	
 	public class PysarFacade extends Facade implements IFacade
 	{
@@ -37,6 +38,7 @@ package com.rozdobudko.suvii.pysar
 		
 		public static const INIT:String						= "init";
 		public static const DEPLOY:String					= "deploy";
+		public static const ALERT:String					= "alert";
 		
 		public static const MENU_SAVE:String				= "menuSave";
 		public static const MENU_SAVE_AS:String				= "menuSaveAs";
@@ -118,6 +120,7 @@ package com.rozdobudko.suvii.pysar
 			this.registerCommand(PysarFacade.SETTINGS_SHOW, SettingsShowCommand);
 			this.registerCommand(PysarFacade.SETTINGS_CLOSE, SettingsCloseCommand);
 			this.registerCommand(PysarFacade.SETTINGS_CHANGE, SettingsChangeCommand);
+			this.registerCommand(PysarFacade.ALERT, ShowAlertCommand);
 		}
 		
 		

@@ -1,12 +1,12 @@
 package com.rozdobudko.suvii.pysar.view.components.ui
 {
-	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import flash.events.FocusEvent;
-	import mx.controls.TextInput;
+	import flash.events.MouseEvent;
+	
 	import mx.controls.Button;
+	import mx.controls.TextInput;
 	import mx.events.FlexEvent;
-	import mx.managers.FocusManager;
 
 	/**
 	 * @class ClearTextInput
@@ -70,6 +70,8 @@ package com.rozdobudko.suvii.pysar.view.components.ui
 		{
 			this.text = "";
 			clearButton.visible = false;
+			
+			this.dispatchEvent(new Event(Event.CHANGE));
 		}
 		
 		override protected function focusInHandler(event:FocusEvent):void
