@@ -58,7 +58,7 @@ package com.rozdobudko.suvii.pysar.controller
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						this.sendNotification(PysarFacade.OUTPUT_UPDATE);
+						this.sendNotification(PysarFacade.OUTPUT_UPDATE, entry);
 						return;
 					}
 					entry.findData.cursor.moveNext();

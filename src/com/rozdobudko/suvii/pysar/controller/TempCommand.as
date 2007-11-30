@@ -28,9 +28,9 @@ package com.rozdobudko.suvii.pysar.controller
 			logProxy.log(4, "TEST Lorem ipsum, dolorem", "className3", "connectionName");
 			logProxy.log(1, "TEST Lorem ipsum, dolorem", "className4", "connectionName2");
 			
-			for(var i:uint; i<1000; i++)
+			for(var i:uint; i<100; i++)
 			{
-				//logProxy.log(i%5, "TEST Lorem ipsum, dolorem", "className_"+i, "connectionName");
+				logProxy.log(i%5, "TEST Lorem ipsum, dolorem", "className_"+i, "connectionName");
 			}
 			
 //			this.sendNotification(PysarFacade.ALERT, "Test alert");
