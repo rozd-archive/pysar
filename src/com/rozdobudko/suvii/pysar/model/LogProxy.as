@@ -2,6 +2,8 @@ package com.rozdobudko.suvii.pysar.model
 {
 	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import com.rozdobudko.suvii.pysar.Settings;
+	import com.rozdobudko.suvii.pysar.model.data.ClassEntry;
+	import com.rozdobudko.suvii.pysar.model.data.ConnectionEntry;
 	import com.rozdobudko.suvii.pysar.model.data.LogEntry;
 	import com.rozdobudko.suvii.pysar.model.data.LogEntryText;
 	
@@ -12,28 +14,38 @@ package com.rozdobudko.suvii.pysar.model
 	import flash.net.LocalConnection;
 	
 	import mx.collections.ArrayCollection;
+	import mx.utils.UIDUtil;
 	
 	import org.puremvc.interfaces.IProxy;
-	import org.puremvc.patterns.observer.Notification;
 	import org.puremvc.patterns.proxy.Proxy;
-	import mx.utils.UIDUtil;
-	import com.rozdobudko.suvii.pysar.model.data.LogEntryFindData;
 
 	public class LogProxy extends Proxy implements IProxy
 	{
+		// ---------------- STATIC FIELDS ---------------- //
+		
 		public static const NAME:String = "LogProxy";
 		
-		private var connections:ArrayCollection;
+		// --------------- PRIVATE FIELDS ---------------- //
+		
 		private var connection:LocalConnection;
+		
 		private var _entries:ArrayCollection;
+		
+		private var _connections:ArrayCollection;
+
+		private var _classes:ArrayCollection;
+		
+		// ----------------- CONSTRUCTOR ----------------- //
 		
 		public function LogProxy(proxyName:String=null, data:Object=null)
 		{
 			super(proxyName, data);
 			
-			this.setData(new ArrayCollection());
+			this._entries = new ArrayCollection();
 			
-			this.connections = new ArrayCollection();
+			this._connections = new ArrayCollection();
+			
+			this._classes = new ArrayCollection();
 			
 			this.connection = new LocalConnection(); 
 			this.connection.addEventListener(AsyncErrorEvent.ASYNC_ERROR, this.connectionAsyncErrorHandler);
@@ -57,7 +69,17 @@ package com.rozdobudko.suvii.pysar.model
 		
 		public function get entries():ArrayCollection
 		{
-			return this.getData() as ArrayCollection;
+			return this._entries
+		}
+
+		public function get connections():ArrayCollection
+		{
+			return this._connections;
+		}
+		
+		public function get classes():ArrayCollection
+		{
+			return this._classes;
 		}
 
 		// ------------------- METHODS ------------------- //
@@ -66,10 +88,18 @@ package com.rozdobudko.suvii.pysar.model
 		{
 			trace("LogProxy :: add");
 			
-			this.connections.addItem(name);
+			for(var i:uint; i<this.connections.length; i++)
+			{
+				if(ConnectionEntry(this.connections.getItemAt(i)).name == name)
+				{
+					return;
+				}
+			}
+			
+			this.connections.addItem(new ConnectionEntry(name, true));
 		}
 		
-		public function log(level:int, message:String, className:String, connectionName:String):void
+		public function log(level:int, message:String, className:String=null, connectionName:String=null):void
 		{
 //			trace("LogProxy :: log");
 			
@@ -80,8 +110,23 @@ package com.rozdobudko.suvii.pysar.model
 												new LogEntryText(UIDUtil.createUID(), className), 
 												new LogEntryText(UIDUtil.createUID(), connectionName)
 											  )
-											  
 			this.entries.addItem(entry);
+			
+			var classAdded:Boolean = false;
+			for(var i:uint; i<this.classes.length; i++)
+			{
+				var classEntry:ClassEntry = this.classes.getItemAt(i) as ClassEntry;
+				if(classEntry.name == className && classEntry.connectionName == connectionName)
+				{
+					classAdded = true;
+					break;
+				}
+			}
+			
+			if(!classAdded)
+			{
+				this.classes.addItem(new ClassEntry(className, connectionName));
+			}
 			
 			this.sendNotification(PysarFacade.LOG_ADD, entry);
 		}

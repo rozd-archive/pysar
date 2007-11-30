@@ -1,9 +1,11 @@
 package com.rozdobudko.suvii.pysar.controller
 {
-	import org.puremvc.interfaces.ICommand;
-	import org.puremvc.patterns.command.SimpleCommand;
-	import org.puremvc.interfaces.INotification;
+	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import com.rozdobudko.suvii.pysar.model.LogProxy;
+	
+	import org.puremvc.interfaces.ICommand;
+	import org.puremvc.interfaces.INotification;
+	import org.puremvc.patterns.command.SimpleCommand;
 
 	public class TempCommand extends SimpleCommand implements ICommand
 	{
@@ -27,6 +29,8 @@ package com.rozdobudko.suvii.pysar.controller
 			{
 				//logProxy.log(i%5, "TEST Lorem ipsum, dolorem", "className_"+i, "connectionName");
 			}
+			
+//			this.sendNotification(PysarFacade.ALERT, "Test alert");
 		}
 		
 	}
