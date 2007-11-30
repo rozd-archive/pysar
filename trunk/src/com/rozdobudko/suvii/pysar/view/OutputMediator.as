@@ -14,6 +14,9 @@ package com.rozdobudko.suvii.pysar.view
 	import org.puremvc.interfaces.IObserver;
 	import org.puremvc.patterns.mediator.Mediator;
 	import mx.formatters.SwitchSymbolFormatter;
+	import mx.logging.Log;
+	import com.rozdobudko.suvii.pysar.model.data.LogEntry;
+	import mx.controls.listClasses.IListItemRenderer;
 	
 	public class OutputMediator extends Mediator implements IMediator
 	{
@@ -45,7 +48,15 @@ package com.rozdobudko.suvii.pysar.view
 			switch(notification.getName())
 			{
 				case PysarFacade.OUTPUT_UPDATE :
+					
+					var entry:LogEntry = notification.getBody() as LogEntry;
+					
+					var renderer:IListItemRenderer = this.table.itemToItemRenderer(entry);
+					
+					trace(renderer);
+					
 					this.table.dataProvider = this.proxy.entries;
+					
 				break;
 			}
 		}

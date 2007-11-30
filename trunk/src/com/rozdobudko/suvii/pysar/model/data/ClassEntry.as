@@ -23,8 +23,8 @@ package com.rozdobudko.suvii.pysar.model.data
 		public function ClassEntry(className:String, connectionName:String=null, enabled:Boolean=true)
 		{
 			this.name = className;
-			this.type = className.substring(className.lastIndexOf("."), className.length);
-			this.path = className.substr(0, className.lastIndexOf(".") - 1);
+			this.type = className.substring(className.lastIndexOf(".") + 1, className.length);
+			this.path = className.substr(0, className.lastIndexOf(".") == -1 ? 0 : className.lastIndexOf("."));
 			
 			this.connectionName = connectionName;
 			this.enabled = enabled;
