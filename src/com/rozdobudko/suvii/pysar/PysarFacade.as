@@ -16,12 +16,14 @@ package com.rozdobudko.suvii.pysar
 	import com.rozdobudko.suvii.pysar.controller.SettingsShowCommand;
 	import com.rozdobudko.suvii.pysar.controller.ShowAlertCommand;
 	import com.rozdobudko.suvii.pysar.controller.TempCommand;
+	
 	import com.rozdobudko.suvii.pysar.model.FileProxy;
 	import com.rozdobudko.suvii.pysar.model.FindProxy;
 	import com.rozdobudko.suvii.pysar.model.LogProxy;
 	import com.rozdobudko.suvii.pysar.model.MenuProxy;
 	import com.rozdobudko.suvii.pysar.model.OutputProxy;
 	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
+	import com.rozdobudko.suvii.pysar.model.SubjectsProxy;
 	
 	import mx.core.WindowedApplication;
 	
@@ -56,6 +58,8 @@ package com.rozdobudko.suvii.pysar
 		public static const OUTPUT_UPDATE:String			= "updateOutput";
 		
 		public static const LOG_ADD:String					= "logAdd";
+		
+		public static const SUBJECTS_UPDATE:String			= "subjectsOutput";
 
 		public static const SETTINGS_SHOW:String			= "settingsShow";
 		public static const SETTINGS_CLOSE:String			= "settingsClose";
@@ -95,6 +99,7 @@ package com.rozdobudko.suvii.pysar
 			this.registerProxy(new FindProxy());
 			this.registerProxy(new OutputProxy());
 			this.registerProxy(new SettingsProxy());
+			this.registerProxy(new SubjectsProxy());
 		}
 		
 		

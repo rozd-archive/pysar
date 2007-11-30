@@ -15,16 +15,19 @@ package com.rozdobudko.suvii.pysar.model.data
 		private var _path:String;
 		
 		private var _connectionName:String
+
+		private var _enabled:Boolean;
 		
 		// ----------------- CONSTRUCTOR ----------------- //
 		
-		public function ClassEntry(className:String, connectionName:String=null)
+		public function ClassEntry(className:String, connectionName:String=null, enabled:Boolean=true)
 		{
 			this.name = className;
 			this.type = className.substring(className.lastIndexOf("."), className.length);
 			this.path = className.substr(0, className.lastIndexOf(".") - 1);
 			
 			this.connectionName = connectionName;
+			this.enabled = enabled;
 		}
 		
 		// -------------------- FIEDS -------------------- //
@@ -67,6 +70,16 @@ package com.rozdobudko.suvii.pysar.model.data
 		public function set connectionName(value:String):void
 		{
 			this._connectionName = value;
+		}
+		
+		public function get enabled():Boolean
+		{
+			return this._enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			this._enabled = value;
 		}
 		
 		// ------------------- METHODS ------------------- //
