@@ -2,21 +2,24 @@
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">
 	<mx:TabBar dataProvider="subjectModule" height="22">
 	</mx:TabBar>
-	<mx:ViewStack id="subjectModule" width="100%" height="100%" x="0" top="20">
+	<mx:ViewStack id="subjectModule" 
+		width="100%" height="100%" x="0" top="20"
+		creationPolicy="all"
+	>
 		<mx:Canvas label="Classes" width="100%" height="100%" backgroundColor="#afafaf">
-			<mx:DataGrid id="classesDataGrid" left="0" top="0" width="100%" height="100%">
+			<mx:DataGrid id="classes" left="0" top="0" width="100%" height="100%">
 				<mx:columns>
 					<mx:DataGridColumn width="20" itemRenderer="com.rozdobudko.suvii.pysar.view.components.subject.ClassIconBoxItemRenderer"/>
 					<mx:DataGridColumn headerText="Name" dataField="name"/>
-					<mx:DataGridColumn headerText="Package" dataField="pack"/>
+					<mx:DataGridColumn headerText="Package" dataField="path"/>
 				</mx:columns>
 			</mx:DataGrid>
 		</mx:Canvas>
 		<mx:Canvas label="Connections" width="100%" height="100%" backgroundColor="#afafaf">
-			<mx:DataGrid id="connectionsDataGrid" dataProvider="" left="0" top="0" width="100%" height="100%">
+			<mx:DataGrid id="connections" left="0" top="0" width="100%" height="100%">
 				<mx:columns>
-					<mx:DataGridColumn width="20" itemRenderer="com.rozdobudko.suvii.pysar.view.components.subject.ActivationBoxItemRenderer"/>
-					<mx:DataGridColumn headerText="Name"/>
+					<mx:DataGridColumn width="20" dataField="enabled" itemRenderer="com.rozdobudko.suvii.pysar.view.components.subject.ActivationBoxItemRenderer"/>
+					<mx:DataGridColumn headerText="Name" dataField="name"/>
 				</mx:columns>
 			</mx:DataGrid>
 		</mx:Canvas>

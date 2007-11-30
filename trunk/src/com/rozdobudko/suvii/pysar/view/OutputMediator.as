@@ -26,6 +26,13 @@ package com.rozdobudko.suvii.pysar.view
 			this.table.dataProvider = this.proxy.entries;
 		}
 		
+		// ------------------- PureMVC ------------------- //
+		
+		override public function getMediatorName():String
+		{
+			return NAME;
+		}
+		
 		override public function listNotificationInterests():Array
 		{
 			return [
@@ -43,12 +50,7 @@ package com.rozdobudko.suvii.pysar.view
 			}
 		}
 		
-		// ------------------- PureMVC ------------------- //
-		
-		override public function getMediatorName():String
-		{
-			return NAME;
-		}
+		// -------------------- FIEDS -------------------- //
 		
 		private function get component():OutputModule
 		{
@@ -59,8 +61,6 @@ package com.rozdobudko.suvii.pysar.view
 		{
 			return this.facade.retrieveProxy(OutputProxy.NAME) as OutputProxy;
 		}
-		
-		// -------------------- FIEDS -------------------- //
 		
 		public function get table():DataGrid
 		{

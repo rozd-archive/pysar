@@ -2,8 +2,12 @@
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" toolTip="On">
 	<mx:Script>
 		<![CDATA[
-			private function clickHandler(event:MouseEvent):void {
+			import com.rozdobudko.suvii.pysar.model.data.ClassEntry;
+			private function clickHandler(event:MouseEvent):void
+			{
 				trace("ClassIconBox :: clickHandler");
+				
+				ClassEntry(this.data).enabled = this.box.selected;
 				
 				if(this.box.selected){
 					this.toolTip = "Off";
@@ -11,16 +15,23 @@
 					this.toolTip = "On";
 				}
 			}
+			
+			override public function set data(value:Object):void
+			{
+				super.data = value;
+				
+				this.box.selected = ClassEntry(this.data).enabled;
+			}
 		]]>
 	</mx:Script>
 	<mx:CheckBox id="box"
-		upIcon="@Embed(source='../../../../../../../assets/class_active.png')" 
-		selectedUpIcon="@Embed(source='../../../../../../../assets/class_deactive.png')" 
-		selectedOverIcon="@Embed(source='../../../../../../../assets/class_deactive.png')" 
-		selectedDownIcon="@Embed(source='../../../../../../../assets/class_deactive.png')" 
-		overIcon="@Embed(source='../../../../../../../assets/class_active.png')" 
-		downIcon="@Embed(source='../../../../../../../assets/class_active.png')"
-		left="2"
+		upIcon="@Embed(source='../../../../../../../assets/subjects/class-disable.png')" 
+		selectedUpIcon="@Embed(source='../../../../../../../assets/subjects/class-enable.png')" 
+		selectedOverIcon="@Embed(source='../../../../../../../assets/subjects/class-enable.png')" 
+		selectedDownIcon="@Embed(source='../../../../../../../assets/subjects/class-enable.png')" 
+		overIcon="@Embed(source='../../../../../../../assets/subjects/class-disable.png')" 
+		downIcon="@Embed(source='../../../../../../../assets/subjects/class-disable.png')"
+
 		click="this.clickHandler(event)"
-	/>
+	 horizontalCenter="0" verticalCenter="0" textAlign="center"/>
 </mx:Canvas>

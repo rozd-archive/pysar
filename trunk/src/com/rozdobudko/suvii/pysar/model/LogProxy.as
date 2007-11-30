@@ -21,12 +21,12 @@ package com.rozdobudko.suvii.pysar.model
 
 	public class LogProxy extends Proxy implements IProxy
 	{
-		// ---------------- STATIC FIELDS ---------------- //
-		
+		// ----------------- STATIC FIELDS ---------------- //
+
 		public static const NAME:String = "LogProxy";
-		
-		// --------------- PRIVATE FIELDS ---------------- //
-		
+
+		// ---------------- PRIVATE FIELDS ---------------- //
+
 		private var connection:LocalConnection;
 		
 		private var _entries:ArrayCollection;
@@ -34,9 +34,9 @@ package com.rozdobudko.suvii.pysar.model
 		private var _connections:ArrayCollection;
 
 		private var _classes:ArrayCollection;
-		
-		// ----------------- CONSTRUCTOR ----------------- //
-		
+
+		// ------------------ CONSTRUCTOR ----------------- //
+
 		public function LogProxy(proxyName:String=null, data:Object=null)
 		{
 			super(proxyName, data);
@@ -53,20 +53,22 @@ package com.rozdobudko.suvii.pysar.model
 			this.connection.addEventListener(StatusEvent.STATUS, this.connectionStatusHandler);
 			this.connection.addEventListener(Event.ACTIVATE, this.connectionActivateHandler);
 			this.connection.client = this;
+			
 			/**
 			 * TODO: Replace connection name in to SettingsPanel
 			 */
 			this.connection.connect(Settings.CONNECTION_NAME);
 		}
+		
 		// ------------------- PureMVC ------------------- //
 		
 		override public function getProxyName():String
 		{
 			return NAME;
 		}
-		
-		// -------------------- FIEDS -------------------- //
-		
+
+		// ----------------- PUBLIC FIEDS ----------------- //
+
 		public function get entries():ArrayCollection
 		{
 			return this._entries
@@ -82,12 +84,32 @@ package com.rozdobudko.suvii.pysar.model
 			return this._classes;
 		}
 
-		// ------------------- METHODS ------------------- //
+		// --------------- PROTECTED FIELDS --------------- //
+
 		
+
+		// ---------------- PUBLIC METHODS ---------------- //
+
 		public function add(name:String):void
 		{
-			trace("LogProxy :: add");
+			this.addConnection(name);
+		}
+		
+		public function log(level:int, message:String, className:String=null, connectionName:String=null):void
+		{
+			this.addClass(className, connectionName);
 			
+			this.addLog(level, message, className, connectionName);
+		}
+
+		// --------------- PROTECTED METHODS -------------- //
+
+		
+
+		// ---------------- PRIVATE METHODS --------------- //
+
+		private function addConnection(name:String):void
+		{
 			for(var i:uint; i<this.connections.length; i++)
 			{
 				if(ConnectionEntry(this.connections.getItemAt(i)).name == name)
@@ -99,9 +121,38 @@ package com.rozdobudko.suvii.pysar.model
 			this.connections.addItem(new ConnectionEntry(name, true));
 		}
 		
-		public function log(level:int, message:String, className:String=null, connectionName:String=null):void
+		private function addClass(className:String, connectionName:String=null):void
 		{
-//			trace("LogProxy :: log");
+			for(var i:uint; i<this.classes.length; i++)
+			{
+				var classEntry:ClassEntry = this.classes.getItemAt(i) as ClassEntry;
+				
+				if(classEntry.name == className && classEntry.connectionName == connectionName)
+				{
+					return
+				}
+			}
+			
+			this.classes.addItem(new ClassEntry(className, connectionName));
+		}
+		
+		private function addLog(level:uint, message:String, className:String, connectionName:String):void
+		{
+			for(var i:uint; i<this.connections.length; i++)
+			{
+				if(!ConnectionEntry(this.connections.getItemAt(i)).enabled)
+				{
+					return;
+				}
+			}
+			
+			for(var j:uint; j<this.classes.length; j++)
+			{
+				if(!ClassEntry(this.classes.getItemAt(j)).enabled)
+				{
+					return;
+				}
+			}
 			
 			var entry:LogEntry = new LogEntry(
 												UIDUtil.createUID(),
@@ -109,30 +160,14 @@ package com.rozdobudko.suvii.pysar.model
 												new LogEntryText(UIDUtil.createUID(), message), 
 												new LogEntryText(UIDUtil.createUID(), className), 
 												new LogEntryText(UIDUtil.createUID(), connectionName)
-											  )
+											  );
 			this.entries.addItem(entry);
-			
-			var classAdded:Boolean = false;
-			for(var i:uint; i<this.classes.length; i++)
-			{
-				var classEntry:ClassEntry = this.classes.getItemAt(i) as ClassEntry;
-				if(classEntry.name == className && classEntry.connectionName == connectionName)
-				{
-					classAdded = true;
-					break;
-				}
-			}
-			
-			if(!classAdded)
-			{
-				this.classes.addItem(new ClassEntry(className, connectionName));
-			}
 			
 			this.sendNotification(PysarFacade.LOG_ADD, entry);
 		}
-		
-		// ------------------ HANDLERS ------------------- //
-		
+
+		// ------------------- HANDLERS ------------------- //
+
 		private function connectionStatusHandler(event:StatusEvent):void
 		{
 			trace("LogProxy :: connectionStatusHandler");
@@ -142,10 +177,12 @@ package com.rozdobudko.suvii.pysar.model
 			trace(event.code);
 			trace(event.target);
 		}
+		
 		private function connectionSecurityErrorHandler(event:SecurityErrorEvent):void
 		{
 			trace("LogProxy :: connectionSecurityErrorHandler");
 		}
+		
 		private function connectionAsyncErrorHandler(event:AsyncErrorEvent):void
 		{
 			trace("LogProxy :: connectionAsyncErrorHandler");
@@ -155,12 +192,17 @@ package com.rozdobudko.suvii.pysar.model
 			trace(event.text);
 			trace(event.type);
 		}
+		
 		private function connectionActivateHandler(event:Event):void
 		{
-			trace("LogProxy :: connectionActivateHandler");
-			
-			trace(event.type);
-			trace(event.target);
+//			trace("LogProxy :: connectionActivateHandler");
+//			
+//			trace(event.type);
+//			trace(event.target);
 		}
+
+		// --------------- USER INTERACTION --------------- //
+
+		
 	}
 }

@@ -20,10 +20,13 @@ package com.rozdobudko.suvii.pysar.controller
 			
 			var logProxy:LogProxy = this.facade.retrieveProxy(LogProxy.NAME) as LogProxy;
 			
-			logProxy.log(0, "TEST Lorem ipsum, dolorem", "className", "connectionName");
-			logProxy.log(3, "TEST Lorem ipsum, dolorem", "className", "connectionName");
-			logProxy.log(4, "TEST Lorem ipsum, dolorem", "className", "connectionName");
-			logProxy.log(1, "TEST Lorem ipsum, dolorem", "className", "connectionName");
+			logProxy.add("connectionName");
+			logProxy.add("connectionName2");
+			
+			logProxy.log(0, "TEST Lorem ipsum, dolorem", "className1", "connectionName");
+			logProxy.log(3, "TEST Lorem ipsum, dolorem", "className2", "connectionName2");
+			logProxy.log(4, "TEST Lorem ipsum, dolorem", "className3", "connectionName");
+			logProxy.log(1, "TEST Lorem ipsum, dolorem", "className4", "connectionName2");
 			
 			for(var i:uint; i<1000; i++)
 			{

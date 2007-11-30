@@ -94,6 +94,7 @@ package com.rozdobudko.suvii.pysar.model
 		}
 		
 		/**
+		 * @public
 		 * Style of <b>debug</b> level row.
 		 */
 		public function get debugStyle():CSSStyleDeclaration
@@ -101,12 +102,8 @@ package com.rozdobudko.suvii.pysar.model
 			return this._debugStyle;
 		}
 		
-		public function set debugStyle(value:CSSStyleDeclaration)
-		{
-			this._debugStyle = value;
-		}
-		
 		/**
+		 * @public
 		 * Style of <b>info</b> level row.
 		 */
 		public function get infoStyle():CSSStyleDeclaration
@@ -115,6 +112,7 @@ package com.rozdobudko.suvii.pysar.model
 		}
 		
 		/**
+		 * @public
 		 * Style of <b>warning</b> level row.
 		 */
 		public function get warningStyle():CSSStyleDeclaration
@@ -123,6 +121,7 @@ package com.rozdobudko.suvii.pysar.model
 		}
 		
 		/**
+		 * @public
 		 * Style of <b>error</b> level row.
 		 */
 		public function get errorStyle():CSSStyleDeclaration
@@ -131,6 +130,7 @@ package com.rozdobudko.suvii.pysar.model
 		}
 		
 		/**
+		 * @public
 		 * Style of <b>fatal</b> level row.
 		 */
 		public function get fatalStyle():CSSStyleDeclaration
