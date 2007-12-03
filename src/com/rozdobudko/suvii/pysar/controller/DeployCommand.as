@@ -28,18 +28,9 @@ package com.rozdobudko.suvii.pysar.controller
 			this.facade.registerMediator(new MenuMediator(application.menuModule));
 			this.facade.registerMediator(new SubjectsMediator(application.subjectModule));
 				
-				// binding subjects sources
-				
-			var logProxy:LogProxy = this.facade.retrieveProxy(LogProxy.NAME) as LogProxy;
-			var subjectsProxy:SubjectsProxy = this.facade.retrieveProxy(SubjectsProxy.NAME) as SubjectsProxy;
-			
-			subjectsProxy.classes = logProxy.classes;
-			subjectsProxy.connections = logProxy.connections;
-				
-				/**
-				 * TODO: Remove temp command
-				 */
-				
+			/**
+			 * TODO: Remove temp command
+			 */
 			this.sendNotification(PysarFacade.TEMP);
 		}
 	}

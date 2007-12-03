@@ -122,7 +122,23 @@ package com.rozdobudko.suvii.pysar.view
 		
 		private function searchHandler(event:Event):void
 		{
-			this.facade.notifyObservers(new Notification(PysarFacade.FIND_SEARCH));
+			this.sendNotification(PysarFacade.FIND_SEARCH);
+			
+			if(this.hightlight)
+			{
+				if(this.searchPhrase == "" || this.searchPhraseNotFound)
+				{
+					this.sendNotification(PysarFacade.FIND_HIDE_HIGHTLIGHT);
+				}
+				else
+				{
+					this.sendNotification(PysarFacade.FIND_SHOW_HIGHTLIGHT);
+				}
+			}
+			else
+			{
+				this.sendNotification(PysarFacade.FIND_SEARCH);
+			}
 		}
 		
 		
@@ -133,7 +149,7 @@ package com.rozdobudko.suvii.pysar.view
 				return;
 			}
 			
-			this.facade.notifyObservers(new Notification(PysarFacade.FIND_NEXT));
+			this.sendNotification(PysarFacade.FIND_NEXT);
 		}
 		
 		
@@ -144,13 +160,25 @@ package com.rozdobudko.suvii.pysar.view
 				return;
 			}
 			
-			this.facade.notifyObservers(new Notification(PysarFacade.FIND_PREVIOS));
+			this.sendNotification(PysarFacade.FIND_PREVIOS);
 		}
 		
 		
 		private function hightlightHandler(event:Event):void
 		{
-			this.facade.notifyObservers(new Notification(PysarFacade.FIND_HIGHTLIGHT));
+			if(this.searchPhraseNotFound || this.searchPhrase == "")
+			{
+				return;
+			}
+			
+			if(this.hightlight)
+			{
+				this.sendNotification(PysarFacade.FIND_SHOW_HIGHTLIGHT);
+			}
+			else
+			{
+				this.sendNotification(PysarFacade.FIND_HIDE_HIGHTLIGHT);
+			}
 		}
 		
 

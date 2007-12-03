@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ui="com.rozdobudko.suvii.pysar.view.components.ui.*">
 	<mx:ViewStack id="outputModule" width="100%" height="100%" x="0" top="20">
 		<mx:Canvas label="Grid" width="100%" height="100%" backgroundColor="#afafaf">
 			<mx:DataGrid id="outputDataGrid" editable="true" width="100%" height="100%">

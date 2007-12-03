@@ -1,7 +1,7 @@
 package com.rozdobudko.suvii.pysar.model
 {
 	import com.rozdobudko.suvii.pysar.model.data.LogEntry;
-	import com.rozdobudko.suvii.pysar.model.data.LogEntryFindData;
+	import com.rozdobudko.suvii.pysar.model.data.FindData;
 	import com.rozdobudko.suvii.pysar.model.data.LogEntryText;
 	
 	import mx.collections.ArrayCollection;
@@ -18,11 +18,15 @@ package com.rozdobudko.suvii.pysar.model
 	{
 		public static const NAME:String = "OutputProxy";
 		
+		private var _entries:ArrayCollection;
 		private var _cursor:IViewCursor;
 		
 		public function OutputProxy()
 		{
-			super(NAME, new ArrayCollection());
+			super(NAME);
+			
+			this._entries = new ArrayCollection();
+			this._entries.disableAutoUpdate();
 		}
 		
 		// ------------------- PureMVC ------------------- //
@@ -36,16 +40,8 @@ package com.rozdobudko.suvii.pysar.model
 		
 		public function get entries():ArrayCollection
 		{
-			return this.getData() as ArrayCollection;
+			return this._entries;
 		}
-		
-		public function set entries(data:ArrayCollection):void
-		{
-			this.setData(data);
-			
-			this.sendNotification(PysarFacade.OUTPUT_UPDATE);
-		}
-		
 		
 		public function get cursor():IViewCursor
 		{
@@ -61,7 +57,7 @@ package com.rozdobudko.suvii.pysar.model
 		
 		public function addItem(item:LogEntry):void
 		{
-			item.findData = new LogEntryFindData(item);
+			item.findData = new FindData(item);
 			this.entries.addItem(item);
 		}
 		

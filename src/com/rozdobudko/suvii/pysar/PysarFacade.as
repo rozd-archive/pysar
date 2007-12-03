@@ -2,6 +2,7 @@ package com.rozdobudko.suvii.pysar
 {
 	import com.rozdobudko.suvii.pysar.controller.DeployCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindExcludeCommand;
+	import com.rozdobudko.suvii.pysar.controller.FindShowHightlightCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindIncludeCommnad;
 	import com.rozdobudko.suvii.pysar.controller.FindNextCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindPreviosCommand;
@@ -16,7 +17,6 @@ package com.rozdobudko.suvii.pysar
 	import com.rozdobudko.suvii.pysar.controller.SettingsShowCommand;
 	import com.rozdobudko.suvii.pysar.controller.ShowAlertCommand;
 	import com.rozdobudko.suvii.pysar.controller.TempCommand;
-	
 	import com.rozdobudko.suvii.pysar.model.FileProxy;
 	import com.rozdobudko.suvii.pysar.model.FindProxy;
 	import com.rozdobudko.suvii.pysar.model.LogProxy;
@@ -29,6 +29,7 @@ package com.rozdobudko.suvii.pysar
 	
 	import org.puremvc.interfaces.IFacade;
 	import org.puremvc.patterns.facade.Facade;
+	import com.rozdobudko.suvii.pysar.controller.FindHideHightlightCommand;
 	
 	public class PysarFacade extends Facade implements IFacade
 	{
@@ -50,7 +51,8 @@ package com.rozdobudko.suvii.pysar
 		public static const FIND_SEARCH:String				= "findSearch";
 		public static const FIND_NEXT:String				= "findNext";
 		public static const FIND_PREVIOS:String				= "findPrevios";
-		public static const FIND_HIGHTLIGHT:String			= "findHightlight";
+		public static const FIND_SHOW_HIGHTLIGHT:String		= "findShowHightlight";
+		public static const FIND_HIDE_HIGHTLIGHT:String		= "findHideHightlight";
 		public static const FIND_PHRASE:String				= "findFindPhrase";
 		public static const FIND_INCLUDE:String				= "findInclude";
 		public static const FIND_EXCLUDE:String				= "findExclude";
@@ -59,8 +61,6 @@ package com.rozdobudko.suvii.pysar
 		
 		public static const LOG_ADD:String					= "logAdd";
 		
-		public static const SUBJECTS_UPDATE:String			= "subjectsOutput";
-
 		public static const SETTINGS_SHOW:String			= "settingsShow";
 		public static const SETTINGS_CLOSE:String			= "settingsClose";
 		public static const SETTINGS_CHANGE:String			= "settingsChange";
@@ -120,6 +120,8 @@ package com.rozdobudko.suvii.pysar
 			this.registerCommand(PysarFacade.FIND_SEARCH, FindSearchCommnad);
 			this.registerCommand(PysarFacade.FIND_NEXT, FindNextCommand);
 			this.registerCommand(PysarFacade.FIND_PREVIOS, FindPreviosCommand);
+			this.registerCommand(PysarFacade.FIND_SHOW_HIGHTLIGHT, FindShowHightlightCommand);
+			this.registerCommand(PysarFacade.FIND_HIDE_HIGHTLIGHT, FindHideHightlightCommand);
 			this.registerCommand(PysarFacade.FIND_INCLUDE, FindIncludeCommnad);
 			this.registerCommand(PysarFacade.FIND_EXCLUDE, FindExcludeCommand);
 			this.registerCommand(PysarFacade.SETTINGS_SHOW, SettingsShowCommand);

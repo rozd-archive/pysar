@@ -15,7 +15,7 @@ package com.rozdobudko.suvii.pysar.model.data
 		public var className:LogEntryText;
 		public var connectionName:LogEntryText;
 		
-		private var _findData:LogEntryFindData;
+		private var _findData:FindData;
 		
 		function LogEntry(id:String, level:int=0, message:LogEntryText=null, className:LogEntryText=null, connectionName:LogEntryText=null)
 		{
@@ -34,12 +34,12 @@ package com.rozdobudko.suvii.pysar.model.data
 		/**
 		 * 
 		 */
-		public function get findData():LogEntryFindData
+		public function get findData():FindData
 		{
 			return this._findData;
 		}
 		
-		public function set findData(value:LogEntryFindData):void
+		public function set findData(value:FindData):void
 		{
 			this._findData = value;
 		}
@@ -71,6 +71,15 @@ package com.rozdobudko.suvii.pysar.model.data
 			}
 			
 			return null;
+		}
+		
+		/**
+		 * Color of higtlighting text
+		 * @return 
+		 */		
+		public function get hightlightColor():Number
+		{
+			return Settings.FIND_HIGHTLIGHT_COLOR;
 		}
 		
 		// ------------------- METHODS ------------------- //

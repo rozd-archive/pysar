@@ -1,0 +1,131 @@
+<?xml version="1.0" ?>
+<mx:WindowedApplication height="100%"
+xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:aswing="org.aswing.*" creationComplete="this.init();">
+	<mx:Script>
+		<![CDATA[
+			import com.rozdobudko.suvii.pysar.model.data.FindData;
+			import com.rozdobudko.suvii.pysar.model.data.LogEntry;
+			import com.rozdobudko.suvii.pysar.model.data.LogEntryText;
+			import mx.utils.UIDUtil;
+			import com.rozdobudko.suvii.pysar.model.LogProxy;
+			import com.rozdobudko.suvii.pysar.model.OutputProxy;
+			import com.rozdobudko.suvii.pysar.PysarFacade;
+			import mx.collections.ArrayCollection;
+			import mx.core.UIComponent;
+			
+			private var file:File;
+			private var bitmap:BitmapData;
+			
+			private var entries:ArrayCollection = new ArrayCollection();
+			
+			private function init():void
+			{
+				this.file = new File();
+				this.file.addEventListener(Event.OPEN, this.openHandler);
+				this.file.addEventListener(Event.SELECT, this.selectHandler);
+				this.file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, this.uploadHandler);
+				this.file.addEventListener(Event.COMPLETE, this.completeHandler);
+				//this.file.
+				
+//				trace(File.applicationResourceDirectory.name);
+//				trace(File.applicationStorageDirectory.name);
+//				trace(File.userDirectory.name);
+				
+//				this.bitmap = new BitmapData(100, 20, false, 0xFF0000);
+//				var b:Bitmap = new Bitmap(bitmap);
+//				this.addChild(b);
+
+				var bitmap:BitmapData = new BitmapData(100, 100, true, 0x00000000);
+				var image:Bitmap = new Bitmap(bitmap);
+				
+				bitmap.fillRect(new Rectangle(0, 1, 600, 10), 0xFFFFCC00);
+//				bitmap.fillRect(new Rectangle(6, 20, 6, 10), 0xFFFFCC00);
+//				bitmap.fillRect(new Rectangle(21, 1, 6, 10), 0xFFFFCC00);
+//				bitmap.fillRect(new Rectangle(9, 31, 6, 10), 0xFFFFCC00);
+//				bitmap.fillRect(new Rectangle(0, 5, 6, 10), 0xFFFFCC00);
+				
+				var container:UIComponent = new UIComponent();
+				container.addChild(image);
+				this.addChild(container);
+				
+//				3432159
+
+//				var entry:LogEntry = new LogEntry(
+//												UIDUtil.createUID(),
+//												0, 
+//												new LogEntryText(UIDUtil.createUID(), "message"), 
+//												new LogEntryText(UIDUtil.createUID(), "className"), 
+//												new LogEntryText(UIDUtil.createUID(), "connectionName")
+//											  );
+//				entry.findData = new FindData(entry);
+//
+//				this.entries.addItem(entry);
+				
+				this.outputDataGrid.dataProvider = OutputProxy(PysarFacade.getInstance().retrieveProxy(OutputProxy.NAME)).entries; 
+				this.outputDataGrid.dataProvider = LogProxy(PysarFacade.getInstance().retrieveProxy(LogProxy.NAME)).entries; 
+//				LogProxy(PysarFacade.getInstance().retrieveProxy(LogProxy.NAME)).log(0, "TEST Lorem ipsum, dolorem1", "className1", "connectionName");
+			}
+			
+			private function browse(event:Event):void
+			{
+				trace("browse");
+				
+				file.browseForOpen("title");
+			}
+			
+			private function save(event:Event):void
+			{
+				trace("browse");
+				
+				file.browseForSave("title");
+			}
+			private function completeHandler(event:Event):void
+			{
+				trace("completeHandler");
+				trace(this.file);
+			}
+			private function selectHandler(event:Event):void
+			{
+				trace("selectHandler");
+				
+				trace(this.file);
+			}
+			
+			private function uploadHandler(event:Event):void
+			{
+				trace("uploadHandler");
+			}
+			
+			private function openHandler(event:Event):void
+			{
+				trace("openHandler");
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Button id="btn" label="Button" click="browse(event)"/>
+	<mx:Button id="saveBtn" label="Save" click="save(event)" x="73"/>
+	<mx:Canvas x="73" y="54" width="200" height="200" id="can">
+	</mx:Canvas>
+	<mx:Image id="img" x="281" y="54"/>
+	<mx:DataGrid id="outputDataGrid" editable="true" width="100%" height="100%" dataProvider="{this.entries}">
+				<mx:columns>
+					<mx:DataGridColumn dataField="level" itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.LevelIconItemRenderer" width="22" />
+					<mx:DataGridColumn 
+						headerText="Message" 
+						dataField="message" 
+						itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.ItemRenderer"
+						itemEditor="com.rozdobudko.suvii.pysar.view.components.output.ItemEditor"
+						editorDataField="dataItem"
+					/>
+					<mx:DataGridColumn
+						headerText="Date" 
+						dataField="className" 
+						itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.ItemRenderer"
+						itemEditor="com.rozdobudko.suvii.pysar.view.components.output.ItemEditor"
+						editorDataField="dataItem"
+					/>
+				</mx:columns>
+			</mx:DataGrid>
+	
+</mx:WindowedApplication>
