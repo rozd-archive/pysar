@@ -2,21 +2,18 @@ package com.rozdobudko.suvii.pysar.view
 {
 	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import com.rozdobudko.suvii.pysar.model.OutputProxy;
+	import com.rozdobudko.suvii.pysar.model.data.LogEntry;
 	import com.rozdobudko.suvii.pysar.view.components.OutputModule;
 	
 	import mx.controls.DataGrid;
 	import mx.controls.TextArea;
-	import mx.events.FlexEvent;
+	import mx.controls.listClasses.IListItemRenderer;
+	import mx.events.ScrollEvent;
 	
-	import org.puremvc.core.view.View;
 	import org.puremvc.interfaces.IMediator;
 	import org.puremvc.interfaces.INotification;
-	import org.puremvc.interfaces.IObserver;
 	import org.puremvc.patterns.mediator.Mediator;
-	import mx.formatters.SwitchSymbolFormatter;
-	import mx.logging.Log;
-	import com.rozdobudko.suvii.pysar.model.data.LogEntry;
-	import mx.controls.listClasses.IListItemRenderer;
+	import com.rozdobudko.suvii.pysar.model.LogProxy;
 	
 	public class OutputMediator extends Mediator implements IMediator
 	{
@@ -51,11 +48,27 @@ package com.rozdobudko.suvii.pysar.view
 					
 					var entry:LogEntry = notification.getBody() as LogEntry;
 					
-					var renderer:IListItemRenderer = this.table.itemToItemRenderer(entry);
+					var scrollPosition:Number = this.table.verticalScrollPosition;
 					
-					trace(renderer);
+					this.proxy.entries.refresh();
 					
-					this.table.dataProvider = this.proxy.entries;
+					this.table.verticalScrollPosition = scrollPosition;
+					
+					if(!entry)
+					{
+						return;
+					}
+					
+					var index:int = this.proxy.entries.getItemIndex(entry);
+					
+					if(index > this.table.verticalScrollPosition + (this.table.rowCount - 1))
+					{
+						this.table.verticalScrollPosition = index - (this.table.rowCount - 1) ;
+					}
+					else if(index < this.table.verticalScrollPosition)
+					{
+						this.table.verticalScrollPosition = index;
+					}
 					
 				break;
 			}
@@ -85,7 +98,7 @@ package com.rozdobudko.suvii.pysar.view
 		
 		// ------------------  HANDLERS ------------------- //
 		
-		
+
 		
 		// ---------------- USER INTERACTION -------------- //
 		

@@ -15,9 +15,7 @@ package com.rozdobudko.suvii.pysar.model
 		
 		// ---------------- PRIVATE FIELDS --------------- //
 		
-		private var _classes:ArrayCollection;
 
-		private var _connections:ArrayCollection;
 		
 		// ----------------- CONSTRUCTOR ----------------- //
 		
@@ -37,26 +35,12 @@ package com.rozdobudko.suvii.pysar.model
 		
 		public function get connections():ArrayCollection
 		{
-			return this._connections;
-		}
-		
-		public function set connections(value:ArrayCollection):void
-		{
-			this._connections = value;
-			
-			this.sendNotification(PysarFacade.SUBJECTS_UPDATE);
+			return LogProxy(this.facade.retrieveProxy(LogProxy.NAME)).connections;
 		}
 		
 		public function get classes():ArrayCollection
 		{
-			return this._classes;
-		}
-		
-		public function set classes(value:ArrayCollection):void
-		{
-			this._classes = value;
-			
-			this.sendNotification(PysarFacade.SUBJECTS_UPDATE);
+			return LogProxy(this.facade.retrieveProxy(LogProxy.NAME)).classes;
 		}
 		
 		// ---------------- PUBLIC METHODS --------------- //	

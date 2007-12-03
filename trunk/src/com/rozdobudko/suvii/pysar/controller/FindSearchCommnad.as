@@ -21,7 +21,7 @@ package com.rozdobudko.suvii.pysar.controller
 	{
 		override public function execute(notification:INotification):void
 		{
-//			trace("FindSearchCommnad :: execute");
+			trace("FindSearchCommnad");
 			
 			var outputProxy:OutputProxy = this.facade.retrieveProxy(OutputProxy.NAME) as OutputProxy;
 			var outputMediator:OutputMediator = this.facade.retrieveMediator(OutputMediator.NAME) as OutputMediator;
@@ -34,6 +34,7 @@ package com.rozdobudko.suvii.pysar.controller
 			var bookmark:CursorBookmark = cursor.bookmark;
 			
 			cursor.seek(CursorBookmark.FIRST);
+			
 			while(!cursor.afterLast)
 			{
 				if(cursor.current != bookmark.value)
@@ -71,8 +72,8 @@ package com.rozdobudko.suvii.pysar.controller
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						this.facade.notifyObservers(new Notification(PysarFacade.FIND_PHRASE, true));
-						this.sendNotification(PysarFacade.OUTPUT_UPDATE);
+						this.sendNotification(PysarFacade.FIND_PHRASE, true);
+						this.sendNotification(PysarFacade.OUTPUT_UPDATE, entry);
 						
 						return;
 					}
@@ -105,8 +106,8 @@ package com.rozdobudko.suvii.pysar.controller
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						this.facade.notifyObservers(new Notification(PysarFacade.FIND_PHRASE, true));
-						this.sendNotification(PysarFacade.OUTPUT_UPDATE);
+						this.sendNotification(PysarFacade.FIND_PHRASE, true);
+						this.sendNotification(PysarFacade.OUTPUT_UPDATE, entry);
 						
 						return;
 					}

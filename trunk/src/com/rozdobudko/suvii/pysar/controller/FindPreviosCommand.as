@@ -1,5 +1,6 @@
 package com.rozdobudko.suvii.pysar.controller
 {
+	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import com.rozdobudko.suvii.pysar.model.FindProxy;
 	import com.rozdobudko.suvii.pysar.model.OutputProxy;
 	import com.rozdobudko.suvii.pysar.model.data.LogEntry;
@@ -7,13 +8,12 @@ package com.rozdobudko.suvii.pysar.controller
 	import com.rozdobudko.suvii.pysar.view.FindMediator;
 	import com.rozdobudko.suvii.pysar.view.OutputMediator;
 	
+	import mx.collections.CursorBookmark;
 	import mx.collections.IViewCursor;
 	
 	import org.puremvc.interfaces.ICommand;
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.command.SimpleCommand;
-	import mx.collections.CursorBookmark;
-	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import org.puremvc.patterns.observer.Notification;
 
 	public class FindPreviosCommand extends SimpleCommand implements ICommand
@@ -37,58 +37,58 @@ package com.rozdobudko.suvii.pysar.controller
 			
 			var cursor:IViewCursor = outputProxy.cursor;
 			
-			var inited:Boolean;
+			var bookmark:CursorBookmark = cursor.bookmark;
+			
+			cursor.seek(CursorBookmark.FIRST);
+			while(!cursor.afterLast)
+			{
+				if(cursor.current != bookmark.value)
+				{
+					LogEntry(cursor.current).findData.cursor.seek(CursorBookmark.LAST);
+					LogEntry(cursor.current).findData.beginIndex = -1;
+					LogEntry(cursor.current).findData.endIndex = -1;
+				}
+				cursor.moveNext();
+			}
+			
+			cursor.seek(bookmark);
+			
+			var entry:LogEntry;
+			var logText:LogEntryText;
+			var index:int;
 			
 			while(!cursor.beforeFirst)
 			{
-				var entry:LogEntry = cursor.current as LogEntry;
+				entry = cursor.current as LogEntry;
 				
 				while(!entry.findData.cursor.beforeFirst)
 				{
-					var logText:LogEntryText = entry.findData.cursor.current as LogEntryText;
+					logText = entry.findData.cursor.current as LogEntryText;
 					
-					entry.findData.beginIndex = isNaN(entry.findData.beginIndex) ? logText.label.length : entry.findData.beginIndex;
-					entry.findData.endIndex = isNaN(entry.findData.beginIndex) ? logText.label.length : entry.findData.endIndex;
-					
-					var index:int
-					index = logText.label.lastIndexOf(findProxy.searchPhrase, 2*entry.findData.beginIndex - entry.findData.endIndex);
-					
+					if(entry.findData.beginIndex == -1)
+					{
+						index = logText.label.lastIndexOf(findProxy.searchPhrase, logText.label.length);
+					}
+					else
+					{
+						index = logText.label.lastIndexOf(findProxy.searchPhrase, 2*entry.findData.beginIndex - entry.findData.endIndex);
+					}
+
 					if(index == -1)
 					{
-						entry.findData.beginIndex = logText.label.length;
-						entry.findData.endIndex = logText.label.length;
+						entry.findData.beginIndex = -1;
+						entry.findData.endIndex = -1;
 					}
 					else
 					{
 						entry.findData.beginIndex = index;
 						entry.findData.endIndex = index + findProxy.searchPhrase.length;
 						
-						this.sendNotification(PysarFacade.OUTPUT_UPDATE);
+						this.sendNotification(PysarFacade.OUTPUT_UPDATE, entry);
 						return;
 					}
 					
 					entry.findData.cursor.movePrevious();
-				}
-				
-				if(!inited)
-				{
-					var bookmark:CursorBookmark = cursor.bookmark;
-					
-					cursor.seek(CursorBookmark.FIRST);
-					while(!cursor.afterLast)
-					{
-						if(cursor.current != entry)
-						{
-							LogEntry(cursor.current).findData.cursor.seek(CursorBookmark.LAST);
-							LogEntry(cursor.current).findData.beginIndex = null;
-							LogEntry(cursor.current).findData.endIndex = null;
-						}
-						cursor.moveNext();
-					}
-					
-					cursor.seek(bookmark);
-					
-					inited = true;
 				}
 				
 				cursor.movePrevious();
@@ -96,7 +96,53 @@ package com.rozdobudko.suvii.pysar.controller
 			
 			cursor.seek(CursorBookmark.LAST);
 			
-			this.facade.notifyObservers(new Notification(PysarFacade.FIND_PREVIOS));
+			while(cursor.bookmark.getViewIndex() >= bookmark.getViewIndex())
+			{
+				entry = cursor.current as LogEntry;
+				
+				while(!entry.findData.cursor.beforeFirst)
+				{
+					logText = entry.findData.cursor.current as LogEntryText;
+					
+					if(entry.findData.beginIndex == -1)
+					{
+						index = logText.label.lastIndexOf(findProxy.searchPhrase, logText.label.length);
+					}
+					else
+					{
+						index = logText.label.lastIndexOf(findProxy.searchPhrase, 2*entry.findData.beginIndex - entry.findData.endIndex);
+					}
+
+					if(index == -1)
+					{
+						entry.findData.beginIndex = -1;
+						entry.findData.endIndex = -1;
+					}
+					else
+					{
+						entry.findData.beginIndex = index;
+						entry.findData.endIndex = index + findProxy.searchPhrase.length;
+						
+						this.sendNotification(PysarFacade.OUTPUT_UPDATE, entry);
+						return;
+					}
+					
+					entry.findData.cursor.movePrevious();
+				}
+				
+				cursor.movePrevious();
+			}
+			
+			cursor.seek(CursorBookmark.FIRST);
+			while(!cursor.afterLast)
+			{
+				LogEntry(cursor.current).findData.cursor.seek(CursorBookmark.FIRST);
+				LogEntry(cursor.current).findData.beginIndex = 0;
+				LogEntry(cursor.current).findData.endIndex = 0;
+				
+				cursor.moveNext();
+			}
+			cursor.seek(CursorBookmark.FIRST);
 		}
 		
 		// ------------------- PureMVC ------------------- //

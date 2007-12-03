@@ -36,6 +36,7 @@ package com.rozdobudko.suvii.pysar.view
 		private var levels:Array;
 		
 		/**
+		 * @private
 		 * Collection of styles from <code>SettingsProxy</code>, all elements is CSSStyleDeclaration type.
 		 * As a key using instance of <code>LevelStyleFormatterEvent</code>.
 		 */

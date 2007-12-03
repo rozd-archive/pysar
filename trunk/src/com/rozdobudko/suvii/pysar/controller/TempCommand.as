@@ -23,14 +23,14 @@ package com.rozdobudko.suvii.pysar.controller
 			logProxy.add("connectionName");
 			logProxy.add("connectionName2");
 			
-			logProxy.log(0, "TEST Lorem ipsum, dolorem", "className1", "connectionName");
-			logProxy.log(3, "TEST Lorem ipsum, dolorem", "className2", "connectionName2");
-			logProxy.log(4, "TEST Lorem ipsum, dolorem", "className3", "connectionName");
-			logProxy.log(1, "TEST Lorem ipsum, dolorem", "className4", "connectionName2");
+			logProxy.log(0, "TEST Lorem ipsum, dolorem1", "className1", "connectionName");
+			logProxy.log(3, "TEST Lorem ipsum, dolorem2", "className2", "connectionName2");
+			logProxy.log(4, "TEST Lorem ipsum, dolorem3", "className3", "connectionName");
+			logProxy.log(1, "TEST Lorem ipsum, dolorem4", "className4", "connectionName2");
 			
 			for(var i:uint; i<100; i++)
 			{
-				logProxy.log(i%5, "TEST Lorem ipsum, dolorem", "className_"+i, "connectionName");
+//				logProxy.log(i%5, "TEST Lorem ipsum, dolorem", "className_"+i, "connectionName");
 			}
 			
 //			this.sendNotification(PysarFacade.ALERT, "Test alert");

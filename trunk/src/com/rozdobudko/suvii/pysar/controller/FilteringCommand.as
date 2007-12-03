@@ -32,7 +32,7 @@ package com.rozdobudko.suvii.pysar.controller
 			var t:Number = getTimer(); 
 			
 			
-			outputProxy.entries = new ArrayCollection();
+			outputProxy.entries.removeAll();
 			
 			var cursor:IViewCursor = logProxy.entries.createCursor();
 			

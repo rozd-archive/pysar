@@ -22,6 +22,9 @@ package com.rozdobudko.suvii.pysar.view
 		public function SubjectsMediator(viewComponent:Object=null)
 		{
 			super(viewComponent);
+			
+			this.component.connections.dataProvider = this.proxy.connections;
+			this.component.classes.dataProvider = this.proxy.classes;
 		}
 		
 		// ------------------- PureMVC ------------------- //
@@ -29,24 +32,6 @@ package com.rozdobudko.suvii.pysar.view
 		override public function getMediatorName():String
 		{
 			return NAME;
-		}
-		
-		override public function listNotificationInterests():Array
-		{
-			return [
-			       	PysarFacade.SUBJECTS_UPDATE
-				   ]
-		}
-		
-		override public function handleNotification(notification:INotification):void
-		{
-			switch(notification.getName())
-			{
-				case PysarFacade.SUBJECTS_UPDATE :
-					this.component.connections.dataProvider = this.proxy.connections;
-					this.component.classes.dataProvider = this.proxy.classes;
-				break;
-			}
 		}
 		
 		// -------------------- FIEDS -------------------- //
