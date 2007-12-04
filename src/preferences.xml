@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="preferences.xsd">
+	<common>Common</common>
+	<content>
+		<styles>
+			<levels>
+				<level id="debug" color="0xFF0000" bold="false" font="Verdana" italic="false" />
+				<level id="info" color="0xFF0000" bold="false" font="Verdana" italic="false" />
+				<level id="warning" color="0xFF0000" bold="false" font="Verdana" italic="false" />
+				<level id="error" color="0xFF0000" bold="false" font="Verdana" italic="false" />
+				<level id="fatal" color="0xFF0000" bold="false" font="Verdana" italic="false" />
+			</levels>
+			<higtlight-color>0xFFFFFF00</higtlight-color>
+		</styles>
+	</content>
+</preferences>

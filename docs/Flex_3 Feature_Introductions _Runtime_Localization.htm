@@ -1,0 +1,722 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+
+<meta name="KEYWORDS" content="Flex 3:Feature Introductions: Runtime Localization">
+<meta name="robots" content="index,follow">
+<link rel="shortcut icon" href="http://localhost/favicon.ico">
+<title>
+Flex 3:Feature Introductions: Runtime Localization - Adobe Labs</title>
+<meta http-equiv="imagetoolbar" content="no">
+<script type="text/javascript" src="Flex_3%20Feature_Introductions%20_Runtime_Localization_files/index.php"></script>
+<script type="text/javascript" src="Flex_3%20Feature_Introductions%20_Runtime_Localization_files/wikibits.js"></script>
+<link rel="stylesheet" type="text/css" href="Flex_3%20Feature_Introductions%20_Runtime_Localization_files/labs_wiki_import.css">
+</head><body class="ns-0">
+
+<a id="p-logo" href="http://localhost/" title="Main Page" target="_blank"></a>
+
+<div id="pod">
+  <h5>
+    <label for="searchInput">
+    Search    </label>
+  </h5>
+  <form name="searchform" action="/wiki/index.php/Special:Search" id="searchform">
+    <input id="searchInput" name="search" accesskey="f" value="" type="text">
+    <input name="go" class="searchButton submit" id="searchGoButton" value="Go" type="submit">
+
+    &nbsp;
+    <input name="fulltext" class="searchButton submit" value="Search" type="submit">
+  </form>
+  <ul class="nav-pod">
+    <li>
+      <p>Navigation</p>
+      <ul>
+        <li id="n-labshome"><a href="http://localhost/">Labs Home</a></li>
+        <li id="n-mainpage"><a href="http://localhost/wiki/index.php/Main_Page">Wiki Home</a></li>
+      </ul>
+    </li>
+    <li>
+      <p>Technologies</p>
+      <ul>
+	<li><a href="http://localhost/wiki/index.php/AIF_Toolkit">AIF Toolkit</a></li>
+    <li><a href="http://localhost/wiki/index.php/AIR">Adobe AIR</a></li>
+ 	<li><a href="http://localhost/wiki/index.php/AIR:Dreamweaver_CS3_Extension">Adobe AIR Extension for Dreamweaver</a></li>
+ 	<li><a href="http://localhost/wiki/index.php/AIR:Flash_CS3_Professional_Update">Adobe AIR update for Flash CS3 Professional</a></li>
+    <li><a href="http://localhost/wiki/index.php/Astro">Astro</a></li>
+    <li><a href="http://localhost/wiki/index.php/Cairngorm">Cairngorm</a></li>
+    <li><a href="http://localhost/wiki/index.php/ColdFusion_Portlet_Toolkit">ColdFusion Portlet Toolkit</a></li>
+	<li><a href="http://localhost/wiki/index.php/Flash_Lite_for_BREW_Publisher_for_Flash_CS3_Pro">Flash Lite for BREW Publisher for Flash CS3 Professional</a></li>
+    <li><a href="http://localhost/wiki/index.php/Flash_Player">Flash Player 9 Update</a></li>
+    <li><a href="http://localhost/wiki/index.php/Flash-Ajax_Video_Component">Flash-Ajax Video Component</a></li>
+    <li><a href="http://localhost/wiki/index.php/Flex_3">Flex 3</a></li>
+	<li><a href="http://localhost/wiki/index.php/Flex_Ant_Tasks">Flex Ant Tasks</a></li>
+	<li><a href="http://localhost/wiki/index.php/Flex_Compiler_Shell">Flex Compiler Shell</a></li>
+	<li><a href="http://localhost/wiki/index.php/Flex_Module_for_Apache_and_IIS">Flex module for Apache and IIS</a></li>
+	<li><a href="http://localhost/wiki/index.php/Flex_Scheduling_Framework">Flex Scheduling Framework</a></li>
+	<li><a href="http://localhost/wiki/index.php/Flex_Stress_Testing_Framework">Flex Stress Testing Framework</a></li>
+    <li><a href="http://localhost/wiki/index.php/Flex-Ajax_Bridge">Flex-Ajax Bridge</a></li>
+	<li><a href="http://localhost/wiki/index.php/InDesign_Plug-in_Editor">InDesign Plug-in Editor</a></li>
+    <li><a href="http://localhost/wiki/index.php/Knowhow">knowhow</a></li>
+    <li><a href="http://localhost/wiki/index.php/Kuler">kuler API</a></li>
+	<li><a href="http://localhost/wiki/index.php/Language_Pack">Language Pack</a></li>
+	<li><a href="http://localhost/wiki/index.php/Mars">Mars</a></li>
+	<li><a href="http://localhost/wiki/index.php/Adobe_Media_Gallery">Adobe Media Gallery</a></li>
+    <li><a href="http://localhost/wiki/index.php/Adobe_Media_Player">Adobe Media Player</a></li>
+	<li><a href="http://localhost/wiki/index.php/NoteTag">NoteTag</a></li>
+    <li><a href="http://localhost/wiki/index.php/PDF_iFilter_8_-_64-bit_Support">PDF iFilter 8 - 64-bit Support</a></li>
+	<li><a href="http://localhost/wiki/index.php/Photoshop_CS3_Extended_Plug-In_for_Google_3D_Warehouse">Photoshop CS3 Extended Plug-In for Google 3D Warehouse</a></li>
+    <li><a href="http://localhost/wiki/index.php/Pixmantec_RawShooter_Migration_Tool">Pixmantec RawShooter Migration Tool</a></li>
+	<li><a href="http://localhost/wiki/index.php/Adobe_Premiere_Pro_Update_for_Intel_SSE4.1">Adobe Premiere Pro Update for Intel SSE4.1</a></li>
+    <li><a href="http://localhost/wiki/index.php/Share:API">SHARE API</a></li>
+    <li><a href="http://localhost/wiki/index.php/Spry">Spry framework for Ajax</a></li>
+    <li><a href="http://localhost/wiki/index.php/Thermo">Thermo</a></li>
+      </ul>
+    </li>
+    <li><p><a href="http://localhost/wiki/index.php/Showcase">Showcase Gallery</a></p></li>
+    <li><p><a href="http://localhost/wiki/index.php/Special:Recentchanges">Recent Changes</a></p></li>
+    <li><p><a href="http://localhost/wiki/index.php?title=Special:Recentchanges&amp;feed=rss">Recent Changes (RSS)</a></p></li>
+    <li><p><a href="http://localhost/wiki/index.php/Help:Contents">Help</a></p></li>
+    <li><p><a href="http://localhost/wiki/index.php/FAQ">FAQ</a></p></li>
+    <li>
+      <p>Toolbox</p>
+      <ul>
+        <li><a href="http://localhost/wiki/index.php?title=Special:Whatlinkshere&amp;target=Flex_3:Feature_Introductions:_Runtime_Localization">What Links Here</a></li>
+        <li><a href="http://localhost/wiki/index.php?title=Special:Recentchangeslinked&amp;target=Flex_3:Feature_Introductions:_Runtime_Localization">Related Changes</a></li>
+        <li><a href="http://localhost/wiki/index.php/Special:Specialpages">Special Pages</a></li>
+      </ul>
+    </li>
+  </ul>
+
+</div>
+<div id="p-personal">
+  <h5>
+    Personal tools  </h5>
+  <ul>
+        <li id="pt-login"><a href="http://localhost/wiki/index.php?title=Special:Userlogin&amp;returnto=Flex_3:Feature_Introductions:_Runtime_Localization">
+      Create an account or log in      </a></li>
+
+      </ul>
+</div>
+<br class="clear-both">
+<div id="p-cactions">
+  <h5>Views</h5>
+  <ul>
+        <li id="ca-nstab-main" class="selected">
+
+	         <a href="http://localhost/wiki/index.php/Flex_3:Feature_Introductions:_Runtime_Localization">
+      Article      </a></li>
+        <li id="ca-talk">
+
+	         <a href="http://localhost/wiki/index.php/Talk:Flex_3:Feature_Introductions:_Runtime_Localization">
+      Discussion      </a></li>
+        <li id="ca-edit">
+
+	         <a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit">
+      Edit      </a></li>
+        <li id="ca-history">
+
+	         <a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=history">
+      History      </a></li>
+      </ul>
+</div>
+<div id="content"> <a name="top" id="contentTop"></a>
+    <h1 class="firstHeading">
+    Flex 3:Feature Introductions: Runtime Localization  </h1>
+  <h3 id="siteSub">
+    From Adobe Labs  </h3>
+  <div id="contentSub">
+
+      </div>
+      <!-- start content -->
+  <h1>Runtime Localization</h1>
+<p>Gordon Smith<br>
+  September 25. 2007
+</p>
+<table id="toc" border="0"><tbody><tr id="toctitle"><td align="center">
+<b>Table of contents</b> <script type="text/javascript">showTocToggle("show","hide")</script><span class="toctoggle">[<a href="javascript:toggleToc()" class="internal"><span id="showlink" style="display: none;">show</span><span id="hidelink">hide</span></a>]</span>
+</td></tr><tr id="tocinside"><td>
+<div class="tocline"><a href="#Introduction">1 Introduction</a><br></div>
+<div class="tocline"><a href="#Sounds_cool._Can_I_see_a_demo.3F">2 Sounds cool. Can I see a demo?</a><br></div>
+<div class="tocline"><a href="#How_about_a_simpler_tutorial.3F">3 How about a simpler tutorial?</a><br></div>
+<div class="tocline"><a href="#What_are_all_those_compilation_options.3F">4 What are all those compilation options?</a><br></div>
+<div class="tocline"><a href="#Huh.3F_French_framework_resources.3F">5 Huh? French framework resources?</a><br></div>
+<div class="tocline"><a href="#Hello.3F_Non..._Bonjour.21">6 Hello? Non... Bonjour!</a><br></div>
+<div class="tocline"><a href="#OK.2C_OK._How_do_I_switch_locales_on_the_fly.3F">7 OK, OK. How do I switch locales on the fly?</a><br></div>
+<div class="tocline"><a href="#What.26rsquo.3Bs_this_resourceManager_thing.3F">8 What’s this resourceManager thing?</a><br></div>
+<div class="tocline"><a href="#Why_do_I_need_to_write_a_binding_expression_instead_of_.40Resource.28.29.3F">9 Why do I need to write a binding expression instead of @Resource()?</a><br></div>
+<div class="tocline"><a href="#What.26rsquo.3Bs_up_with_.5BResourceBundle.5D.3F">10 What’s up with [ResourceBundle]?</a><br></div>
+<div class="tocline"><a href="#Why_is_the_localeChain_an_Array.3F">11 Why is the localeChain an Array?</a><br></div>
+<div class="tocline"><a href="#Can_resource_values_only_be_Strings.3F">12 Can resource values only be Strings?</a><br></div>
+<div class="tocline"><a href="#How_do_I_compile_a_resource_module.3F">13 How do I compile a resource module?</a><br></div>
+<div class="tocline"><a href="#How_do_I_preload_a_resource_module.3F">14 How do I preload a resource module?</a><br></div>
+<div class="tocline"><a href="#How_do_I_load_a_resource_module_programmatically.3F">15 How do I load a resource module programmatically?</a><br></div>
+<div class="tocline"><a href="#I.26rsquo.3Bm_tired.21_Anything_else.3F">16 I’m tired! Anything else?</a><br></div>
+</td></tr></tbody></table>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=1" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="Introduction"></a><h2> Introduction </h2>
+<p>In Flex 2, the localized resources for an application had to be
+linked into the application SWF. Also, the resources could only be for
+a single locale, so if you wanted to localize for multiple locales you
+had to build multiple application SWFs. </p>
+<p>With Flex 3, localization support will become much more Flexible! Here’s how: </p>
+<ul>
+  <li>
+  <p>You can put your resources into resource modules --
+similar to style modules -- rather than into the application itself.
+You can preload the module for an appropriate locale when the
+application starts, and you can load modules for additional locales
+later.</p>  
+  </li><li>
+  <p>You can compile resources for multiple locales into a single application or module.</p>
+  </li><li>    <p>You
+access all resources through a new ResourceManager, which can manage
+resources for multiple locales. You can change at runtime which locales
+get searched for resources. </p>
+  </li><li>
+    <p>Binding expressions that reference
+resources via the new ResourceManager will automatically update if the
+locale changes. Components are notified when the locale changes so that
+they can update themselves appropriately. </p>
+  </li><li>
+    <p>You can also use images, sounds, etc. as resources rather than just strings.
+    </p>
+  </li><li>
+    <p>You
+can programatically create your own resources at runtime and use them
+just like ones that were compiled from .properties files. So you can
+create resources at runtime from downloaded XML files, database
+results, etc. </p>
+  </li>
+</ul>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=2" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="Sounds_cool._Can_I_see_a_demo.3F"></a><h2> Sounds cool. Can I see a demo?  </h2>
+<p>To see what you’ll be able to do with runtime localization, take a
+look at the FlightReservation1 and FlightReservation2 demo
+applications. They accomplish the same thing, but they use two
+different localization strategies. Both versions have been localized
+for U.S. English (the <code>en_US</code> locale) and for Japanese (the <code>ja_JP</code>
+locale). They are provided as Flex Builder 3 projects which you can
+import into a Flex Builder workspace. Choose File &gt; Import, select
+General &gt; Existing Projects into Workspace, and browse for each
+project. Please read each project's <code>README.txt</code> file for
+more information. If you simply copy files into a new Flex Builder
+project rather than importing the projects, be sure to follow the
+instructions in these files or you may get compilation or runtime
+errors. </p>
+<p> In FlightReservation1, both the <code>en_US</code> and the <code>ja_JP</code> resources are compiled into the application SWF. The first time that the application is launched, the <code>en_US</code>
+resources will be used by default. A Language combobox allows the user
+to select Japanese, at which point the application tells the
+ResourceManager to use the <code>ja_JP</code> resources instead of the <code>en_US</code>
+ones. As a result, the user interface switches — on the fly! — to
+Japanese. The application also saves the user’s locale choice in a
+local SharedObject. The next time the application starts, it reads this
+saved locale and uses its resources by default. So if you switch to
+Japanese and quit, this application will restart in Japanese.</p>
+<p>In FlightReservation2, the application has no resources inside it.
+Instead they are compiled into two separate resource module SWFs, <code>Resources_en_US.swf</code> and <code>Resources_ja_JP.swf</code>. (Note: You cannot create resource modules in Flex Builder 3; you must use command-line tools to do so.) The HTML template (<code>html-template/index.template.html</code>) has been customized to preload the English resource module by specifying properties named <code>resourceModuleURLs</code> and <code>localeChain</code> in the <code>FlashVars</code>.
+Make sure that you use this template rather than Flex Builder’s default
+one. (In general, server-side logic could decide which locale to
+initially load, and generate the appropriate HTML wrapper.) When the
+user switches the locale at runtime, the application determines whether
+the new locale has already been loaded, and, if not, loads the
+appropriate resource module. So, the first time that the user chooses
+Japanese, the Japanese module will get loaded. But then the user can
+continue to switch back and forth between English and Japanese with no
+further module loading. </p>
+<p>The on-the-fly locale switching in both versions is accomplished
+primarily by simple binding expressions which automatically update when
+the locale is changed. However, these applications use some other
+interesting localization techniques: </p>
+<ul>
+  <li>
+    <p>The XML data — which simulates back-end data that
+in the real world would come from a database — is locale-independent.
+For example, the “from” and “to” locations for a route are expressed as
+airport codes. But the user interface localizes this info into
+locale-dependent city names using <code>labelFunction</code>s, and it sorts the lists based on the localized names.</p>
+  </li>
+  <li>
+    <p>Dates are displayed with locale-dependent formatting. </p>
+  </li>
+  <li>
+    <p>The
+flight distance is displayed in locale-dependent units — miles for U.S.
+English, kilometers for Japanese — with locale-dependent formatting. </p>
+  </li>
+  <li>Prices
+are displayed in locale-dependent units — U.S. dollars for U.S.
+English, Yen for Japanese — with locale-dependent formatting (i.e.,
+currency symbol and precision). </li>
+</ul>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=3" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="How_about_a_simpler_tutorial.3F"></a><h2> How about a simpler tutorial?  </h2>
+<p>Sure. There is quite a bit going on in the FlightReservation demo,
+so I’ll let you dig into that by yourself when you’re ready. For now,
+lets go step-by-step through a really simple “Hello” app that we’ll
+localize for English and French. It will give you a good introduction
+to various aspects of localization in Flex 3. </p>
+<p>Create a new Flex Project called RunLoc in Flex Builder. Enter the following code for <code>RunLoc.mxml</code>:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"&gt;
+    &lt;mx:Label text="@Resource(bundle='myResources', key='GREETING')" fontSize="48"/&gt;
+&lt;/mx:Application&gt;</pre>
+<p>Just as in Flex 2, you can use the <code>@Resource()</code> MXML compiler directive to specify that the Label’s <code>text</code> property is to be set to a localized value from a resource bundle, rather than simply writing
+</p>
+<pre>&lt;mx:Label text="Hello!" fontSize="48"/&gt; </pre>
+<p>with the hard-coded English word “Hello!”. The <code>bundle</code> and <code>key</code> attributes inside the @Resource() directive tell the compiler that we want to use the resource named <code>GREETING</code> inside a resource bundle named <code>myResources</code>.</p>
+<p>The simplest way to create a resource bundle is to provide a
+.properties file defining the keys and values in the bundle. The MXML
+compiler will compile a .properties file into a subclass of the
+mx.resources.ResourceBundle class. So, create a folder named <code>locale</code> inside the project (as a sibling of the <code>src</code> folder) and, inside <code>locale</code>, create a folder named <code>en_US</code> for our U.S. English resources. Inside the <code>en_US</code> folder, create a file called <code>myResources.properties. </code>Open the Properties dialog for the <code>myResources.properties</code>
+file and set its "Text file encoding" to UTF-8. (If this causes a
+warning, ignore it.) The MXML compiler expects all .properties files to
+have UTF-8 encoding. Now edit the file and put one English resource in
+it: </p>
+<pre>GREETING=Hello!
+</pre>
+<p>Now open the project’s Properties dialog, select the Flex Compiler
+pane, and enter the following as “Additional compiler arguments”:</p>
+<pre>-locale=en_US -source-path=../locale/{locale}</pre>
+<p>If you now compile and run the application, you should see “Hello!” displayed. </p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=4" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="What_are_all_those_compilation_options.3F"></a><h2> What are all those compilation options? </h2>
+<p>I knew you’d ask. </p>
+<p>From the <code>@Resource()</code> directive, the compiler knows that the application uses a resource bundle named <code>myResources</code>. The <code>-source-path</code> option tells the compiler where to look for additional source files such <code>myResources.properties</code>. The locale, <code>en_US</code>, specified by the <code>-locale</code> option is automatically subsituted for the special <code>{locale}</code> token in <code>-source-path</code>.
+When we change the locale, we won’t have to also change the source
+path. You need the .. in the source path because, in Flex Builder 3
+Beta 2, a relative source path is resolved relative to the <code>src</code> directory, not relative to the project directory. This may change before we ship. </p>
+<p>The <code>-locale=en_US</code> option also tells the compiler to use the <code>en_US</code>
+version of the framework resources. What are framework resources? Well,
+framework components such as Label use resources, just like your
+application and your custom components can use resources. Label and
+other framework classes have been precompiled into component libraries
+in the <code>frameworks/libs</code> folder of the Flex SDK. The resources required by these classes are located in separate resource bundle libraries  in the <code>frameworks/locale</code> folder. For example, the English resources for the <code>frameworks/libs/framework.swc</code> library are in the resource bundle library <code>frameworks/locale/en_US/framework_rb.swc</code>. </p>
+<p>Now we’d like to localize our RunLoc app for French — by providing resources for the <code>fr_FR</code> locale. But first we need to deal with the fact that the Flex SDK doesn't provide French framework resources. </p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=5" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="Huh.3F_French_framework_resources.3F"></a><h2> Huh? French framework resources?  </h2>
+<p>In the past, the MXML compiler was happy as long as you provided  application resources for the locale you specified with the <code>-locale</code> option; it would fall back and use the <code>en_US</code> framework resources if it didn’t find those for the locale you specified. But the Flex 3 compiler is pickier: if you specify <code>-locale=fr_FR</code> then it will expect to find French  framework resources.</p>
+<p>Don’t worry, though... it’s not hard to make an <code>fr_FR</code> framework resource library. You can just use a command-line script which will compile the <code>en_US</code> .properties files for the <code>fr_FR</code> locale!</p>
+<p>Set the current directory to the Flex SDK that your Flex Builder project is using. By default, this will be the directory <code>sdks/3.0.0</code> inside your Flex Builder installation. Now execute</p>
+<p> <code>bin\copylocale.exe en_US fr_FR</code></p>
+<p>on Windows or</p>
+<p><code>bin/copylocale.sh en_US fr_FR</code></p>
+<p>on Macintosh. Check to make sure that you now have a <code>framework_rb.swc</code> file inside <code>frameworks\locale\fr_FR</code>.</p>
+<p>Now that we’ve made a French framework resource library, it’s really easy to localize our app for French. </p>
+<pre>Note that for some reason the data visualization src folder is missing from build 3.0.183654.
+So if you try to run copylocale you will get this message:
+C:\Program Files\Adobe\Flex Builder 3\sdks\3.0.0\bin&gt;copylocale en_US fr_FR
+Error: Directory "C:\Program Files\Adobe\Flex Builder 3\sdks\3.0.0\frameworks\projects\datavisualization\bundles\en_US\src" does not exist
+
+I simply created an empty src folder at that location and then copylocale works.
+
+C:\Program Files\Adobe\Flex Builder 3\sdks\3.0.0\bin&gt;copylocale en_US fr_FR
+In Flex SDK at C:\Program Files\Adobe\Flex Builder 3\sdks\3.0.0 ...
+</pre>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=6" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="Hello.3F_Non..._Bonjour.21"></a><h2> Hello? Non... Bonjour! </h2>
+<p>Inside the <code>locale</code> folder of the RunLoc project, create a folder called <code>fr_FR</code>. Inside the <code>fr_FR</code> folder, create a file called <code>myResources.properties</code> and sets its encoding to UTF-8. Enter the French version of the <code>GREETING</code> resource in it: </p>
+<pre>GREETING=Bonjour!</pre>
+<p>Open the project’s Properties dialog, select the Flex Compiler pane, and in the “Additional compiler arguments” simply change </p>
+<pre>-locale=en_US</pre>
+<p>to</p>
+<pre>-locale=fr_FR</pre>
+<p>Now run the application... you should see “Bonjour!” instead of “Hello!”.</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=7" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="OK.2C_OK._How_do_I_switch_locales_on_the_fly.3F"></a><h2> OK, OK. How do I switch locales on the fly? </h2>
+<p>You’re right to be bored so far... up to this point we haven’t done
+anything that wasn’t possible in previous versions of Flex. But now
+we’re ready to talk about Flex 3’s improvements. To start, let's
+compile our RunLoc demo for <em>both</em> English and French, and add some code to switch between them. </p>
+<p>Change <code>RunLoc.mxml</code> to look like this:</p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"&gt;
+
+    &lt;mx:Metadata&gt;
+        [ResourceBundle("myResources")]
+    &lt;/mx:Metadata&gt;
+
+    &lt;mx:Script&gt;
+    &lt;![CDATA[</pre>
+<pre>        [Bindable]
+        private var locales:Array = [ "en_US" , "fr_FR" ];</pre>
+<pre>        private function localeComboBox_initializeHandler(event:Event):void
+        {
+            localeComboBox.selectedIndex = locales.indexOf(resourceManager.localeChain[0]);
+        }
+   
+        private function localeComboBox_changeHandler(event:Event):void
+        {
+            // Set the localeChain to either the one-element Array
+            // [ "en_US" ] or the one-element Array [ "fr_FR" ].
+            resourceManager.localeChain = [ localeComboBox.selectedItem ];
+        }</pre>
+<pre>    ]]&gt;
+    &lt;/mx:Script&gt;
+   
+    &lt;mx:Label text="{resourceManager.getString('myResources', 'GREETING')}" fontSize="48"/&gt;</pre>
+<pre>    &lt;mx:ComboBox id="localeComboBox" dataProvider="{locales}"
+                 initialize="localeComboBox_initializeHandler(event)"
+                 change="localeComboBox_changeHandler(event)"/&gt;
+   
+&lt;/mx:Application&gt;</pre>
+<p>Change the <code>-locale</code> option to be </p>
+<pre>-locale=en_US,fr_FR</pre>
+<pre>Note from Jason: For Flex Builder 3.0.183654 I had to use space instead of column. i.e. "-locale=en_US fr_FR".
+Also take away the &lt;br&gt; in the source code shown above. Great Tutorial. Thank you.</pre>
+<p>When you compile and run, the application will start in English (because <code>en_US</code> is specified as the first locale). But when you choose <code>fr_FR</code> in the combobox, the “Hello!” changes on the fly to “Bonjour!”. Next we’ll explain how this happens. </p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=8" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="What.26rsquo.3Bs_this_resourceManager_thing.3F"></a><h2> What’s this resourceManager thing? </h2>
+<p>A new manager in the Flex framework — the ResourceManager — now
+handles access to all localized resources in an application. Any
+components that extend UIComponent, Formatter, or Validator now have a
+new <code>resourceManager</code> property, which lets you easily
+access the singleton instance of this manager. If you’re writing some
+other kind of class that needs to use the ResourceManager, you can call
+<code>ResourceManager.getInstance()</code> to get a reference to it. </p>
+<p>We compiled the RunLoc application in such a way that various resource bundles — our own <code>myResources</code> bundle, but also framework bundles such as <code>core</code>, <code>controls,</code> <code>formatters</code>,
+etc. — were linked into the application SWF. When the application
+started, instances of these resource bundles were automatically added
+to the ResourceManager. After they’ve been added, we can look up
+resources in them using ResourceManager methods such as <code>getString()</code>.</p>
+<p>Note that in the binding expression </p>
+<pre>text="{resourceManager.getString('myResources', 'GREETING')}"</pre>
+<p>we specify a bundle name and a resource key, but not a particular
+locale. Instead, the locales that get searched for resources are
+determined by the <code>localeChain</code> property of the ResourceManager. The handler for the locale combobox’s <code>"change"</code> event sets <code>resourceManager.localeChain</code>. The setter for this property dispatches a <code>"change"</code>
+event from the ResourceManager, which is a signal that the
+application’s resources have changed in some way. This event causes two
+things to happen:</p>
+<ul>
+  <li>
+    <p>Binding expressions involving resource-access methods of ResourceManager such as <code>getString()</code> are updated. This is why “Hello!” changed to “Bonjour!”.</p>
+  </li>
+  <li>
+    <p>Components that extend UIComponent, Formatter, or Validator execute their <code>resourcesChanged()</code> method. This is how components such as CurrencyFormatter can update their default value for resource-backed properties such as <code>currencySymbol</code>. If you are writing another kind of class that needs to respond to resource changes, you can simply listen for <code>"change"</code> events from the ResourceManager.</p>
+  </li>
+</ul>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=9" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="Why_do_I_need_to_write_a_binding_expression_instead_of_.40Resource.28.29.3F"></a><h2> Why do I need to write a binding expression instead of @Resource()? </h2>
+<p>We could have made the <code>@Resource()</code> directive generate a binding expression that would update when the <code>localeChain</code>
+changes, but we decided not to. Binding expressions have some overhead
+associated with them and we don’t want to penalize developers who need
+to localization but not on-the-fly locale changes. </p>
+<p>Although switching locales on the fly is cool, it’s not something
+that every localized application will need. For many or even most apps,
+it will be good enough to start up in an appropriate locale, and
+perhaps allow the user to select a different locale for the next time
+that the application starts. In that case, <code>@Resource()</code> will work  just fine.</p>
+<p>Our thinking is that developers who want to support on-the-fly
+locale changes should “opt in” to that by writing explicit binding
+expressions. </p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=10" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="What.26rsquo.3Bs_up_with_.5BResourceBundle.5D.3F"></a><h2> What’s up with [ResourceBundle]?  </h2>
+<p>I was wondering when you were going to ask why I put the tag </p>
+<pre>&lt;mx:Metadata&gt;
+    [ResourceBundle("myResources")]
+&lt;/mx:Metadata&gt; </pre>
+<p>in the RunLoc app. The answer is that when you use an expression like <code>resourceManager.getString(bundleName, key)</code> instead of the directive <code>@Resource(bundle='myResources', key='GREETING')</code>
+to access resources, the compiler isn’t clever enough to figure out
+what resource bundles your application (or component, or AS class)
+needs. You might be determining <code>bundleName</code> in some very convoluted way. So when you don’t use <code>@Resource()</code>, you have to tell the compiler in another, very explicit, way which bundles you’re accessing.</p>
+<p>The way to do that now is to put <code>[ResourceBundle()]</code> metadata with the name of the bundle into your application’s (or component’s) <code>&lt;mx:Metadata&gt;</code> tag. If you’re writing an ActionScript class instead, put this metadata on the class declaration, like this:</p>
+<pre>[ResourceBundle("myResources")]
+public class MyComponent extends UIComponent
+{
+   ...
+}
+</pre>
+<p>If you’ve localized Flex applications in the past, you may have used <code>[ResourceBundle()]</code> metadata on static or instance variables:</p>
+<p><code>[ResourceBundle("myResources")]<br>
+  static var rb:ResourceBundle;</code></p>
+<p>This would initialize <code>rb</code> to be a reference to the <code>myResources</code> ResourceBundle instance, and you could then write expressions such as <code>rb.getString("GREETING")</code>. Although this should still work if you compile for one and only one locale, it is very strongly discouraged. </p>
+<p>The new localization scheme relies on all resource bundles being
+owned by the ResourceManager, and all resource access going through the
+ResourceManager. You should revise any old code which access resources
+directly from resource bundles.</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=11" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="Why_is_the_localeChain_an_Array.3F"></a><h2> Why is the localeChain an Array? </h2>
+<p>Ah, you noticed that too!  For example, if you want to search only the French resources you have to write </p>
+<pre>resourceManager.localeChain = [ "fr_FR" ];</pre>
+<p>not</p>
+<pre>resourceManager.localeChain = "fr_FR";</pre>
+<p>The reason that the <code>localeChain</code> is an Array is so that the ResourceManager can support incomplete locales.</p>
+<p>Suppose that  you’re localizing an application for English as spoken in India (i.e., the <code>en_IN</code>
+locale). Most — but not all — of the resources will be the same as for
+U.S. English, so there’s no reason to duplicate them all in the <code>en_IN</code> resources — this just bloats your application’s size. The <code>en_IN</code> .properties files need only to have the resources that differ between <code>en_US</code> and <code>en_IN</code>. Then, if the ResourceManager has bundles for both <code>en_US</code> and <code>en_IN</code> and you set</p>
+<pre>resourceManager.localeChain = [ "en_IN", "en_US" ];</pre>
+<p>the ResourceManager will  search for a resource first in the <code>en_IN</code> bundle and, if it isn’t found there, then in the <code>en_US</code> bundle. You can “fall back” from one locale to another until you find a resource. If <code>getString()</code> doesn’t find the resource you specify in any locale, it returns <code>null</code>. </p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=12" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="Can_resource_values_only_be_Strings.3F"></a><h2> Can resource values only be Strings? </h2>
+<p>The short answer to this is No, but it’s a little complicated so I’ll give a fuller explanation.</p>
+<p>When you compile a .properties file with resources such as </p>
+<pre>COUNTRY=United States
+PRICE=19.99
+AGE=21
+SENIOR=true </pre>
+<p>the MXML compiler autogenerates a subclass of ResourceBundle with a <code>content</code> Object containing the key/value pairs for those resources. The generated code is equivalent to </p>
+<pre>content["COUNTRY"] = "United States";&lt;br&gt;content["PRICE"] = "19.99";&lt;br&gt;content["AGE"] = "21";
+content["SENIOR"] = "true"
+</pre>
+<p>Note that all of these resource values are Strings. The compiler doesn’t look at <code>SENIOR=true</code> and decide that the value should be the Boolean <code>true</code> rather than the String <code>"true"</code>. So if you call <code>resourceManager.getString("myBundle", "SENIOR")</code> you’ll get the String <code>"true"</code>.</p>
+<p>However, the ResourceManager has other resource-access methods besides <code>getString()</code>. For example:</p>
+<pre>resourceManager.getNumber("myResources", "PRICE"); // returns the Number 19.99, not the String "19.99"
+resourceManager.getInt("myResources", "AGE"); // returns the int 21, not the String "21"
+resourceManager.getBoolean("myResources", "SENIOR") // returns the Boolean true, not the String "true"</pre>
+<p>These methods, like <code>getString(</code>), are actually all wrappers around the fundamental resource-access method <code>getObject()</code>, which returns the resource value with no conversion.</p>
+<p>Beginning with Flex 3, you can now use <code>Embed()</code> and <code>ClassReference()</code> directives in .properties files, as in</p>
+<pre>LOGO=Embed("logo.png")
+SORTER=ClassReference("sorters.Urdu")</pre>
+<p>These directives work just the same as in CSS files or <code>&lt;mx:Style&gt;</code> tags. When you use these directives, the resource value is of type Class. This is obvious for <code>ClassReference()</code>; for <code>Embed()</code>,
+it’s because the MXML compiler autogenerates a class to represent
+embedded data such as a PNG graphics file. You can use the
+ResourceManager’s <code>getClass()</code> method to access these resource values..</p>
+<p>If you create your own resource bundles at runtime rather than
+having the MXML compiler compile them from .properties files, you can
+put any key/value pairs you want into their content Object. You’re not
+limited to Strings. This is discussed in a later section. </p>
+<h2>Determining the initial locale</h2>
+<p>When an application is compiled for multiple locales, such as with the compilation option</p>
+<pre>-locale=en_US,fr_FR</pre>
+<p>the ResourceManager's <code>localeChain</code> property is initialized to this sequence of locales. For example, in this case it would find the English resources because <code>en_US</code> is listed first. However, you can override this default initial value by specifying the <code>localeChain</code> as an application parameter in the FlashVars in the HTML template.</p>
+<p>In the <code>html-template</code> folder of the RunLoc project, open the <code>index.template.html</code> file and insert the line</p>
+<pre>"FlashVars", "localeChain=fr_FR",</pre>
+<p>after the line </p>
+<pre>"src", "${swf}",</pre>
+<p>in the second call to the JavaScript function <code>AC_FL_RunContent()</code>.</p>
+<p>Save the file. Now clean the project (with Project &gt; Clean in the menubar) to force the <code>RunLoc.html</code> file in the <code>bin</code> folder (which is simply a renamed copy of the <code>index.template.html</code> file) to be regenerated. It should automatically update when the <code>index.template.html</code> file is saved, but due to a bug in Beta 3 this doesn't happen. </p>
+<p>When you run, the application should start up in French. If you change <code>fr_FR</code> to <code>en_US</code> and regenerate <code>RunLoc.html</code>, the app should start up in English.</p>
+<p>You can specify multiple locales in the FlashVars, as in</p>
+<pre>"FlashVars", "localeChain=en_IN,en_US",</pre>
+<p>which would initialize the localeChain property to <code>[ "en_IN", "en_US" ]</code>.</p>
+<p>To support browsers that have JavaScript disabled, you need to also specify the FlashVars in two other places (in the <code>&lt;object&gt;</code> and <code>&lt;embed&gt;</code> tags). See the <code>index.template.html</code> file for the FlightReservation2 application for an example of doing this. </p>
+<h2>Tell me about  resource modules!</h2>
+<p>I’ve shown you how to compile your application for multiple locales,
+such as English and French, but if you’re localizing for twenty locales
+it might not be reasonable to bloat your application’s size by linking
+in resources for all of them. This is where resource modules can be
+useful. You can go to the other extreme, such as compiling <em>no</em>
+resources into your application and instead loading them as needed from
+resource modules. (Or you can link some into your application and load
+others. It’s all up to you.)</p>
+<p>Resource modules are SWFs, separate from your application SWF, which
+contain resources bundles for one or more locales. Your application can
+preload one or more resource modules as it starts up, before it
+displays its user interface. It can also load resource modules later,
+such as in response to the user selecting a new locale. The
+ResourceManager doesn’t care whether the resource bundles it manages
+were originally compiled into the application or loaded from resource
+modules. </p>
+<p>Before you can compile a resource module, you need to know which
+resource bundles to put into it. In other words, you need to know which
+resource bundles your application — and all of its framework classes —
+actually needs. The MXML compiler can tell you that, if you specify the
+<code>-resource-bundle-list</code> option; when it compiles an application, it determines which bundles it needs by looking at the <code>[ResourceBundle]</code> metadata on all the classes in your application.</p>
+<p>Open the RunLoc project’s Properties dialog, select the Flex
+Compiler pane, and in the “Additional compiler arguments” field, change
+the <code>-locale</code> option to</p>
+<pre>-locale=</pre>
+<p>to tell  the application  not to compile any resources into itself, and add the option</p>
+<p><code>-resource-bundle-list=bundles.txt</code></p>
+<p>This option tells the MXML compiler to write out a file named <code>bundles.txt</code> containing a list of the resource bundle names used by RunLoc. In Beta 2, this file will appear in the project's <code>bin</code> folder, although this may change before we ship. If you open this file you’ll see the list </p>
+<p><code>bundles = collections containers controls core effects myResources skins styles</code></p>
+<p>Notice that only the <code>myResources</code> bundle contains application resources; the others are bundles containing framework resources. </p>
+<p>If you run the application now, you won't see either “Hello!” or
+“Bonjour!” because both the English and the French resources are
+missing. </p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=13" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="How_do_I_compile_a_resource_module.3F"></a><h2> How do I compile a resource module? </h2>
+<p>Unfortunately, due to the fact that resource modules require a
+different set of compilation options from other kinds of modules, you
+can’t compile them with Flex Builder. You have to use command-line
+compilation.</p>
+<p>We’ll use the bundle names we obtained to compile two resource
+modules as follows. First change the current directory to the RunLoc
+project directory. Then execute these two commands: </p>
+<pre>mxmlc -locale=en_US
+-source-path=locale/{locale}
+-include-resource-bundles=collections,containers,controls,core,effects,myResources,skins,styles
+-output=src/Resources_en_US.swf</pre>
+<pre>mxmlc -locale=fr_FR
+-source-path=locale/{locale}
+-include-resource-bundles=collections,containers,controls,core,effects,myResources,skins,styles
+-output=src/Resources_fr_FR.swf</pre>
+<p>If you haven’t placed the SDK’s <code>bin</code> directory on your PATH, you’ll need to specify an absolute path for mxmlc. </p>
+<p>The project's <code>src</code> directory should now contain two resource modules named <code>Resources_en_US.swf</code> and <code>Resources_fr_FR.swf</code>.</p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=14" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="How_do_I_preload_a_resource_module.3F"></a><h2> How do I preload a resource module? </h2>
+<p>The Flex framework can handle preloading one or more resource modules for you automatically. All you have to do is set the <code>resourceModuleURLs</code> application parameter in the FlashVars  of the HTML wrapper. You should also set the <code>localeChain</code> parameter to tell the application what locale to initially use. For example, if you change the FlashVars in <code>index.template.html</code> to </p>
+<pre>"FlashVars", "resourceModuleURLs=Resources_en_US.swf&amp;localeChain=en_US",</pre>
+<p>(and save the file and clean the project) then the resource module <code>Resources_en_US.swf</code> will be preloaded (this URL is relative to the application SWF) and the ResourceManager's <code>localeChain</code> will be initialized to <code>[ "en_US" ]</code>. </p>
+<p>When you run the application, it should load the English resource
+module and you should see “Hello!”. If you change this line to </p>
+<pre>"FlashVars", "resourceModuleURLs=Resources_fr_FR.swf&amp;localeChain=fr_FR",</pre>
+<p>(and save the file and clean the project) it should load the French resource module and you should see “Bonjour!”.
+</p>
+<p>You can specify a comma-spearated list of resource module URLs to preload more than one resource module. </p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=15" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="How_do_I_load_a_resource_module_programmatically.3F"></a><h2> How do I load a resource module programmatically? </h2>
+<p>You use  the ResourceManager’s <code>loadResourceModule()</code> to start asynchronously loading a resource module. It works similarly to the <code>loadStyleDeclarations()</code> of the StyleManager, which loads style modules. </p>
+<p>The <code>loadResourceModule()</code> method returns an event-dispatching object. You can listen for <code>"progress"</code>, <code>"complete"</code>, and <code>"error"</code>
+events — of type ResourceEvent — which it dispatches. Primarily, you’ll
+be interested in knowing when the load is complete, because that’s when
+you’ll probably want to set the <code>localeChain</code> to use the resources that you just loaded. You’ll generally want to do something like this: </p>
+<pre>private function someMethod():void
+{
+   ...
+   var url:String = "Resources_fr_FR.swf";
+   var eventDispatcher:IEventDispatcher = loadResourceModule(url);
+   eventDispatcher.addEventListener(ResourceEvent.COMPLETE, completeHandler);
+   ...
+}
+
+private function completeHandler(event:ResourceEvent):void
+{
+    resourceManager.localeChain = [ "fr_FR" ];
+}</pre>
+<h2>Can I see a complete example?</h2> 
+<p>Sure. Change <code>RunLoc.mxml</code> to have the following code </p>
+<pre>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"&gt;
+
+    &lt;mx:Metadata&gt;
+        [ResourceBundle("myResources")]
+    &lt;/mx:Metadata&gt;
+
+    &lt;mx:Script&gt;
+    &lt;![CDATA[&lt;br&gt;
+        import mx.events.ResourceEvent;
+
+        [Bindable]
+        private var locales:Array = [ "en_US" , "fr_FR" ];
+
+        private function localeComboBox_initializeHandler(event:Event):void
+        {
+            localeComboBox.selectedIndex = locales.indexOf(resourceManager.localeChain[0]);
+        }
+
+        private function localeComboBox_changeHandler(event:Event):void
+        {
+            var newLocale:String = String(localeComboBox.selectedItem);
+
+            if (resourceManager.getLocales().indexOf(newLocale)&nbsp;!= -1)
+            {
+                completeHandler(null);
+            }
+            else
+            {
+                var resourceModuleURL:String = "Resources_" + newLocale + ".swf";
+                var eventDispatcher:IEventDispatcher =
+                    resourceManager.loadResourceModule(resourceModuleURL);
+                eventDispatcher.addEventListener(
+                    ResourceEvent.COMPLETE, completeHandler);
+            }
+        }
+
+        private function completeHandler(event:ResourceEvent):void
+        {
+            resourceManager.localeChain = [ localeComboBox.selectedItem ];
+        }
+
+    ]]&gt;
+    &lt;/mx:Script&gt;
+ 
+    &lt;mx:Label text="{resourceManager.getString('myResources', 'GREETING')}" fontSize="48"/&gt;</pre>
+<pre>    &lt;mx:ComboBox id="localeComboBox" dataProvider="{locales}"
+                 initialize="localeComboBox_initializeHandler(event)"
+                 change="localeComboBox_changeHandler(event)"/&gt;
+   
+&lt;/mx:Application&gt;</pre>
+<p>Set the FlashVars in <code>index.template.html</code> back to preload the English resources (and save the file and clean the project). </p>
+<p>When you run the application, it loads <code>Resources_en_US.swf</code> and displays “Hello!”. When you choose <code>fr_FR</code> in the combobox, it loads <code>Resources_fr_FR.swf</code> and displays “Bonjour!”. </p>
+<p>Note that the logic </p>
+<pre>if (resourceManager.getLocales().indexOf(newLocale)&nbsp;!= -1)</pre>
+<p>determines whether we’ve already loaded the locale that the user wants to switch to. </p>
+<div class="editsection" style="float: right; margin-left: 5px;">[<a href="http://localhost/wiki/index.php?title=Flex_3:Feature_Introductions:_Runtime_Localization&amp;action=edit&amp;section=16" title="Flex 3:Feature Introductions: Runtime Localization">edit</a>]</div><a name="I.26rsquo.3Bm_tired.21_Anything_else.3F"></a><h2> I’m tired! Anything else? </h2>
+<p>There are just  a few more  things you should know. </p>
+<p>I’ve already mentioned that the ResourceManager manages
+ResourceBundles, but it doesn’t care where the ResourceBundles come
+from. They can be compiled into the application. Or they can be loaded
+from a resource module. Or you can create them yourself at runtime,
+rather than compiling them from .properties files at compile time. For
+example, this code creates a new bundle, populates it with two
+resources, and adds it to the ResourceManager. </p>
+<pre>var moreResources:ResourceBundle =
+    new ResourceBundle("fr_FR", "moreResources");
+moreResources.content["OPEN"] = "Ouvrez";
+moreResources.content["CLOSE"] = "Fermez";
+resourceManager.addResourceBundle(moreResources);
+</pre>
+<p>Once a resource bundle is in the ResourceManager, methods like <code>getString()</code> can be used to find its resources:</p>
+<pre>resourceManager.localeChain = [ "fr_FR" ];
+trace(resourceManager.getString("moreResources", "OPEN"));
+    // outputs "Ouvrez"</pre>
+<p>The ability to create resource bundles yourself means that you can
+“roll your own” ways of loading resources at runtime. We’ve chosen to
+support doing it via compiled resource modules, because this makes it
+possible to localize images, sounds, classes, etc. rather than just
+strings. But if you want, you can download XML files or fetch resource
+data from a database, put it into ResourceBundles, and access it
+through the ResourceManager. </p>
+<p>You can use the <code>removeResourceBundle()</code> method to remove a resource bundle from the ResourceManager, so that its resources can no longer be found.</p>
+<p>You can find out which resource bundles exist in the ResourceManager by calling <code>getLocales()</code> and <code>getBundlesNamesForLocale()</code> and you can get a reference to a particular bundle by calling <code>getResourceBundle()</code>. These methods make it possible to enumerate all the resources in the ResourceManager. (Once you have a ResourceBundle, use a <code>for-in</code> loop to iterate over it’s <code>content</code> Object.) </p>
+<p>When you set the <code>localeChain</code>, the ResourceManager automatically dispatches a<code> "change"</code>
+event. (Remember, this event causes your application’s user interface
+to update with the new resource values.) This event is also dispatched
+after a module completes loading, if you passed <code>true</code> as the second parameter to<code> loadResourceModule()</code>.
+If you want to tell the ResourceManager to dispatch this event in other
+circumstances, such as after you have added a bundle yourself, you can
+call the ResourceManager’s <code>update()</code> method. </p>
+<p>I hope you find Flex 3’s Runtime Localization feature to be useful in your applications!</p>
+<p>&nbsp; </p>
+
+<!-- Saved in parser cache with key labswiki:pcache:idhash:1923-1!1!0!1!0!1!0!!en and timestamp 20071130145348 -->
+<div class="printfooter">
+Retrieved from "<a href="http://localhost/wiki/index.php/Flex_3:Feature_Introductions:_Runtime_Localization">http://localhost/wiki/index.php/Flex_3:Feature_Introductions:_Runtime_Localization</a>"</div>
+    <!-- end content -->
+  <br class="clear-both">
+
+</div>
+<div id="footer">
+  <div id="copyright-terms">
+    <p><a href="http://www.adobe.com/go/labs_footer_home">Home</a> | <a href="http://www.adobe.com/go/labs_footer_technologies">Technologies</a> | <a href="http://www.adobe.com/go/labs_footer_wiki">Wikis</a> | <a href="http://www.adobe.com/go/labs_footer_download">Download</a> | <a href="http://www.adobe.com/go/labs_footer_community">Community</a> | <a href="http://www.adobe.com/go/labs_footer_rss">RSS Feeds</a> | <a href="http://www.adobe.com/go/labs_footer_search">Search</a> | <a href="http://www.adobe.com/go/labs_footer_about">About Adobe Labs</a> | <a href="http://localhost/wiki/index.php/Macromedia_Labs:General_disclaimer" title="Adobe Labs:General disclaimer">Disclaimers</a><br>
+
+      <a href="http://www.adobe.com/go/labs_footer_mmhome">Adobe.com Home</a> | <a href="http://www.adobe.com/go/labs_footer_support">Support</a> | <a href="http://www.adobe.com/go/labs_footer_devcenter">Developer Centers</a></p>
+    <p>
+       This page was last modified 15:01, 18 Oct 2007.    </p>
+    <p>Copyright © 2007 Adobe Systems Incorporated. <a href="http://www.adobe.com/misc/copyright.html">All rights reserved</a>.<br>Your
+use of the Adobe Labs including the download of software, submission of
+comments, ideas, feature requests and techniques, and Adobe's rights to
+use such submitted materials, is governed by the <a href="http://www.adobe.com/go/labs_term_of_use">Adobe Labs Terms of Use</a> and the <a href="http://www.adobe.com/go/labs_privacy_policy">Adobe Privacy Policy</a>.</p>
+
+    <!--Creative Commons License-->
+    <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank" rel="license"><img src="Flex_3%20Feature_Introductions%20_Runtime_Localization_files/somerights20.png" alt="Creative
+Commons License" name="ccl" id="ccl" border="0"></a>
+    <p id="ccl-info">The content on this wiki is licensed under a <a href="http://creativecommons.org/licenses/by/3.0/legalcode" target="_blank" rel="license">Creative Commons
+      Attribution 3.0 License</a>.  Adobe requires no attribution (<a href="http://localhost/wiki/index.php/License">details</a>).
+      <!--/Creative Commons License-->
+
+      <!-- <rdf:RDF
+xmlns="http://web.resource.org/cc/"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <Work rdf:about="">
+            <license
+rdf:resource="http://creativecommons.org/licenses/by/2.5/" />
+        </Work>
+        <License
+rdf:about="http://creativecommons.org/licenses/by/2.5/"><permits
+rdf:resource="http://web.resource.org/cc/Reproduction"/><permits
+rdf:resource="http://web.resource.org/cc/Distribution"/><requires
+rdf:resource="http://web.resource.org/cc/Notice"/><requires
+rdf:resource="http://web.resource.org/cc/Attribution"/><permits
+rdf:resource="http://web.resource.org/cc/DerivativeWorks"/></License></r
+df:RDF> -->
+    </p>
+  </div>
+  <div style="display: none;"><!-- SiteCatalyst code version: F.3. $Revision: 1.10 $ Copyright 2002 Omniture, Inc. More info available at http://www.omniture.com --><script language="JavaScript" type="text/javascript"><!--
+var s_code=' '//--></script>
+<script language="JavaScript" src="Flex_3%20Feature_Introductions%20_Runtime_Localization_files/omniture_s_code.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript"><!--
+var s_accountName="mxmacromedia";
+var s_wd=window,s_tm=new Date;if(s_code!=' '){s_code=s_dc(
+s_accountName);if(s_code)document.write(s_code)}else
+document.write('<im'+'g src="http://192.168.112.2O7.net/b/ss/'+s_accountName+'/1/F.3-fb/s'+s_tm.getTime()+'?[AQB]'
++'&pageName='+escape(s_wd.s_pageName?s_wd.s_pageName:(s_wd.pageName?s_wd.pageName:''))
++'&server='+escape(s_wd.s_server?s_wd.s_server:(s_wd.server?s_wd.server:''))
++'&ch='+escape(s_wd.s_channel?s_wd.s_channel:(s_wd.channel?s_wd.channel:''))
++'&[AQE]" height="1" width="1" border="0" alt="" />')
+function sendAnalyticsEvent(str){var ns=s_accountName;if(str!=null)ns+=","+str;void(s_gs(ns));}
+//--></script><img src="Flex_3%20Feature_Introductions%20_Runtime_Localization_files/s12402340734698.gif" name="s_i_mxmacromedia" alt="" border="0" height="1" width="1"><noscript><img src="http://192.168.112.2O7.net/b/ss/mxmacromedia/1/F.3-XELvs" height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
+  <!-- End SiteCatalyst code version: F.3. -->
+  </div>
+  <br class="clear-both">
+</div>
+<!-- Served by p01weblab01 in 0.06 secs. -->
+</body></html>

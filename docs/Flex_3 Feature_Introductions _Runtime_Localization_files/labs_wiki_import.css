@@ -1,0 +1,8 @@
+/*
+Copyright 2005 Adobe Systems Incorporated.
+CSS Import
+$Revision: 1.5.2.2 $
+*/
+@import url(http://www.macromedia.com/css/fonts.css);
+@import url(/css/labs.css);
+@import url(/css/labs_wiki.css);

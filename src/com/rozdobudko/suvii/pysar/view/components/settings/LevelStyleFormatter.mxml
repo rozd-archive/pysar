@@ -78,6 +78,10 @@
 			public function set style(value:CSSStyleDeclaration):void
 			{
 				this.output.styleName = value;
+				
+				this.boldBut.selected = this.style.getStyle("fontWeight") == "bold" ? true : false;
+				this.italicBut.selected = this.style.getStyle("fontStyle") == "italic" ? true : false;
+//				this.colorPicker.selectedColor = this.style.getStyle("color");
 			}
 			
 			public function get style():CSSStyleDeclaration
@@ -89,7 +93,7 @@
 			
 			private function changeColorHandler(event:ColorPickerEvent):void
 			{
-				this.style.setStyle("color", this.colorPicker.selectedColor);
+				this.style.setStyle("color", this.colorPicker.selectedColor.toString(16));
 			}
 			
 			

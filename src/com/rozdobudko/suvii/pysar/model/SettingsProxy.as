@@ -1,25 +1,37 @@
 package com.rozdobudko.suvii.pysar.model
 {
-	import com.rozdobudko.suvii.pysar.view.components.SettingsPanel;
+	import com.rozdobudko.suvii.pysar.Settings;
 	
-	import flash.text.Font;
+	import flash.events.Event;
+	import flash.filesystem.File;
+	import flash.filesystem.FileMode;
+	import flash.filesystem.FileStream;
 	
 	import mx.styles.CSSStyleDeclaration;
 	
 	import org.puremvc.interfaces.IProxy;
 	import org.puremvc.patterns.proxy.Proxy;
-	import com.rozdobudko.suvii.pysar.Settings;
+	import flash.events.IOErrorEvent;
+	import mx.formatters.SwitchSymbolFormatter;
 
 	public class SettingsProxy extends Proxy implements IProxy
 	{
-		// ------------------ CONSTANTS ------------------ //
+		// ----------------- STATIC FIELDS ---------------- //
 
 		public static const NAME:String = "SettingsProxy";
+
+		// ---------------- PRIVATE FIELDS ---------------- //
 		
-		// -------------- PRIVATE VARIABLES -------------- //
+		private var preferencesFile:File;
 		
-		private var _popUp:SettingsPanel;
+		private var openStream:FileStream;
+
+		private var writeStream:FileStream;
 		
+		private var preferences:XML;
+		
+		private var stylesMap:Object;
+
 		private var _levels:Array;
 		
 		private var _selectedLevelsByBoxes:Boolean;
@@ -36,10 +48,10 @@ package com.rozdobudko.suvii.pysar.model
 		
 		private var _fatalStyle:CSSStyleDeclaration;
 		
-		private var _font:Font;
-		
-		// ----------------- CONSTRUCTOR ----------------- //
-		
+		private var _preferencesFile:Object;
+
+		// ------------------ CONSTRUCTOR ----------------- //
+
 		public function SettingsProxy(proxyName:String=null, data:Object=null)
 		{
 			super(proxyName, data);
@@ -53,9 +65,9 @@ package com.rozdobudko.suvii.pysar.model
 		{
 			return NAME;
 		}
-		
-		// -------------------- FIEDS -------------------- //
-		
+
+		// ----------------- PUBLIC FIEDS ----------------- //
+
 		public function get levels():Array
 		{
 			return this._levels;
@@ -138,15 +150,28 @@ package com.rozdobudko.suvii.pysar.model
 			return this._fatalStyle;
 		}
 		
-		// ------------------- METHODS ------------------- //
+		// --------------- PROTECTED FIELDS --------------- //
+
 		
+
+		// ---------------- PUBLIC METHODS ---------------- //
+
+		
+
+		// --------------- PROTECTED METHODS -------------- //
+
+		
+
+		// ---------------- PRIVATE METHODS --------------- //
+
 		private function init():void
 		{
-			this._debugStyle = new CSSStyleDeclaration();
-			this._infoStyle = new CSSStyleDeclaration();
-			this._warningStyle = new CSSStyleDeclaration();
-			this._errorStyle = new CSSStyleDeclaration();
-			this._fatalStyle = new CSSStyleDeclaration();
+			this.stylesMap = {};
+			this.stylesMap[Settings.DEBUG] = this._debugStyle = new CSSStyleDeclaration();
+			this.stylesMap[Settings.INFO] = this._infoStyle = new CSSStyleDeclaration();
+			this.stylesMap[Settings.WARNING] = this._warningStyle = new CSSStyleDeclaration();
+			this.stylesMap[Settings.ERROR] = this._errorStyle = new CSSStyleDeclaration();
+			this.stylesMap[Settings.FATAL] = this._fatalStyle = new CSSStyleDeclaration();
 			
 			/**
 			 * TODO: Test
@@ -164,6 +189,56 @@ package com.rozdobudko.suvii.pysar.model
 			this.levels[Settings.LEVEL_WARNING] = true;
 			this.levels[Settings.LEVEL_ERROR] = true;
 			this.levels[Settings.LEVEL_FATAL] = true;
+			
+			this.preferencesFile = File.applicationStorageDirectory.resolvePath(Settings.PREFERENCES_FILE_NAME);
+			
+			var stream:FileStream = new FileStream();
+			try
+			{
+				stream.open(this.preferencesFile, FileMode.READ);
+				this.preferences = new XML(stream.readUTFBytes(stream.bytesAvailable));
+			}
+			catch(e:Error)
+			{
+				 // TODO: handle the exception
+			}
+			stream.close();
+			
+			this.setPreferencesByFile();
+		}
+		
+		public function save():void
+		{
+			for each(var style:XML in this.preferences.content.styles.levels.level)
+			{
+				style.@color = this.stylesMap[style.@id].getStyle("color");
+				style.@fontStyle = this.stylesMap[style.@id].getStyle("fontStyle");
+				style.@fontFamily = this.stylesMap[style.@id].getStyle("fontFamily");
+				style.@fontWeight = this.stylesMap[style.@id].getStyle("fontWeight");
+			}
+			
+			var stream:FileStream = new FileStream();
+			try
+			{
+				stream.open(this.preferencesFile, FileMode.WRITE);
+				stream.writeUTFBytes('<?xml version=\"1.0\" encoding=\"UTF-8\"?>' + this.preferences.toXMLString());
+			}
+			catch(e:Error)
+			{
+				// TODO: handle exception
+			}
+			stream.close();
+		}
+		
+		private function setPreferencesByFile():void
+		{
+			for each(var style:XML in this.preferences.content.styles.levels.level)
+			{
+				this.stylesMap[style.@id].setStyle("color", style.@color);
+				this.stylesMap[style.@id].setStyle("fontStyle", style.@fontStyle);
+				this.stylesMap[style.@id].setStyle("fontFamily", style.@fontFamily);
+				this.stylesMap[style.@id].setStyle("fontWeight", style.@fontWeight);
+			}
 		}
 		
 		private function setDefaultStyle(style:CSSStyleDeclaration):void
@@ -172,11 +247,26 @@ package com.rozdobudko.suvii.pysar.model
 			style.setStyle("paddingLeft", 5);
 			style.setStyle("paddingRight", 5);
 		}
+
+		// ------------------- HANDLERS ------------------- //
 		
-		// ------------------  HANDLERS ------------------- //
-		
-		
-		
-		// ---------------- USER INTRACTION --------------- //
+		private function openToReadHandler(event:Event):void
+		{
+			this.preferences = new XML(this.openStream.readUTFBytes(this.openStream.bytesAvailable));
+			
+			this.openStream.close();
+			
+			this.setPreferencesByFile();
+		}
+
+
+		private function openToWriteHandler(event:Event):void
+		{
+			trace("openToWriteHandler");
+			
+			trace("> "+this.preferences.toXMLString());
+			this.writeStream.writeUTFBytes('<?xml version=\"1.0\" encoding=\"UTF-8\"?>' + this.preferences.toXMLString());
+			this.writeStream.close();
+		}
 	}
 }

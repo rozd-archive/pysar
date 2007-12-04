@@ -12,58 +12,109 @@ xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:aswing="org.as
 			import com.rozdobudko.suvii.pysar.PysarFacade;
 			import mx.collections.ArrayCollection;
 			import mx.core.UIComponent;
+			import flash.filesystem.*;
+			import flash.events.Event;
 			
 			private var file:File;
+			private var openFileStream:FileStream;
+			private var writeFileStream:FileStream;
 			private var bitmap:BitmapData;
+			private var xml:XML;
+			
+			private var log:File;
 			
 			private var entries:ArrayCollection = new ArrayCollection();
 			
 			private function init():void
 			{
 				this.file = new File();
-				this.file.addEventListener(Event.OPEN, this.openHandler);
-				this.file.addEventListener(Event.SELECT, this.selectHandler);
-				this.file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, this.uploadHandler);
-				this.file.addEventListener(Event.COMPLETE, this.completeHandler);
-				//this.file.
+//				this.file.addEventListener(Event.OPEN, this.openHandler);
+//				this.file.addEventListener(Event.SELECT, this.selectHandler);
+//				this.file.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, this.uploadHandler);
+//				this.file.addEventListener(Event.COMPLETE, this.completeHandler);
 				
-//				trace(File.applicationResourceDirectory.name);
-//				trace(File.applicationStorageDirectory.name);
-//				trace(File.userDirectory.name);
+				this.log = new File();
+				this.log.addEventListener(Event.OPEN, this.openHandler);
+				this.log.addEventListener(Event.SELECT, this.selectHandler);
+				this.log.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, this.uploadHandler);
+				this.log.addEventListener(Event.COMPLETE, this.completeHandler);
 				
-//				this.bitmap = new BitmapData(100, 20, false, 0xFF0000);
-//				var b:Bitmap = new Bitmap(bitmap);
-//				this.addChild(b);
+				
+				this.file = File.desktopDirectory;
+				trace(this.file.nativePath);
+				this.file = file.resolvePath("test/settings.xml");
+				trace(this.file.nativePath);
+				
+				openFileStream = new FileStream();
+				openFileStream.addEventListener(Event.COMPLETE, openToReadHandler);
+				openFileStream.addEventListener(IOErrorEvent.IO_ERROR, fileIOErrorHandler);
+				
+				writeFileStream = new FileStream();
+				writeFileStream.addEventListener(Event.COMPLETE, openToWriteHandler);
+				writeFileStream.addEventListener(IOErrorEvent.IO_ERROR, fileIOErrorHandler);
+				
+				openFileStream.openAsync(file, FileMode.READ);
+				
+				var docsDir:File = File.documentsDirectory;
+				try
+				{
+				    docsDir.browseForSave("Save As");
+				    docsDir.addEventListener(Event.SELECT, saveData);
+				}
+				catch (error:Error)
+				{
+				    trace("Failed:", error.message)
+				}
+				
+				function saveData(event:Event):void 
+				{
+				    var newFile:File = event.target as File;
+				    var str:String = "Hello.";
+				    if (!newFile.exists)
+				    {
+				        var stream:FileStream = new FileStream();
+				        stream.open(newFile, FileMode.WRITE);
+				        stream.writeUTFBytes(str);
+				        stream.close();
+				    }
+				}
 
-				var bitmap:BitmapData = new BitmapData(100, 100, true, 0x00000000);
-				var image:Bitmap = new Bitmap(bitmap);
 				
-				bitmap.fillRect(new Rectangle(0, 1, 600, 10), 0xFFFFCC00);
-//				bitmap.fillRect(new Rectangle(6, 20, 6, 10), 0xFFFFCC00);
-//				bitmap.fillRect(new Rectangle(21, 1, 6, 10), 0xFFFFCC00);
-//				bitmap.fillRect(new Rectangle(9, 31, 6, 10), 0xFFFFCC00);
-//				bitmap.fillRect(new Rectangle(0, 5, 6, 10), 0xFFFFCC00);
+			}
+			
+			private function openToReadHandler(event:Event):void
+			{
+				trace("openToReadHandler");
 				
-				var container:UIComponent = new UIComponent();
-				container.addChild(image);
-				this.addChild(container);
-				
-//				3432159
-
-//				var entry:LogEntry = new LogEntry(
-//												UIDUtil.createUID(),
-//												0, 
-//												new LogEntryText(UIDUtil.createUID(), "message"), 
-//												new LogEntryText(UIDUtil.createUID(), "className"), 
-//												new LogEntryText(UIDUtil.createUID(), "connectionName")
-//											  );
-//				entry.findData = new FindData(entry);
-//
-//				this.entries.addItem(entry);
-				
-				this.outputDataGrid.dataProvider = OutputProxy(PysarFacade.getInstance().retrieveProxy(OutputProxy.NAME)).entries; 
-				this.outputDataGrid.dataProvider = LogProxy(PysarFacade.getInstance().retrieveProxy(LogProxy.NAME)).entries; 
-//				LogProxy(PysarFacade.getInstance().retrieveProxy(LogProxy.NAME)).log(0, "TEST Lorem ipsum, dolorem1", "className1", "connectionName");
+				//var str:* = openFileStream.readObject();
+				//this.xml = new XML(str);
+				//trace(str.x);
+			    this.openFileStream.close();
+			    //this.writeFileStream.openAsync(file, FileMode.WRITE);
+			}
+			
+			private function openToWriteHandler(event:Event):void
+			{
+				trace("openToWriteHandler");
+			}
+			
+			private function save2(event:Event):void
+			{
+//				this.xml.content.styles.levels = "asdsadas";
+				this.writeFileStream.writeObject({x:5});
+//				this.writeFileStream
+//				this.fileStream.
+				writeFileStream.close();
+			}
+			
+			private function save3():void
+			{
+				//this.log
+			}
+			
+			private function fileIOErrorHandler(event:IOErrorEvent):void
+			{
+				trace("fileIOErrorHandler");
 			}
 			
 			private function browse(event:Event):void
@@ -77,7 +128,7 @@ xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:aswing="org.as
 			{
 				trace("browse");
 				
-				file.browseForSave("title");
+				this.log.browseForSave("title");
 			}
 			private function completeHandler(event:Event):void
 			{
@@ -105,27 +156,8 @@ xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:aswing="org.as
 	</mx:Script>
 	<mx:Button id="btn" label="Button" click="browse(event)"/>
 	<mx:Button id="saveBtn" label="Save" click="save(event)" x="73"/>
+	<mx:Button label="Save" click="save2(event)" x="244" y="293"/>
 	<mx:Canvas x="73" y="54" width="200" height="200" id="can">
 	</mx:Canvas>
 	<mx:Image id="img" x="281" y="54"/>
-	<mx:DataGrid id="outputDataGrid" editable="true" width="100%" height="100%" dataProvider="{this.entries}">
-				<mx:columns>
-					<mx:DataGridColumn dataField="level" itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.LevelIconItemRenderer" width="22" />
-					<mx:DataGridColumn 
-						headerText="Message" 
-						dataField="message" 
-						itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.ItemRenderer"
-						itemEditor="com.rozdobudko.suvii.pysar.view.components.output.ItemEditor"
-						editorDataField="dataItem"
-					/>
-					<mx:DataGridColumn
-						headerText="Date" 
-						dataField="className" 
-						itemRenderer="com.rozdobudko.suvii.pysar.view.components.output.ItemRenderer"
-						itemEditor="com.rozdobudko.suvii.pysar.view.components.output.ItemEditor"
-						editorDataField="dataItem"
-					/>
-				</mx:columns>
-			</mx:DataGrid>
-	
 </mx:WindowedApplication>
