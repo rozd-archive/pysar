@@ -1,37 +1,14 @@
 package com.rozdobudko.suvii.pysar.controller
 {
-	import com.rozdobudko.suvii.pysar.view.FindMediator;
-	import com.rozdobudko.suvii.pysar.view.MenuMediator;
-	import com.rozdobudko.suvii.pysar.view.OutputMediator;
-	
 	import org.puremvc.interfaces.ICommand;
-	import org.puremvc.interfaces.INotification;
-	import org.puremvc.patterns.command.SimpleCommand;
-	import com.rozdobudko.suvii.pysar.PysarFacade;
-	import com.rozdobudko.suvii.pysar.view.SubjectsMediator;
-	import com.rozdobudko.suvii.pysar.model.LogProxy;
-	import com.rozdobudko.suvii.pysar.model.SubjectsProxy;
+	import org.puremvc.patterns.command.MacroCommand;
 	
-	public class DeployCommand extends SimpleCommand implements ICommand
+	public class DeployCommand extends MacroCommand implements ICommand
 	{
-		/**
-		 * Deploy application. Register proxies and mediators.
-		 */
-		override public function execute(note:INotification):void	
+		override protected function initializeMacroCommand():void
 		{
-				// register the Mediators
-			
-			var application:Pysar = note.getBody() as Pysar;
-			
-			this.facade.registerMediator(new FindMediator(application.findModule));
-			this.facade.registerMediator(new OutputMediator(application.outputModule));
-			this.facade.registerMediator(new MenuMediator(application.menuModule));
-			this.facade.registerMediator(new SubjectsMediator(application.subjectModule));
-				
-			/**
-			 * TODO: Remove temp command
-			 */
-			this.sendNotification(PysarFacade.TEMP);
+			this.addSubCommand(RegisterMediartorsCommand);
+			this.addSubCommand(FileOpenSettingsCommand);
 		}
 	}
 }

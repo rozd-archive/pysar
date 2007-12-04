@@ -128,6 +128,8 @@ package com.rozdobudko.suvii.pysar.view
 			this.copyStyle(this.component.warningStyleFormatter.style, this.proxy.warningStyle);
 			this.copyStyle(this.component.errorStyleFormatter.style, this.proxy.errorStyle);
 			this.copyStyle(this.component.fatalStyleFormatter.style, this.proxy.fatalStyle);
+			
+			this.proxy.save();
 		}
 		
 		private function updateLevelsIcons():void

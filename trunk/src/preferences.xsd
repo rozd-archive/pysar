@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by max (EMBRACE) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="preferences">
+		<xs:annotation>
+			<xs:documentation>Comment describing your root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="common"/>
+				<xs:element name="content">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="styles">
+								<xs:complexType>
+									<xs:all>
+										<xs:element name="levels">
+											<xs:complexType>
+												<xs:sequence minOccurs="5" maxOccurs="5">
+													<xs:element name="level">
+														<xs:complexType>
+															<xs:attribute name="id" use="required">
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="debug"/>
+																		<xs:enumeration value="info"/>
+																		<xs:enumeration value="warning"/>
+																		<xs:enumeration value="error"/>
+																		<xs:enumeration value="fatal"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+															<xs:attribute name="color" type="xs:base64Binary" use="required"/>
+															<xs:attribute name="bold" type="xs:boolean" use="required"/>
+															<xs:attribute name="italic" type="xs:boolean" use="required"/>
+															<xs:attribute name="font" type="xs:string" use="required"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="higtlight-color"/>
+									</xs:all>
+								</xs:complexType>
+							</xs:element>
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
