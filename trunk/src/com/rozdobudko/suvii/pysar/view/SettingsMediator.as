@@ -18,6 +18,12 @@ package com.rozdobudko.suvii.pysar.view
 	import mx.styles.CSSStyleDeclaration;
 	
 	import com.rozdobudko.suvii.utils.ObjectUtils;
+	import flash.filesystem.File;
+	import flash.events.Event;
+	import flash.filesystem.FileStream;
+	import flash.filesystem.FileMode;
+	import flash.events.IOErrorEvent;
+	import flash.events.SecurityErrorEvent;
 
 	public class SettingsMediator extends Mediator implements IMediator
 	{
@@ -79,6 +85,10 @@ package com.rozdobudko.suvii.pysar.view
 			this.icons[Settings.LEVEL_WARNING] =	this.component.warningIconImage;
 			this.icons[Settings.LEVEL_ERROR] =		this.component.errorIconImage;
 			this.icons[Settings.LEVEL_FATAL] =		this.component.fatalIconImage;
+			
+				// autosave
+			
+			this.component.openAutosaveFileBut.addEventListener(MouseEvent.CLICK, this.openAutosaveFileHandler);
 			
 			this.init();
 		}
@@ -233,6 +243,78 @@ package com.rozdobudko.suvii.pysar.view
 			
 			this.updateLevelsIcons();
 		}
-	
+		
+		
+		private function openAutosaveFileHandler(event:MouseEvent):void
+		{
+			this.sendNotification(PysarFacade.FS_AUTOSAVE_FILE_SAVE_AS);
+			
+//			var file:File = File.documentsDirectory;
+//			file.browseForSave("Save As");
+//			file.addEventListener(Event.SELECT, this.autosaveSaveHandler);
+//			file.addEventListener(SecurityErrorEvent.SECURITY_ERROR, this.autosaveSecurityErrorHandler);
+//			file.addEventListener(IOErrorEvent.IO_ERROR, this.autosaveIOErrorHandler);
+
+//			var docsDir:File = File.documentsDirectory;
+//			try
+//			{
+//			    docsDir.browseForSave("Save As");
+//			    docsDir.addEventListener(Event.SELECT, this.saveData);
+//			}
+//			catch (error:Error)
+//			{
+//			    trace("Failed:", error.message)
+//			}
+////			
+//			function saveData(event:Event):void 
+//		{
+//		    var newFile:File = event.target as File;
+//		    var str:String = "Hello.";
+//		    if (!newFile.exists)
+//		    {
+//		        var stream:FileStream = new FileStream();
+//		        stream.open(newFile, FileMode.WRITE);
+//		        stream.writeUTFBytes(str);
+//		        stream.close();
+//		    }
+//		}
+		}
+		
+		private function saveData(event:Event):void 
+		{
+		    var newFile:File = event.target as File;
+		    var str:String = "Hello.";
+		    if (!newFile.exists)
+		    {
+		        var stream:FileStream = new FileStream();
+		        stream.open(newFile, FileMode.WRITE);
+		        stream.writeUTFBytes(str);
+		        stream.close();
+		    }
+		}
+		
+		public function autosaveSaveHandler(event:Event):void
+		{
+			trace("autosaveSaveHandler");
+			
+			var file:File = event.target as File;
+			
+			if(!file.exists)
+			{
+				var stream:FileStream = new FileStream();
+				stream.open(file, FileMode.WRITE);
+				stream.writeUTFBytes("");
+				stream.close();
+			}
+		}
+		
+		private function autosaveSecurityErrorHandler(event:SecurityErrorEvent):void
+		{
+			trace(event);
+		}
+		private function autosaveIOErrorHandler(event:IOErrorEvent):void
+		{
+			trace(event);
+		}
 	}
 }

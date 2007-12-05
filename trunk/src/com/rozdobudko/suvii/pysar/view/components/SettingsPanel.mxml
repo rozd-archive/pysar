@@ -145,16 +145,16 @@
 					direction="vertical"
 				>
 					<mx:RadioButton label="Use locall connection"/>
-					<mx:HBox>
+					<mx:HBox verticalAlign="middle">
 						<mx:Label text="Interval:"/>
 						<mx:HSlider x="76" y="66" minimum="0" maximum="180" snapInterval="5" allowTrackClick="true" width="100"/>
 						<mx:TextInput width="30"/>
 					</mx:HBox>
-					<mx:HBox>
+					<mx:HBox verticalAlign="middle">
 						<mx:Label x="10" y="36" text="Save log:"/>
 						<mx:HBox maxWidth="162" minWidth="72" paddingLeft="0" paddingRight="0" horizontalGap="0" borderColor="#000000" borderThickness="3" borderSides="4" horizontalAlign="right" left="76" y="36" right="10">
 							<mx:TextInput width="100%"/>
-							<mx:Button id="showSettingsBut0" width="22" height="22" cornerRadius="0" icon="@Embed(source='../../../../../../assets/folder_explore.png')" toolTip="Search"/>
+							<mx:Button id="openAutosaveFileBut" width="22" height="22" cornerRadius="0" icon="@Embed(source='../../../../../../assets/folder_explore.png')" toolTip="Search"/>
 						</mx:HBox>
 					</mx:HBox>
 				</sephiroth:LabelledBox>
@@ -276,6 +276,30 @@
 					/>
 					<mx:Spacer/>
 					<mx:TextInput id="sampleText" text="Label" width="100%"/>
+				</sephiroth:LabelledBox>
+				<sephiroth:LabelledBox 
+					title="Higtlighting" 
+					width="100%"
+					cornerRadius="4" 
+					borderColor="#c0c0c0" 
+					borderStyle="solid"
+					paddingBottom="10" 
+					paddingLeft="10" 
+					paddingRight="10" 
+					paddingTop="10"
+					labelPlacement="left"
+					labelPadding="5"
+					labelColor="0x0B333C"
+					clipContent="false" 
+					direction="vertical"
+					verticalGap="3"
+				>
+					<mx:HBox width="100%" horizontalAlign="left" verticalAlign="middle">
+						<mx:Label text="Select hightlight color:"/>
+						<mx:ColorPicker
+						/>
+					</mx:HBox>
+					
 				</sephiroth:LabelledBox>
 			</mx:VBox>
 			<mx:ComboBox id="fontsBox"

@@ -30,6 +30,7 @@ package com.rozdobudko.suvii.pysar
 	import org.puremvc.interfaces.IFacade;
 	import org.puremvc.patterns.facade.Facade;
 	import com.rozdobudko.suvii.pysar.controller.FindHideHightlightCommand;
+	import com.rozdobudko.suvii.pysar.controller.filesystem.AutosaveFileSaveAsCommand;
 	
 	public class PysarFacade extends Facade implements IFacade
 	{
@@ -64,6 +65,9 @@ package com.rozdobudko.suvii.pysar
 		public static const SETTINGS_SHOW:String			= "settingsShow";
 		public static const SETTINGS_CLOSE:String			= "settingsClose";
 		public static const SETTINGS_CHANGE:String			= "settingsChange";
+		
+		public static const FS_AUTOSAVE_FILE_SAVE_AS:String	= "fileSystemAutosaveFileSaveAs";
+		public static const FS_PREFERENCES_FILE_OPEN:String	= "fileSystemPreferencesFileOpen";
 		
 		// ----------------- PRIVATE FIELDS ---------------- //
 		
@@ -128,6 +132,7 @@ package com.rozdobudko.suvii.pysar
 			this.registerCommand(PysarFacade.SETTINGS_CLOSE, SettingsCloseCommand);
 			this.registerCommand(PysarFacade.SETTINGS_CHANGE, SettingsChangeCommand);
 			this.registerCommand(PysarFacade.ALERT, ShowAlertCommand);
+			this.registerCommand(PysarFacade.FS_AUTOSAVE_FILE_SAVE_AS, AutosaveFileSaveAsCommand);
 		}
 		
 		

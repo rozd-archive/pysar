@@ -39,22 +39,6 @@ xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:aswing="org.as
 				this.log.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, this.uploadHandler);
 				this.log.addEventListener(Event.COMPLETE, this.completeHandler);
 				
-				
-				this.file = File.desktopDirectory;
-				trace(this.file.nativePath);
-				this.file = file.resolvePath("test/settings.xml");
-				trace(this.file.nativePath);
-				
-				openFileStream = new FileStream();
-				openFileStream.addEventListener(Event.COMPLETE, openToReadHandler);
-				openFileStream.addEventListener(IOErrorEvent.IO_ERROR, fileIOErrorHandler);
-				
-				writeFileStream = new FileStream();
-				writeFileStream.addEventListener(Event.COMPLETE, openToWriteHandler);
-				writeFileStream.addEventListener(IOErrorEvent.IO_ERROR, fileIOErrorHandler);
-				
-				openFileStream.openAsync(file, FileMode.READ);
-				
 				var docsDir:File = File.documentsDirectory;
 				try
 				{
@@ -78,6 +62,47 @@ xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:aswing="org.as
 				        stream.close();
 				    }
 				}
+
+				
+//				
+//				this.file = File.desktopDirectory;
+//				trace(this.file.nativePath);
+//				this.file = file.resolvePath("test/settings.xml");
+//				trace(this.file.nativePath);
+//				
+//				openFileStream = new FileStream();
+//				openFileStream.addEventListener(Event.COMPLETE, openToReadHandler);
+//				openFileStream.addEventListener(IOErrorEvent.IO_ERROR, fileIOErrorHandler);
+//				
+//				writeFileStream = new FileStream();
+//				writeFileStream.addEventListener(Event.COMPLETE, openToWriteHandler);
+//				writeFileStream.addEventListener(IOErrorEvent.IO_ERROR, fileIOErrorHandler);
+//				
+//				openFileStream.openAsync(file, FileMode.READ);
+//				
+//				var docsDir:File = File.documentsDirectory;
+//				try
+//				{
+//				    docsDir.browseForSave("Save As");
+//				    docsDir.addEventListener(Event.SELECT, saveData);
+//				}
+//				catch (error:Error)
+//				{
+//				    trace("Failed:", error.message)
+//				}
+//				
+//				function saveData(event:Event):void 
+//				{
+//				    var newFile:File = event.target as File;
+//				    var str:String = "Hello.";
+//				    if (!newFile.exists)
+//				    {
+//				        var stream:FileStream = new FileStream();
+//				        stream.open(newFile, FileMode.WRITE);
+//				        stream.writeUTFBytes(str);
+//				        stream.close();
+//				    }
+//				}
 
 				
 			}
