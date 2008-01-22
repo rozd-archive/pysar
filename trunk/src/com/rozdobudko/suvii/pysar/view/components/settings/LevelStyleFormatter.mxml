@@ -93,7 +93,7 @@
 			
 			private function changeColorHandler(event:ColorPickerEvent):void
 			{
-				this.style.setStyle("color", this.colorPicker.selectedColor.toString(16));
+				this.style.setStyle("color", this.colorPicker.selectedColor);
 			}
 			
 			
