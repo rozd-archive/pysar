@@ -156,8 +156,40 @@ package com.rozdobudko.suvii.pysar.model
 
 		// ---------------- PUBLIC METHODS ---------------- //
 
+		public function save():void
+		{
+			for each(var style:XML in this.preferences.content.styles.levels.level)
+			{
+				/**
+				 * TODO: Upgrade dec to hex transformation
+				 */
+				style.@color = "0x" + (this.stylesMap[style.@id].getStyle("color") == 0 ? "000000" : this.stylesMap[style.@id].getStyle("color").toString(16).toUpperCase());
+				style.@fontStyle = this.stylesMap[style.@id].getStyle("fontStyle");
+				style.@fontFamily = this.stylesMap[style.@id].getStyle("fontFamily");
+				style.@fontWeight = this.stylesMap[style.@id].getStyle("fontWeight");
+			}
+			
+			var stream:FileStream = new FileStream();
+			try
+			{
+				stream.open(this.preferencesFile, FileMode.WRITE);
+				stream.writeUTFBytes('<?xml version=\"1.0\" encoding=\"UTF-8\"?>' + this.preferences.toXMLString());
+			}
+			catch(e:Error)
+			{
+				// TODO: handle exception
+			}
+			stream.close();
+		}
 		
-
+		/**
+		 * Show "Save As " dia
+		 */
+		public function selectAutosaveFile():void
+		{
+			
+		}
+		
 		// --------------- PROTECTED METHODS -------------- //
 
 		
@@ -205,29 +237,6 @@ package com.rozdobudko.suvii.pysar.model
 			stream.close();
 			
 			this.setPreferencesByFile();
-		}
-		
-		public function save():void
-		{
-			for each(var style:XML in this.preferences.content.styles.levels.level)
-			{
-				style.@color = this.stylesMap[style.@id].getStyle("color");
-				style.@fontStyle = this.stylesMap[style.@id].getStyle("fontStyle");
-				style.@fontFamily = this.stylesMap[style.@id].getStyle("fontFamily");
-				style.@fontWeight = this.stylesMap[style.@id].getStyle("fontWeight");
-			}
-			
-			var stream:FileStream = new FileStream();
-			try
-			{
-				stream.open(this.preferencesFile, FileMode.WRITE);
-				stream.writeUTFBytes('<?xml version=\"1.0\" encoding=\"UTF-8\"?>' + this.preferences.toXMLString());
-			}
-			catch(e:Error)
-			{
-				// TODO: handle exception
-			}
-			stream.close();
 		}
 		
 		private function setPreferencesByFile():void

@@ -7,7 +7,7 @@ package com.rozdobudko.suvii.pysar.controller
 	import org.puremvc.interfaces.INotification;
 	import org.puremvc.patterns.command.SimpleCommand;
 
-	public class TempCommand extends SimpleCommand implements ICommand
+	public class TestCommand extends SimpleCommand implements ICommand
 	{
 		public function TempCommand()
 		{

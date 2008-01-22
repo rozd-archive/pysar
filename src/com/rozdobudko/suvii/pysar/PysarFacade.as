@@ -2,11 +2,12 @@ package com.rozdobudko.suvii.pysar
 {
 	import com.rozdobudko.suvii.pysar.controller.DeployCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindExcludeCommand;
-	import com.rozdobudko.suvii.pysar.controller.FindShowHightlightCommand;
+	import com.rozdobudko.suvii.pysar.controller.FindHideHightlightCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindIncludeCommnad;
 	import com.rozdobudko.suvii.pysar.controller.FindNextCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindPreviosCommand;
 	import com.rozdobudko.suvii.pysar.controller.FindSearchCommnad;
+	import com.rozdobudko.suvii.pysar.controller.FindShowHightlightCommand;
 	import com.rozdobudko.suvii.pysar.controller.LogAddCommand;
 	import com.rozdobudko.suvii.pysar.controller.MenuOpenCommand;
 	import com.rozdobudko.suvii.pysar.controller.MenuPrintCommand;
@@ -16,7 +17,8 @@ package com.rozdobudko.suvii.pysar
 	import com.rozdobudko.suvii.pysar.controller.SettingsCloseCommand;
 	import com.rozdobudko.suvii.pysar.controller.SettingsShowCommand;
 	import com.rozdobudko.suvii.pysar.controller.ShowAlertCommand;
-	import com.rozdobudko.suvii.pysar.controller.TempCommand;
+	import com.rozdobudko.suvii.pysar.controller.TestCommand;
+	import com.rozdobudko.suvii.pysar.controller.filesystem.AutosaveFileSaveAsCommand;
 	import com.rozdobudko.suvii.pysar.model.FileProxy;
 	import com.rozdobudko.suvii.pysar.model.FindProxy;
 	import com.rozdobudko.suvii.pysar.model.LogProxy;
@@ -25,12 +27,13 @@ package com.rozdobudko.suvii.pysar
 	import com.rozdobudko.suvii.pysar.model.SettingsProxy;
 	import com.rozdobudko.suvii.pysar.model.SubjectsProxy;
 	
+	import logging.LogManager;
+	import logging.Logger;
+	
 	import mx.core.WindowedApplication;
 	
 	import org.puremvc.interfaces.IFacade;
 	import org.puremvc.patterns.facade.Facade;
-	import com.rozdobudko.suvii.pysar.controller.FindHideHightlightCommand;
-	import com.rozdobudko.suvii.pysar.controller.filesystem.AutosaveFileSaveAsCommand;
 	
 	public class PysarFacade extends Facade implements IFacade
 	{
@@ -69,6 +72,8 @@ package com.rozdobudko.suvii.pysar
 		public static const FS_AUTOSAVE_FILE_SAVE_AS:String	= "fileSystemAutosaveFileSaveAs";
 		public static const FS_PREFERENCES_FILE_OPEN:String	= "fileSystemPreferencesFileOpen";
 		
+		private static var logger:Logger = Logger.getLogger("com.rozdobudko.suvii.pysar.PysarFacade");
+		
 		// ----------------- PRIVATE FIELDS ---------------- //
 		
 		private var _application:WindowedApplication;
@@ -83,7 +88,7 @@ package com.rozdobudko.suvii.pysar
 			}
 			return instance as PysarFacade;
 		}
-
+		
 
 		// ------------------ CONSTRUCTOR ------------------ //
 		
@@ -94,6 +99,9 @@ package com.rozdobudko.suvii.pysar
 		override protected function initializeModel():void 
 		{
 			trace("PysarFacade :: initializeModel");
+			
+			logger.severe("initializeModel");
+			LogManager.getInstance().readProperties("logging.xml");
 			
 			super.initializeModel();
 			
@@ -113,7 +121,7 @@ package com.rozdobudko.suvii.pysar
 			
 			super.initializeController();
 			
-			this.registerCommand(PysarFacade.TEMP, TempCommand);
+			this.registerCommand(PysarFacade.TEMP, TestCommand);
 			
 			this.registerCommand(PysarFacade.DEPLOY, DeployCommand);
 			this.registerCommand(PysarFacade.LOG_ADD, LogAddCommand);
