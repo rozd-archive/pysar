@@ -18,8 +18,6 @@
 			
 			private function init():void
 			{
-//				trace("Pysar :: init");
-				
 				/**
 				 * TODO: Remove setTimeout
 				 */
@@ -31,8 +29,6 @@
 			 */
 			private function deploy():void
 			{
-//				trace("Pysar :: deploy");
-				
 				this.facade.application = this;
 				
 				this.facade.notifyObservers(new Notification(PysarFacade.DEPLOY, this));

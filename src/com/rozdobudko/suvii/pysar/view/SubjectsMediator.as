@@ -23,8 +23,8 @@ package com.rozdobudko.suvii.pysar.view
 		{
 			super(viewComponent);
 			
-			this.component.connections.dataProvider = this.proxy.connections;
-			this.component.classes.dataProvider = this.proxy.classes;
+			this.component.sources.dataProvider = this.proxy.sources;
+			this.component.categories.dataProvider = this.proxy.categories;
 		}
 		
 		// ------------------- PureMVC ------------------- //

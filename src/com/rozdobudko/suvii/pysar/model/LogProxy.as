@@ -3,7 +3,7 @@ package com.rozdobudko.suvii.pysar.model
 	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import com.rozdobudko.suvii.pysar.Settings;
 	import com.rozdobudko.suvii.pysar.model.data.ClassEntry;
-	import com.rozdobudko.suvii.pysar.model.data.ConnectionEntry;
+	import com.rozdobudko.suvii.pysar.model.data.SourceEntry;
 	import com.rozdobudko.suvii.pysar.model.data.LogEntry;
 	import com.rozdobudko.suvii.pysar.model.data.LogEntryText;
 	
@@ -31,9 +31,9 @@ package com.rozdobudko.suvii.pysar.model
 		
 		private var _entries:ArrayCollection;
 		
-		private var _connections:ArrayCollection;
+		private var _sources:ArrayCollection;
 
-		private var _classes:ArrayCollection;
+		private var _categories:ArrayCollection;
 
 		// ------------------ CONSTRUCTOR ----------------- //
 
@@ -43,9 +43,9 @@ package com.rozdobudko.suvii.pysar.model
 			
 			this._entries = new ArrayCollection();
 			
-			this._connections = new ArrayCollection();
+			this._sources = new ArrayCollection();
 			
-			this._classes = new ArrayCollection();
+			this._categories = new ArrayCollection();
 			
 			this.connection = new LocalConnection(); 
 			this.connection.addEventListener(AsyncErrorEvent.ASYNC_ERROR, this.connectionAsyncErrorHandler);
@@ -74,14 +74,14 @@ package com.rozdobudko.suvii.pysar.model
 			return this._entries
 		}
 
-		public function get connections():ArrayCollection
+		public function get sources():ArrayCollection
 		{
-			return this._connections;
+			return this._sources;
 		}
 		
-		public function get classes():ArrayCollection
+		public function get categories():ArrayCollection
 		{
-			return this._classes;
+			return this._categories;
 		}
 
 		// --------------- PROTECTED FIELDS --------------- //
@@ -92,7 +92,7 @@ package com.rozdobudko.suvii.pysar.model
 
 		public function add(name:String):void
 		{
-			this.addConnection(name);
+			this.addSource(name);
 		}
 		
 		public function log(level:int, message:String, className:String=null, connectionName:String=null):void
@@ -108,24 +108,24 @@ package com.rozdobudko.suvii.pysar.model
 
 		// ---------------- PRIVATE METHODS --------------- //
 
-		private function addConnection(name:String):void
+		private function addSource(name:String):void
 		{
-			for(var i:uint; i<this.connections.length; i++)
+			for(var i:uint; i<this.sources.length; i++)
 			{
-				if(ConnectionEntry(this.connections.getItemAt(i)).name == name)
+				if(SourceEntry(this.sources.getItemAt(i)).name == name)
 				{
 					return;
 				}
 			}
 			
-			this.connections.addItem(new ConnectionEntry(name, true));
+			this.sources.addItem(new SourceEntry(name, true));
 		}
 		
 		private function addClass(className:String, connectionName:String=null):void
 		{
-			for(var i:uint; i<this.classes.length; i++)
+			for(var i:uint; i<this.categories.length; i++)
 			{
-				var classEntry:ClassEntry = this.classes.getItemAt(i) as ClassEntry;
+				var classEntry:ClassEntry = this.categories.getItemAt(i) as ClassEntry;
 				
 				if(classEntry.name == className && classEntry.connectionName == connectionName)
 				{
@@ -133,22 +133,22 @@ package com.rozdobudko.suvii.pysar.model
 				}
 			}
 			
-			this.classes.addItem(new ClassEntry(className, connectionName));
+			this.categories.addItem(new ClassEntry(className, connectionName));
 		}
 		
 		private function addLog(level:uint, message:String, className:String, connectionName:String):void
 		{
-			for(var i:uint; i<this.connections.length; i++)
+			for(var i:uint; i<this.sources.length; i++)
 			{
-				if(!ConnectionEntry(this.connections.getItemAt(i)).enabled)
+				if(!SourceEntry(this.sources.getItemAt(i)).enabled)
 				{
 					return;
 				}
 			}
 			
-			for(var j:uint; j<this.classes.length; j++)
+			for(var j:uint; j<this.categories.length; j++)
 			{
-				if(!ClassEntry(this.classes.getItemAt(j)).enabled)
+				if(!ClassEntry(this.categories.getItemAt(j)).enabled)
 				{
 					return;
 				}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="300" 
+	click="this.currentState=this.currentState=='max' ? 'min' : 'max'" currentState="max">
+	
+	<mx:states>
+		<mx:State name="min">
+			<mx:SetProperty name="height" value="30"/>
+			<mx:SetProperty name="title" value="Panel"/>
+		</mx:State>
+		<mx:State name="max">
+			<mx:SetProperty name="title" value="Panel"/>
+		</mx:State>
+	</mx:states>
+	
+	<mx:transitions>
+        <!-- A transition for changing from any state to any state. -->
+        <mx:Transition id="myTransition" fromState="*" toState="*">
+            <!-- Define a Parallel effect as the top-level effect.-->
+            <mx:Parallel id="t1" targets="{[this]}">
+            </mx:Parallel>
+        </mx:Transition>
+    </mx:transitions>
+	
+</mx:Panel>

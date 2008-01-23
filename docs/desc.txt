@@ -1,0 +1,5 @@
+
+- from Txt File;
+- from LocalConnection (Flash);
+- from Log File (Red 5);
+- from AMF (Server side);
