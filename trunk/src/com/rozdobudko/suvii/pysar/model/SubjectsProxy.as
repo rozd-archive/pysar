@@ -5,7 +5,7 @@ package com.rozdobudko.suvii.pysar.model
 	import com.rozdobudko.suvii.pysar.PysarFacade;
 	import mx.collections.ArrayCollection;
 	import com.rozdobudko.suvii.pysar.model.data.ClassEntry;
-	import com.rozdobudko.suvii.pysar.model.data.ConnectionEntry;
+	import com.rozdobudko.suvii.pysar.model.data.SourceEntry;
 
 	public class SubjectsProxy extends Proxy implements IProxy
 	{
@@ -33,14 +33,14 @@ package com.rozdobudko.suvii.pysar.model
 		
 		// -------------------- FIEDS -------------------- //
 		
-		public function get connections():ArrayCollection
+		public function get sources():ArrayCollection
 		{
-			return LogProxy(this.facade.retrieveProxy(LogProxy.NAME)).connections;
+			return LogProxy(this.facade.retrieveProxy(LogProxy.NAME)).sources;
 		}
 		
-		public function get classes():ArrayCollection
+		public function get categories():ArrayCollection
 		{
-			return LogProxy(this.facade.retrieveProxy(LogProxy.NAME)).classes;
+			return LogProxy(this.facade.retrieveProxy(LogProxy.NAME)).categories;
 		}
 		
 		// ---------------- PUBLIC METHODS --------------- //	

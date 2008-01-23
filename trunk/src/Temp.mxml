@@ -1,6 +1,6 @@
 <?xml version="1.0"?> 
 <!-- styles/StyleDeclarationClassSelector.mxml -->
-<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="initApp()">
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="initApp()" xmlns:local="*">
   <mx:Script><![CDATA[
   	import com.rozdobudko.suvii.utils.ObjectUtils; 
      import mx.styles.StyleManager;
@@ -37,5 +37,5 @@
   />
 
   <mx:Button id="myOtherButton" label="Click Me"/>
-
+	<local:MyPanel />
 </mx:WindowedApplication>
